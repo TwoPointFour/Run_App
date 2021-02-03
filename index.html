@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="theme-color" content="#009578">
+        <title>Two.Four</title>
+        <link rel="stylesheet" href="src/master.css">
+        <link rel="manifest" href="manifest.json">
+        <link rel="apple-touch-icon" href="images/icon_x152.png">
+        <script src="src/index.js"></script>
+        <link rel="serviceWorker" href="./sw.js">
+        <script type="module" src="src/db.js"></script>
+
+    </head>
+
+    <body>
+    <h2>Training Calculator</h2>
+
+    <form id="input_form">
+        <label for="fname">Name:</label><br>
+        <input type="text" id="fname" name="fname" placeholder="First Name" required><br>
+
+        <label for="weight">Weight:</label><br>
+        <input type="number" id="weight" name="weight" placeholder="Weight in KG"><br>
+
+        <label for="train_time">Current Training Time:</label><br>
+        <input type="number" id="train_time" name="time" required><br>
+
+        <label for="target_time">Target Time:</label><br>
+        <input type="number" id="target_time" name="target_time" required>
+
+        <button type="submit" id="submit_Btn" value="click" onclick="function1()">Click</button>
+    </form>
+
+    <h3>Result:</h3>
+
+    <span id="display">Hello!</span>
+    
+    <script>
+        function function1(){
+            document.getElementById("input_form").submit();
+            console.log(document.getElementById("train_time").value)
+        }
+    </script>
+
+    </body>
+</html>

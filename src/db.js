@@ -2,7 +2,7 @@ let db =  null;
 
 let records = {
     "name": "XXX",
-    "train_time": 11.2,
+    "train_time": 11.3,
     "target_time": 10
 }
 

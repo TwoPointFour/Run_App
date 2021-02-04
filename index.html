@@ -10,32 +10,49 @@
         <link rel="apple-touch-icon" href="images/icon_x152.png">
         <script src="src/index.js"></script>
         <link rel="serviceWorker" href="./sw.js">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
         <script type="module" src="src/db.js"></script>
 
     </head>
 
     <body>
-    <h2>Training Calculator</h2>
+        <div class="glass_container">
+            <div class="navbar">
+                <div class="navbrand">
+                    <img class="logo" src="../Run_App/images/directions_run.png" alt="logo">
+                    <a href="index.html"><span>TwoPointFour</span></a>
+                </div>
 
-    <form id="input_form">
-        <label for="fname">Name:</label><br>
-        <input type="text" id="fname" name="fname" placeholder="First Name" required><br>
+                <div id="training_plan" class="nav-item">Training Plan</div>
+                <div id="training_records" class="nav-item">Training Records</div>
+            </div>
+            <div class="main-content">
+                <h2>Training Calculator</h2>
 
-        <label for="weight">Weight:</label><br>
-        <input type="number" id="weight" name="weight" placeholder="Weight in KG"><br>
+                <form id="input_form">
+                    <label for="fname">Name:</label><br>
+                    <input type="text" id="fname" name="fname" placeholder="First Name" required><br>
+            
+                    <label for="weight">Weight:</label><br>
+                    <input type="number" id="weight" name="weight" placeholder="Weight in KG"><br>
+            
+                    <label for="train_time">Current Training Time:</label><br>
+                    <input type="number" id="train_time" name="time" required><br>
+            
+                    <label for="target_time">Target Time:</label><br>
+                    <input type="number" id="target_time" name="target_time" required>
+            
+                    <button type="submit" id="submit_Btn" value="click" onclick="function1()">Click</button>
+                </form>
+            
+                <h3>Result:</h3>
+            
+                <span id="display">Hello! Beautiful People!</span>
+            
+            </div>
+        </div>
 
-        <label for="train_time">Current Training Time:</label><br>
-        <input type="number" id="train_time" name="time" required><br>
-
-        <label for="target_time">Target Time:</label><br>
-        <input type="number" id="target_time" name="target_time" required>
-
-        <button type="submit" id="submit_Btn" value="click" onclick="function1()">Click</button>
-    </form>
-
-    <h3>Result:</h3>
-
-    <span id="display">Hello!</span>
     
     <script>
         function function1(){

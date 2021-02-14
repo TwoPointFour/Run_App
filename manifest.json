@@ -1,7 +1,7 @@
 {
     "name": "Two.Four Trainer",
     "short_name": "Trainer",
-    "start_url": "./",
+    "start_url": "/index.html",
     "background_color": "#6dcdb1",
     "theme_color": "#009578",
     "display": "standalone",

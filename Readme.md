@@ -1,8 +1,8 @@
 https://twopointfour.github.io/Run_App/index.html 
 
-Use camelCase for ids and JS variables, hyphens for classes
-No var, only let or const
-Semicolons
+Use camelCase for HTML ids and JS variables, hyphens for classes  
+No var, only let or const  
+Semicolons  
 Double quotes?
 
 Add error handling

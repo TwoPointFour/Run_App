@@ -49,20 +49,21 @@
             <div class="main-content container-fluid">
                 <h1>Training Calculator</h1>
 
-                <form id="input_form">
-                    <label for="fname">Name:</label><br>
-                    <input type="text" id="fname" name="fname" placeholder="First Name" required><br>
+                <form id="inputForm">
+                    <label for="firstName">Name:</label><br>
+                    <input type="text" id="firstName" name="firstName" placeholder="First Name" required><br>
             
-                    <label for="weight">Weight:</label><br>
+                    <label for="weight">Weight:*</label><br>
                     <input type="number" id="weight" name="weight" placeholder="Weight in KG"><br>
             
-                    <label for="train_time">Current Training Time:</label><br>
-                    <input type="number" id="train_time" name="time" required><br>
+                    <label for="trainTime">Current Training Time:*</label><br>
+                    <input type="number" id="trainTime" name="trainTime" required><br>
             
-                    <label for="target_time">Target Time:</label><br>
-                    <input type="number" id="target_time" name="target_time" required>
+                    <label for="targetTime">Target Time:*</label><br>
+                    <input type="number" id="targetTime" name="targetTime" required>
             
-                    <button type="submit" id="submit_Btn" value="click" onclick="function1()">Click</button>
+                    <button type="submit" id="submitBtn">Submit</button>
+                    <button type="reset" id="resetBtn">Clear Input</button>
                 </form>
             
                 <h3>Result:</h3>
@@ -107,14 +108,7 @@
             -->
             </div>
         </div>
-
-    
-    <script>
-        function function1(){
-            document.getElementById("input_form").submit();
-            console.log(document.getElementById("train_time").value)
-        }
-    </script>
+    <script type="module" src="/src/index.js"></script>
 
     </body>
 </html>

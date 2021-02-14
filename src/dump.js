@@ -9,7 +9,7 @@ const target_time = document.getElementById("target_time");
 
 console.log("Hi", train_name.value, train_time.value)
 
-submit_Btn.onclick = function(){
+submitBtn.onclick = function(){
     if (train_name && train_time && target_time){
         const name_key = train_name.value;
         const train_time = train_time.value;

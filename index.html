@@ -1,114 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="theme-color" content="#009578">
-        <title>Two.Four</title>
-        <link rel= "stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="src/master.css">
-        <link rel="manifest" href="manifest.json">
-        <link rel="apple-touch-icon" href="images/icon_x152.png">
-        <script src="src/index.js"></script>
-        <link rel="serviceWorker" href="./sw.js">
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-        <script type="module" src="src/db.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#009578">
+    <title>Two.Four</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="src/master.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="images/icon_x152.png">
+    <script src="src/index.js"></script>
+    <link rel="serviceWorker" href="./sw.js">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+          rel="stylesheet">
+    <script type="module" src="src/db.js"></script>
 
-    </head>
+</head>
 
-    <body>
-        <div class="glass_container container-fluid">
-            <div class="run-menu row container-fluid">
-                <div class ="col-2 brand">
-                    <div class="row">
-                        <div class="col-3 logo">
-                            <a href="index.html">
-                                <img src="images/directions_run.png">
-                            </a>
-                        </div>
- 
-                        <div class="col-9 brandname"> 
-                            <h1>TwoPointFour</h1>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-2">
-
-                </div>
-                <div class="col-2">
-                    <a href="plan.html"><h2>Training Plan</h2></a>
-                </div>
-                <div class="col-2">
-                    <a href="records.html"><h2>Training Records</h2></a>
-                </div>
-                <div class="col-4">
-                </div>
-            </div>
-
-            <div class="main-content container-fluid">
-                <h1>Training Calculator</h1>
-
-                <form id="inputForm">
-                    <label for="firstName">Name:</label><br>
-                    <input type="text" id="firstName" name="firstName" placeholder="First Name" required><br>
-            
-                    <label for="weight">Weight:*</label><br>
-                    <input type="number" id="weight" name="weight" placeholder="Weight in KG"><br>
-            
-                    <label for="trainTime">Current Training Time:*</label><br>
-                    <input type="number" id="trainTime" name="trainTime" required><br>
-            
-                    <label for="targetTime">Target Time:*</label><br>
-                    <input type="number" id="targetTime" name="targetTime" required>
-            
-                    <button type="submit" id="submitBtn">Submit</button>
-                    <button type="reset" id="resetBtn">Clear Input</button>
-                </form>
-            
-                <h3>Result:</h3>
-            
-                <span id="display">Hello! Beautiful People!</span>
-            </div>
-
-
-            <!--
-            <div class="navbar">
-                <div class="navbrand">
-                    <img class="logo" src="../Run_App/images/directions_run.png" alt="logo">
-                    <a href="index.html"><span>TwoPointFour</span></a>
+<body>
+<div class="glass_container container-fluid">
+    <div class="run-menu row container-fluid">
+        <div class="col-2 brand">
+            <div class="row">
+                <div class="col-3 logo">
+                    <a href="index.html">
+                        <img src="images/directions_run.png" alt="Image not found">
+                    </a>
                 </div>
 
-                <div id="training_plan" class="nav-item">Training Plan</div>
-                <div id="training_records" class="nav-item">Training Records</div>
-            </div>
-            <div class="main-content">
-                <h2>Training Calculator</h2>
-
-                <form id="input_form">
-                    <label for="fname">Name:</label><br>
-                    <input type="text" id="fname" name="fname" placeholder="First Name" required><br>
-            
-                    <label for="weight">Weight:</label><br>
-                    <input type="number" id="weight" name="weight" placeholder="Weight in KG"><br>
-            
-                    <label for="train_time">Current Training Time:</label><br>
-                    <input type="number" id="train_time" name="time" required><br>
-            
-                    <label for="target_time">Target Time:</label><br>
-                    <input type="number" id="target_time" name="target_time" required>
-            
-                    <button type="submit" id="submit_Btn" value="click" onclick="function1()">Click</button>
-                </form>
-            
-                <h3>Result:</h3>
-            
-                <span id="display">Hello! Beautiful People!</span>
-                
-            -->
+                <div class="col-9 brandname">
+                    <h1>TwoPointFour</h1>
+                </div>
             </div>
         </div>
-    <script type="module" src="src/index.js"></script>
+        <div class="col-2">
 
-    </body>
+        </div>
+        <!--
+        <div class="col-2">
+            <a href="plan.html"><h2>Training Plan</h2></a>
+        </div>
+        <div class="col-2">
+            <a href="records.html"><h2>Training Records</h2></a>
+        </div>
+        -->
+        <div class="col-4">
+        </div>
+    </div>
+
+    <div class="main-content container-fluid">
+        <h1>Training Calculator</h1>
+
+        <form id="inputForm">
+            <label for="firstName">Name:</label><br>
+            <input type="text" id="firstName" name="firstName" placeholder="First Name" required><br>
+
+            <label for="weight">Weight:*</label><br>
+            <input type="number" id="weight" name="weight" placeholder="Weight in KG"><br>
+
+            <label for="trainTime">Current Training Time:*</label><br>
+            <input type="number" id="trainTime" name="trainTime" required><br>
+
+            <label for="targetTime">Target Time:*</label><br>
+            <input type="number" id="targetTime" name="targetTime" required>
+
+            <button type="submit" id="submitBtn">Submit</button>
+            <button type="reset" id="resetBtn">Clear Input</button>
+        </form>
+
+        <h3>Result:</h3>
+
+        <span id="display">Hello! Beautiful People!</span>
+    </div>
+</div>
+<script type="module" src="src/index.js"></script>
+
+</body>
 </html>
+
+
+<!--
+<div class="navbar">
+    <div class="navbrand">
+        <img class="logo" src="../Run_App/images/directions_run.png" alt="logo">
+        <a href="index.html"><span>TwoPointFour</span></a>
+    </div>
+
+    <div id="training_plan" class="nav-item">Training Plan</div>
+    <div id="training_records" class="nav-item">Training Records</div>
+</div>
+<div class="main-content">
+    <h2>Training Calculator</h2>
+
+    <form id="input_form">
+        <label for="fname">Name:</label><br>
+        <input type="text" id="fname" name="fname" placeholder="First Name" required><br>
+
+        <label for="weight">Weight:</label><br>
+        <input type="number" id="weight" name="weight" placeholder="Weight in KG"><br>
+
+        <label for="train_time">Current Training Time:</label><br>
+        <input type="number" id="train_time" name="time" required><br>
+
+        <label for="target_time">Target Time:</label><br>
+        <input type="number" id="target_time" name="target_time" required>
+
+        <button type="submit" id="submit_Btn" value="click" onclick="function1()">Click</button>
+    </form>
+
+    <h3>Result:</h3>
+
+    <span id="display">Hello! Beautiful People!</span>
+    
+-->

@@ -1,5 +1,6 @@
 #!/bin/bash
-git add /home/parth/Desktop/Coding/Run_App/
+cd ..
+git add --all
 git commit -m "Update"
 git push origin master
 exit 0

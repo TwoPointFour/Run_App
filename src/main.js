@@ -7,15 +7,9 @@ import * as DB from "./db.js"
     "targetTime": 10
 }*/
 
-/* 
- * Data from frontend will be passed here as a JSON object
- * The fields for the object are firstName, weight, trainTime, targetTime
- * 
- * */
-
-export default function(user) {
+export function function(user) {
     createUser(user);
-    return "Hi, " + user.firstName //"Whatever needs to be returned to the user can be returned through this function"
+    return "Whatever needs to be returned to the user can be returned through this function"
 }
 
 function createUser(user) {

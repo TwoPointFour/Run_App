@@ -7,7 +7,7 @@ import * as DB from "./db.js"
     "targetTime": 10
 }*/
 
-export function function(user) {
+export function getUser(user) {
     createUser(user);
     return "Whatever needs to be returned to the user can be returned through this function"
 }

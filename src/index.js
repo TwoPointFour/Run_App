@@ -17,7 +17,7 @@ async function processData(e) {
     }
     [user.firstName, user.weight, user.trainTime, user.targetTime] = arrayOfValues;
     // console.log(user);
-    display.innerText = await getUser(user);
+    display.innerText = await getUser(JSON.stringify(user, null, '\t'));
 }
 
 function init() {

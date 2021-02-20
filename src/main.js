@@ -7,8 +7,9 @@ import * as DB from "./db.js"
     "targetTime": 10
 }*/
 
-export function getUser(user) {
+export default getUser(user) {
     createUser(user);
+    console.log(user.weight)
     return "Whatever needs to be returned to the user can be returned through this function"
 }
 

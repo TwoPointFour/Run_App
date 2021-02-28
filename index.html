@@ -1,116 +1,322 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#009578">
-    <title>Two.Four</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="src/master.css">
-    <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="images/icon_x152.png">
-    <script src="src/index.js"></script>
-    <link rel="serviceWorker" href="./sw.js">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
-          rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#009578" />
+    <title>TwoPointFour Intervals</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="src/master.css" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="images/twopointfouricon.png" />
+    <link rel="icon" href="images/twopointfouricon.png" />
+    <link rel="serviceWorker" href="./sw.js" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+      rel="stylesheet"
+    />
     <script type="module" src="src/db.js"></script>
+    <script src="src/index.js"></script>
+  </head>
+  <body>
+    <div class="container-fluid Logo">
+      <div class="row justify-content-center">
+        <div class="col-lg-12"><h1>TwoPointFour Interval Timer</h1></div>
+      </div>
+    </div>
+    <!-- User Choice between Timed Interval and Distance Interval-->
+    <div class="container-fluid TypeChoice">
+      <div class="row">
+        <div class="col-lg-6 d-grid">
+          <button class="btn btn-outline-primary interval timed">
+            Timed Interval
+            <p class="info">
+              ⌚ For intervals with a fixed set time and variable distance
+            </p>
+          </button>
+        </div>
+        <div class="col-lg-6 d-grid">
+          <button class="btn btn-outline-primary interval distance">
+            Distance Interval
+            <p class="info">
+              🏃‍♂️ For intervals with a fixed distance and a variable run time
+            </p>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Distance Interval User Input Form-->
+    <!-- Appears only when button clicked -->
+    <div class="container-fluid DistanceForm d-none">
+      <button type="button" class="back1 btn btn-outline-warning">
+        Go Back
+      </button>
+      <div class="row">
+        <h3 class="d-flex justify-content-center mb-4">Distance Interval</h3>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-9 col-sm-10">
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Repetitions"
+              aria-label="Repetitions"
+              aria-describedby="basic-addon1"
+            />
+            <span class="input-group-text" id="basic-add-on1">sets</span>
+          </div>
 
-</head>
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Distance"
+              aria-label="Distance"
+              aria-describedby="basic-addon2"
+            />
+            <span class="input-group-text" id="basic-add-on2">metres</span>
+          </div>
 
-<body>
-<div class="glass_container container-fluid">
-    <div class="run-menu row container-fluid">
-        <div class="col-2 brand">
-            <div class="row">
-                <div class="col-3 logo">
-                    <a href="index.html">
-                        <img src="images/directions_run.png" alt="Image not found">
-                    </a>
-                </div>
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Pace"
+              aria-label="Pace"
+              aria-describedby="basic-addon3"
+            />
+            <span class="input-group-text" id="basic-add-on3"
+              >seconds / 100m</span
+            >
+          </div>
 
-                <div class="col-9 brandname">
-                    <h1>TwoPointFour</h1>
-                </div>
+          <div class="input-group mb-3">
+            <select class="form-select" aria-label="Default select">
+              <option selected>Rest time / Set time</option>
+              <option value="Rest Time">Rest Time</option>
+              <option value="Set Time">Set Time</option>
+            </select>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Duration minutes"
+              aria-label="Duration minutes"
+              aria-describedby="basic-addon4"
+            />
+
+            <span class="input-group-text" id="basic-add-on5">minutes</span>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Duration seconds"
+              aria-label="Duration seconds"
+              aria-describedby="basic-addon4"
+            />
+
+            <span class="input-group-text" id="basic-add-on4">seconds</span>
+          </div>
+          <div class="col-12">
+            <button class="btn btn-primary distancesubmit" type="submit">
+              Submit form
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END OF Distance Interval User Input Form-->
+
+    <!-- Timed Interval User Input Form-->
+    <!-- Appears only when button clicked -->
+    <div class="container-fluid TimedForm d-none">
+      <button type="button" class="back2 btn btn-outline-warning">
+        Go Back
+      </button>
+      <div class="row">
+        <h3 class="d-flex justify-content-center mb-4">Timed Interval</h3>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-9 col-sm-10">
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Repetitions"
+              aria-label="Repetitions"
+              aria-describedby="basic-addon1"
+            />
+            <span class="input-group-text" id="basic-add-on1">sets</span>
+          </div>
+
+          <label class="form-label">High Intensity</label>
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="High Intensity Duration minutes"
+              aria-label="High Intensity Duration minutes"
+              aria-describedby="basic-addon4"
+            />
+
+            <span class="input-group-text" id="basic-add-on5">minutes</span>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="High Intensity Duration seconds"
+              aria-label="High Intensity Duration seconds"
+              aria-describedby="basic-addon4"
+            />
+            <span class="input-group-text" id="basic-add-on4">seconds</span>
+          </div>
+
+          <label class="form-label">Low Intensity</label>
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Low Intensity Duration minutes"
+              aria-label="Low Intensity Duration minutes"
+              aria-describedby="basic-addon4"
+            />
+
+            <span class="input-group-text" id="basic-add-on5">minutes</span>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Low Intensity Duration seconds"
+              aria-label="Low Intensity Duration seconds"
+              aria-describedby="basic-addon4"
+            />
+            <span class="input-group-text" id="basic-add-on4">seconds</span>
+          </div>
+          <div class="col-12">
+            <button class="btn btn-primary timedsubmit" type="submit">
+              Submit form
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END OF Timed Interval User Input Form-->
+
+    <!-- Distance Interval Timer-->
+    <div class="container-fluid DistanceTimer d-none">
+      <button type="button" class="backdt btn btn-outline-warning">
+        Go Back
+      </button>
+      <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-12 timer p-4">
+          <div class="row">
+            <div class="col-2">Set 5</div>
+            <div class="col-2 offset-8">300m</div>
+          </div>
+          <div class="row justify-content-center mb-4">
+            <div class="col-10 display-2">19:87 s</div>
+          </div>
+          <div class="row justify-content-center mb-4">
+            <div class="col-10 display-6">1:28 m</div>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-10 h4">Rest: 80s</div>
+          </div>
+          <!-- User Control Buttons -->
+          <div class="row mb-4 mt-4">
+            <div class="col-4">
+              <button type="button" class="btn-lg btn btn-outline-success">
+                Start
+              </button>
             </div>
-        </div>
-        <div class="col-2">
+            <div class="col-4">
+              <button type="button" class="btn-lg btn btn-outline-danger">
+                Stop
+              </button>
+            </div>
+            <div class="col-4">
+              <button type="button" class="btn-lg btn btn-outline-warning">
+                Pause
+              </button>
+            </div>
+          </div>
+          <!-- END OF User Control Buttons-->
 
+          <!-- Live Training Records-->
+          <div class="row justify-content-start">
+            <div class="col-12 mt-5 h5">Current Training Timings</div>
+          </div>
+          <div class="row">
+            <table class="table">
+              <thread>
+                <tr>
+                  <th scope="col">Set</th>
+                  <th scope="col">Time</th>
+                  <th scope="col">Target</th>
+                </tr>
+              </thread>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>1:33</td>
+                  <td>1:40</td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>1:41</td>
+                  <td>1:40</td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>1:38</td>
+                  <td>1:40</td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- END OF Live Training Records-->
+          </div>
         </div>
-        <!--
-        <div class="col-2">
-            <a href="plan.html"><h2>Training Plan</h2></a>
-        </div>
-        <div class="col-2">
-            <a href="records.html"><h2>Training Records</h2></a>
-        </div>
-        -->
-        <div class="col-4">
-        </div>
+      </div>
     </div>
+    <!-- END OF Distance Interval Timer-->
 
-    <div class="main-content container-fluid">
-        <h1>Training Calculator</h1>
-
-        <form id="inputForm">
-            <label for="firstName">Name:</label><br>
-            <input type="text" id="firstName" name="firstName" placeholder="First Name" required><br>
-
-            <label for="weight">Weight:*</label><br>
-            <input type="number" id="weight" name="weight" placeholder="Weight in KG"><br>
-
-            <label for="trainTime">Current Training Time:*</label><br>
-            <input type="number" id="trainTime" name="trainTime" required><br>
-
-            <label for="targetTime">Target Time:*</label><br>
-            <input type="number" id="targetTime" name="targetTime" required>
-
-            <button type="submit" id="submitBtn">Submit</button>
-            <button type="reset" id="resetBtn">Clear Input</button>
-        </form>
-
-        <h3>Result:</h3>
-
-        <span id="display">Hello! Beautiful People!</span>
+    <!--Timed Interval Timer-->
+    <div class="container-fluid TimedTimer d-none">
+      <button type="button" class="backtt btn btn-outline-warning">
+        Go Back
+      </button>
+      <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-12 timer p-4">
+          <div class="row">
+            <div class="col-2">Set 5</div>
+          </div>
+          <div class="row justify-content-center mb-4">
+            <div class="col-10 display-2">1:28 m</div>
+          </div>
+          <div class="row justify-content-center mb-4">
+            <div class="col-10 h4">Rest: 60s</div>
+          </div>
+          <!-- User Control Buttons-->
+          <div class="row">
+            <div class="col-4">
+              <button type="button" class="btn-lg btn btn-outline-success">
+                Start
+              </button>
+            </div>
+            <div class="col-4">
+              <button type="button" class="btn-lg btn btn-outline-danger">
+                Stop
+              </button>
+            </div>
+            <div class="col-4">
+              <button type="button" class="btn-lg btn btn-outline-warning">
+                Pause
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
-<script type="module" src="src/index.js"></script>
+    <!--END OF  Timed Interval Timer-->
 
-</body>
+    <script src="src/script.js"></script>
+  </body>
 </html>
-
-
-<!--
-<div class="navbar">
-    <div class="navbrand">
-        <img class="logo" src="../Run_App/images/directions_run.png" alt="logo">
-        <a href="index.html"><span>TwoPointFour</span></a>
-    </div>
-
-    <div id="training_plan" class="nav-item">Training Plan</div>
-    <div id="training_records" class="nav-item">Training Records</div>
-</div>
-<div class="main-content">
-    <h2>Training Calculator</h2>
-
-    <form id="input_form">
-        <label for="fname">Name:</label><br>
-        <input type="text" id="fname" name="fname" placeholder="First Name" required><br>
-
-        <label for="weight">Weight:</label><br>
-        <input type="number" id="weight" name="weight" placeholder="Weight in KG"><br>
-
-        <label for="train_time">Current Training Time:</label><br>
-        <input type="number" id="train_time" name="time" required><br>
-
-        <label for="target_time">Target Time:</label><br>
-        <input type="number" id="target_time" name="target_time" required>
-
-        <button type="submit" id="submit_Btn" value="click" onclick="function1()">Click</button>
-    </form>
-
-    <h3>Result:</h3>
-
-    <span id="display">Hello! Beautiful People!</span>
-    
--->

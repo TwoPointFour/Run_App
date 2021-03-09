@@ -1,12 +1,23 @@
 import * as DB from "./db.js"
 
-const user = {
-    "name": "XXX",
-    "train_time": 11.3,
-    "target_time": 10
+/*const user = {
+    "firstName": "XXX",
+    "weight": "20",
+    "trainTime": 11.3,
+    "targetTime": 10
+}*/
+
+export default function getUser(user) {
+    createUser(user);
+    // console.log("User.weight,", user.weight)
+    return "Whatever needs to be returned to the user can be returned through this function"
 }
-DB.create_db(user);
-console.log(user)
 
-DB.insert_data(user);
+function createUser(user) {
+    // DB.create_db(user);
+    console.log(user.firstName, " created");
+}
 
+function insertData(user) {
+    DB.insert_data(user);
+}

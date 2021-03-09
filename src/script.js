@@ -156,6 +156,11 @@ document
     permdistsetmin = Number(document.querySelector("#distsetmin").value);
     permdistsetsec = Number(document.querySelector("#distsetsec").value);
     permdistset = distsetmin * 1000 * 60 + distsetsec * 1000;
+    expectsplit = permdistpace * permnumdistset;
+    expectsplitmin = Math.floor(expectsplit / (1000 * 60));
+    expectsplitsec = Math.floor(
+      (expectsplit - expectsplitmin * 1000 * 60) / 1000
+    );
   });
 
 updateCountdown = function () {
@@ -227,6 +232,15 @@ document.querySelector(".timersplit").addEventListener("click", function () {
     splittotal - splitminutes * 1000 * 60 - splitseconds * 1000
   );
   console.log(
-    `Time: ${splitminutes}:${splitseconds}:${splitmilli} Set: ${distrepcount} Expected: `
+    `Time: ${splitminutes}:${splitseconds}:${splitmilli} Set: ${distrepcount} Expected: ${addzero(
+      expectsplitmin
+    )}:${addzero(expectsplitsec)}:00`
   );
+
+  document.querySelector(".timerecord").innerHTML += `
+  <tr>
+    <th scope="row">${distrepcount}</th>
+    <td>${`${splitminutes}:${splitseconds}:${splitmilli}`}</td>
+    <td>${`${addzero(expectsplitmin)}:${addzero(expectsplitsec)}:00`}</td>
+  </tr>`;
 });

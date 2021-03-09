@@ -22,7 +22,9 @@
   <body>
     <div class="container-fluid Logo">
       <div class="row justify-content-center">
-        <div class="col-lg-12"><h1>TwoPointFour Interval Timer</h1></div>
+        <div class="col-lg-12">
+          <h1>TwoPointFour Interval Timer</h1>
+        </div>
       </div>
     </div>
     <!-- User Choice between Timed Interval and Distance Interval-->
@@ -60,6 +62,7 @@
           <div class="input-group mb-3">
             <input
               type="text"
+              id="distrepetition"
               class="form-control"
               placeholder="Repetitions"
               aria-label="Repetitions"
@@ -72,6 +75,7 @@
             <input
               type="text"
               class="form-control"
+              id="distdistance"
               placeholder="Distance"
               aria-label="Distance"
               aria-describedby="basic-addon2"
@@ -86,6 +90,7 @@
               placeholder="Pace"
               aria-label="Pace"
               aria-describedby="basic-addon3"
+              id="distpace"
             />
             <span class="input-group-text" id="basic-add-on3"
               >seconds / 100m</span
@@ -101,6 +106,7 @@
             <input
               type="text"
               class="form-control"
+              id="distsetmin"
               placeholder="Duration minutes"
               aria-label="Duration minutes"
               aria-describedby="basic-addon4"
@@ -110,6 +116,7 @@
             <input
               type="text"
               class="form-control"
+              id="distsetsec"
               placeholder="Duration seconds"
               aria-label="Duration seconds"
               aria-describedby="basic-addon4"
@@ -208,32 +215,41 @@
       <div class="row justify-content-center">
         <div class="col-lg-6 col-md-8 col-sm-12 timer p-4">
           <div class="row">
-            <div class="col-2">Set 5</div>
-            <div class="col-2 offset-8">300m</div>
+            <div class="col-2 currrep">Set 5</div>
+            <div class="col-2 offset-8 currdist">300m</div>
           </div>
           <div class="row justify-content-center mb-4">
-            <div class="col-10 display-2">19:87 s</div>
+            <div class="col-10 display-2 timersec">19:87 s</div>
           </div>
           <div class="row justify-content-center mb-4">
-            <div class="col-10 display-6">1:28 m</div>
+            <div class="col-10 display-6 timermin">1:28 m</div>
           </div>
           <div class="row justify-content-center">
-            <div class="col-10 h4">Rest: 80s</div>
+            <div class="col-10 h4 distrest">Rest: 80s</div>
           </div>
           <!-- User Control Buttons -->
           <div class="row mb-4 mt-4">
             <div class="col-4">
-              <button type="button" class="btn-lg btn btn-outline-success">
+              <button
+                type="button"
+                class="btn-lg btn btn-outline-success timerstart"
+              >
                 Start
               </button>
             </div>
             <div class="col-4">
-              <button type="button" class="btn-lg btn btn-outline-danger">
-                Stop
+              <button
+                type="button"
+                class="btn-lg btn btn-outline-danger timersplit"
+              >
+                Split
               </button>
             </div>
             <div class="col-4">
-              <button type="button" class="btn-lg btn btn-outline-warning">
+              <button
+                type="button"
+                class="btn-lg btn btn-outline-warning timerpause"
+              >
                 Pause
               </button>
             </div>

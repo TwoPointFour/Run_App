@@ -1,3 +1,5 @@
+/////// Buttons and hiding elements
+
 const timedBtn = document.querySelector(".timed");
 const distanceBtn = document.querySelector(".distance");
 const TypeChoice = document.querySelector(".TypeChoice");
@@ -55,4 +57,176 @@ backdt.addEventListener("click", function () {
 backtt.addEventListener("click", function () {
   TimedForm.classList.remove("d-none");
   TimedTimer.classList.add("d-none");
+});
+
+/////////////////////// Timer Function //////////////////////////////////
+
+// timer = {
+//   StartingMinutes: 2,
+//   StartingSeconds: 30,
+//   StartingMilli: 888,
+//   time() {
+//     return (
+//       this.StartingMilli +
+//       this.StartingMinutes * 1000 * 60 +
+//       this.StartingSeconds * 1000
+//     );
+//   },
+//   timerfunc() {
+//     const minutes = Math.floor(this.time() / (1000 * 60));
+//     const seconds = Math.floor((this.time() - minutes * 1000 * 60) / 1000);
+//     // Seconds cut adds a 0 in front of the number when the number of seconds fall below 10
+//     const secondscut = seconds < 10 ? `0${seconds}` : seconds;
+//     const milli = this.time() - minutes * 1000 * 60 - seconds * 1000;
+//     // Millicut adds a 0 in front of the number when the number of milliseconds fall below 10
+//     const millicut =
+//       Number(milli.toString().slice(0, -1)) < 10
+//         ? `0${milli.toString().slice(0, -1)}`
+//         : `${milli.toString().slice(0, -1)}`;
+//     document.querySelector(
+//       ".timermin"
+//     ).textContent = `${minutes}:${secondscut}`;
+//     document.querySelector(
+//       ".timersec"
+//     ).textContent = `${secondscut}:${millicut}`;
+//     this.time() -= 10;
+//   },
+// };
+
+// console.log(
+//   timer.time(),
+//   timer.StartingMinutes,
+//   timer.StartingSeconds,
+//   timer.StartingMilli
+// );
+
+let distrepetition;
+let distdistance;
+let distpace;
+let distsetmin;
+let distsetsec;
+let distset;
+let expectsplit;
+let numdistset;
+let pacecount;
+let distrepcount;
+let disttime;
+
+let permdistrepetition;
+let permdistrepcount;
+let permpacecount;
+let permdistdistance;
+let permnumdistset;
+let permdistpace;
+let permdistsetmin;
+let permdistsetsec;
+let permdistset;
+
+addzero = (numchange) => {
+  if (numchange.toString().length === 3) {
+    numchange = Number(numchange.toString().slice(0, -1));
+  }
+  if (numchange < 10) {
+    numchange = `0${numchange}`;
+  }
+  return numchange;
+};
+
+document
+  .querySelector(".distancesubmit")
+  .addEventListener("click", function () {
+    distrepetition = Number(document.querySelector("#distrepetition").value);
+    distrepcount = 1;
+    pacecount = 1;
+    distdistance = Number(document.querySelector("#distdistance").value);
+    numdistset = distdistance / 100;
+    distpace = Number(document.querySelector("#distpace").value) * 1000;
+    distsetmin = Number(document.querySelector("#distsetmin").value);
+    distsetsec = Number(document.querySelector("#distsetsec").value);
+    distset = distsetmin * 1000 * 60 + distsetsec * 1000;
+
+    permdistrepetition = Number(
+      document.querySelector("#distrepetition").value
+    );
+    permdistrepcount = 1;
+    permpacecount = 1;
+    permdistdistance = Number(document.querySelector("#distdistance").value);
+    permnumdistset = distdistance / 100;
+    permdistpace = Number(document.querySelector("#distpace").value) * 1000;
+    permdistsetmin = Number(document.querySelector("#distsetmin").value);
+    permdistsetsec = Number(document.querySelector("#distsetsec").value);
+    permdistset = distsetmin * 1000 * 60 + distsetsec * 1000;
+  });
+
+updateCountdown = function () {
+  if (distset === 0 && distrepcount <= distrepetition) {
+    pacecount = permpacecount;
+    distdistance = permdistdistance;
+    numdistset = permnumdistset;
+    distpace = permdistpace;
+    distsetmin = permdistsetmin;
+    distsetsec = permdistsetsec;
+    distset = permdistset;
+    distrepcount++;
+  }
+  const paceseconds = Math.floor(distpace / 1000);
+  const pacesecondscut = addzero(paceseconds);
+  const pacemilli = distpace - paceseconds * 1000;
+  const pacemillicut = addzero(pacemilli);
+  const setminutes = Math.floor(distset / (1000 * 60));
+  const setseconds = Math.floor((distset - setminutes * 1000 * 60) / 1000);
+  // Seconds cut adds a 0 in front of the number when the number of seconds fall below 10
+  const setsecondscut = addzero(setseconds);
+  const setmilli = distset - setminutes * 1000 * 60 - setseconds * 1000;
+  // Millicut adds a 0 in front of the number when the number of milliseconds fall below 10
+
+  document.querySelector(
+    ".timermin"
+  ).textContent = `${setminutes}:${setsecondscut}`;
+  document.querySelector(
+    ".timersec"
+  ).textContent = `${pacesecondscut}:${pacemillicut}`;
+  distset > 0 ? (distset -= 10) : (distset = 0);
+
+  if (distpace > 0 && pacecount <= numdistset) {
+    distpace -= 10;
+  } else if (pacecount > numdistset) {
+    distpace = 0;
+  } else {
+    distpace = Number(document.querySelector("#distpace").value) * 1000;
+    pacecount++;
+  }
+
+  if (distpace <= 0) {
+    document.querySelector(
+      ".distrest"
+    ).textContent = `Rest: ${setminutes}:${setsecondscut}`;
+  }
+
+  document.querySelector(".currdist").textContent = `${pacecount * 100}m`;
+  document.querySelector(".currrep").textContent = `Set ${distrepcount}`;
+};
+
+// Start timer when "start" button clicked
+document.querySelector(".timerstart").addEventListener("click", function () {
+  disttime = setInterval(updateCountdown, 10);
+});
+
+// Pause timer when "pause" button clicked
+document.querySelector(".timerpause").addEventListener("click", function () {
+  clearInterval(disttime);
+});
+
+document.querySelector(".timersplit").addEventListener("click", function () {
+  const splittotal = permdistset - distset;
+  const splitminutes = addzero(Math.floor(splittotal / (1000 * 60)));
+  const splitseconds = addzero(
+    Math.floor((splittotal - splitminutes * 1000 * 60) / 1000)
+  );
+  const splitmilli = addzero(
+    splittotal - splitminutes * 1000 * 60 - splitseconds * 1000
+  );
+  console.log(
+    `Time: ${splitminutes}:${splitseconds}:${splitmilli} Set: ${distrepcount} Expected: `
+  );
 });

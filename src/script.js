@@ -217,12 +217,22 @@ updateCountdown = function () {
     pacecount <= numdistset && distpace
       ? `${setminutes}:${setsecondscut}`
       : `Rest: ${setminutes}:${setsecondscut}`;
+
   document.querySelector(
-    ".timersec"
-  ).textContent = `${pacesecondscut}:${pacemillicut}`;
+    ".secten"
+  ).textContent = `${pacesecondscut.toString().slice(0, 1)}`;
+  document.querySelector(
+    ".secone"
+  ).textContent = `${pacesecondscut.toString().slice(1, 2)}`;
+  document.querySelector(
+    ".milliten"
+  ).textContent = `${pacemillicut.toString().slice(0, 1)}`;
+  document.querySelector(
+    ".millione"
+  ).textContent = `${pacemillicut.toString().slice(1, 2)}`;
 
   document.querySelector(".currdist").textContent = `${pacecount * 100}m`;
-  document.querySelector(".currrep").textContent = `Set ${distrepcount}`;
+  document.querySelector(".currrep").textContent = `${distrepcount}`;
 };
 
 // Start timer when "start" button clicked

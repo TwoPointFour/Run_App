@@ -118,6 +118,9 @@ let tempdeltaset;
 let tempdeltapace;
 let deltatimeset;
 let deltatimepace;
+let timejump;
+let expjump;
+let pause;
 
 let permdistrepetition;
 let permdistrepcount;
@@ -130,10 +133,18 @@ let permdistsetsec;
 let permdistset;
 
 addzero = (numchange) => {
-  if (numchange.toString().length === 3) {
-    numchange = Number(numchange.toString().slice(0, -1));
+  if (numchange.toString().length == 3) {
+    numchange = numchange.toString().slice(0, -1);
+  } else if (numchange.toString().length == 2) {
+    numchange = `0${numchange.toString().slice(0, 1)}`;
+  } else if (numchange.toString().length == 1) {
+    numchange = `00`;
   }
-  if (numchange < 10) {
+  return numchange;
+};
+
+addzerosec = (numchange) => {
+  if (numchange.toString().length == 1) {
     numchange = `0${numchange}`;
   }
   return numchange;
@@ -173,22 +184,31 @@ document
 getCallout = (pacecount) => {};
 
 updateCountdown = function () {
+  let dt = Date.now() - expjump;
+
+  // EXECUTION CODE STARTS HERE ---------------------
+
+  // Diff between time of function execution and timer started
   deltatimeset = Date.now() - starttimeset;
   deltatimepace = Date.now() - starttimepace;
 
+  // Logic to rundown set and pace time || also resets the pace timer for distance
   if (distpace <= 0 && pacecount < numdistset) {
     starttimepace = Date.now();
+    // Callouts for Pace
     let currentcallout = new Audio(`callouts/${pacecount * 100}.mp3`);
     currentcallout.play();
     pacecount++;
+
     deltatimepace = Date.now() - starttimepace;
     distpace = permdistpace - deltatimepace;
   } else if (pacecount >= numdistset && distpace <= 0) {
     distpace = 0;
   } else {
-    distpace = permdistpace - deltatimepace;
+    distpace -= 10;
   }
 
+  // Logic to reset the set timer for repetitions
   if (distset <= 0 && distrepcount < distrepetition) {
     starttimeset = Date.now();
     starttimepace = Date.now();
@@ -203,20 +223,24 @@ updateCountdown = function () {
   } else if (distrepcount >= distrepetition && distset <= 0) {
     distset = 0;
   } else {
-    distset = permdistset - deltatimeset;
+    distset -= 10;
   }
 
+  // Logic to convert bulk milliseconds into Minutes: Seconds: Milliseconds
+
   const paceseconds = Math.floor(distpace / 1000);
-  const pacesecondscut = addzero(paceseconds);
+  const pacesecondscut = addzerosec(paceseconds);
   const pacemilli = distpace - paceseconds * 1000;
   const pacemillicut = addzero(pacemilli);
   const setminutes = Math.floor(distset / (1000 * 60));
   const setseconds = Math.floor((distset - setminutes * 1000 * 60) / 1000);
   // Seconds cut adds a 0 in front of the number when the number of seconds fall below 10
-  const setsecondscut = addzero(setseconds);
+  const setsecondscut = addzerosec(setseconds);
   const setmilli = distset - setminutes * 1000 * 60 - setseconds * 1000;
   // Millicut adds a 0 in front of the number when the number of milliseconds fall below 10
 
+  console.log(pacemillicut);
+  // -------- CALL OUTS FOR REST -------------------------
   if (
     pacesecondscut == "00" &&
     pacemillicut == "01" &&
@@ -226,21 +250,27 @@ updateCountdown = function () {
     currentcallout.play();
   }
 
-  // const restarr = ["1", "02", "03", "04", "05", "10", "20", "30", "40", "50"];
   const restarr = [1, 2, 3, 4, 5, 10, 20, 30, 40, 50];
 
   for (const i of restarr) {
-    if (i == distset / 1000) {
+    if (i == distset / 1000 && pacecount >= numdistset) {
       currentcallout = new Audio(`callouts/${i}.mp3`);
       currentcallout.play();
     }
   }
 
+  if (7000 == distset && pacecount >= numdistset) {
+    currentcallout = new Audio(`callouts/starting.mp3`);
+    currentcallout.play();
+  }
+
+  // DISPLAY FOR MINUTES TIMER - SHOW REST when run time complete ---------
   document.querySelector(".timermin").textContent =
     pacecount <= numdistset && distpace
       ? `${setminutes}:${setsecondscut}`
       : `Rest: ${setminutes}:${setsecondscut}`;
 
+  // DISPLAY FOR SECONDS TIMER --------------------------------------
   document.querySelector(
     ".secten"
   ).textContent = `${pacesecondscut.toString().slice(0, 1)}`;
@@ -254,28 +284,32 @@ updateCountdown = function () {
     ".millione"
   ).textContent = `${pacemillicut.toString().slice(1, 2)}`;
 
+  //DISPLAY FOR PACE AND DISTANCE COUNT ----------------------------
   document.querySelector(".currdist").textContent = `${pacecount * 100}m`;
   document.querySelector(".currrep").textContent = `${distrepcount}`;
+  // -------------- Execution Code ENDS HERE --------------------------
+
+  expjump += timejump;
+  if (!pause) {
+    setTimeout(updateCountdown, Math.max(0, timejump - dt));
+  }
 };
 
 // Start timer when "start" button clicked
 document.querySelector(".timerstart").addEventListener("click", function () {
-  starttimepace = starttimepace ? Date.now() - tempdeltapace : Date.now();
-  starttimeset = starttimeset ? Date.now() - tempdeltaset : Date.now();
   document.querySelector(".timerstart").classList.add("disabled");
   document.querySelector(".timerpause").classList.remove("disabled");
-  disttime = setInterval(updateCountdown, 10);
+  timejump = 10;
+  expjump = Date.now(0) + timejump;
+  setTimeout(updateCountdown, timejump);
+  pause = false;
 });
 
 // Pause timer when "pause" button clicked
 document.querySelector(".timerpause").addEventListener("click", function () {
-  tempdeltapace = deltatimepace;
-  tempdeltaset = deltatimeset;
-  starttimepace = "to be changed";
-  starttimeset = "to be changed";
   document.querySelector(".timerstart").classList.remove("disabled");
   document.querySelector(".timerpause").classList.add("disabled");
-  clearInterval(disttime);
+  pause = true;
 });
 
 document.querySelector(".timersplit").addEventListener("click", function () {

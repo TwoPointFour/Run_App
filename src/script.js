@@ -170,12 +170,16 @@ document
     );
   });
 
+getCallout = (pacecount) => {};
+
 updateCountdown = function () {
   deltatimeset = Date.now() - starttimeset;
   deltatimepace = Date.now() - starttimepace;
 
   if (distpace <= 0 && pacecount < numdistset) {
     starttimepace = Date.now();
+    let currentcallout = new Audio(`callouts/${pacecount * 100}.mp3`);
+    currentcallout.play();
     pacecount++;
     deltatimepace = Date.now() - starttimepace;
     distpace = permdistpace - deltatimepace;
@@ -212,6 +216,25 @@ updateCountdown = function () {
   const setsecondscut = addzero(setseconds);
   const setmilli = distset - setminutes * 1000 * 60 - setseconds * 1000;
   // Millicut adds a 0 in front of the number when the number of milliseconds fall below 10
+
+  if (
+    pacesecondscut == "00" &&
+    pacemillicut == "01" &&
+    pacecount >= numdistset
+  ) {
+    currentcallout = new Audio(`callouts/rest.mp3`);
+    currentcallout.play();
+  }
+
+  // const restarr = ["1", "02", "03", "04", "05", "10", "20", "30", "40", "50"];
+  const restarr = [1, 2, 3, 4, 5, 10, 20, 30, 40, 50];
+
+  for (const i of restarr) {
+    if (i == distset / 1000) {
+      currentcallout = new Audio(`callouts/${i}.mp3`);
+      currentcallout.play();
+    }
+  }
 
   document.querySelector(".timermin").textContent =
     pacecount <= numdistset && distpace

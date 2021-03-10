@@ -132,56 +132,56 @@ let permdistsetmin;
 let permdistsetsec;
 let permdistset;
 
-function unlockAudio() {
-  const soundarr = [
-    1,
-    2,
-    3,
-    4,
-    5,
-    10,
-    20,
-    30,
-    40,
-    50,
-    60,
-    70,
-    80,
-    90,
-    100,
-    200,
-    300,
-    400,
-    500,
-    600,
-    700,
-    800,
-    900,
-    1000,
-    1100,
-    1200,
-    1300,
-    1400,
-    1500,
-    1600,
-    1700,
-    1800,
-    1900,
-    2000,
-    2100,
-    2200,
-    2300,
-    2400,
-    "rest",
-    "starting",
-  ];
-  for (const k of soundarr) {
-    const sound = new Audio(`callouts/${k}.mp3`);
-    sound.play();
-    sound.pause();
-    sound.currentTime = 0;
-  }
-}
+// function unlockAudio() {
+//   const soundarr = [
+//     1,
+//     2,
+//     3,
+//     4,
+//     5,
+//     10,
+//     20,
+//     30,
+//     40,
+//     50,
+//     60,
+//     70,
+//     80,
+//     90,
+//     100,
+//     200,
+//     300,
+//     400,
+//     500,
+//     600,
+//     700,
+//     800,
+//     900,
+//     1000,
+//     1100,
+//     1200,
+//     1300,
+//     1400,
+//     1500,
+//     1600,
+//     1700,
+//     1800,
+//     1900,
+//     2000,
+//     2100,
+//     2200,
+//     2300,
+//     2400,
+//     "rest",
+//     "starting",
+//   ];
+//   for (const k of soundarr) {
+//     const sound = new Audio(`callouts/${k}.mp3`);
+//     sound.play();
+//     sound.pause();
+//     sound.currentTime = 0;
+//   }
+// }
 
 // unlockAudiotest = () => {
 
@@ -196,10 +196,7 @@ function unlockAudio() {
 //   currentcallout.play();
 // });
 
-setInterval(function () {
-  document.querySelector(".audioenable").src = "callouts/200.mp3";
-  document.querySelector(".audioenable").play();
-}, 10000);
+let currentcallout = document.querySelector(".audioenable");
 
 addzero = (numchange) => {
   if (numchange.toString().length == 3) {
@@ -265,7 +262,7 @@ updateCountdown = function () {
   if (distpace <= 0 && pacecount < numdistset) {
     starttimepace = Date.now();
     // Callouts for Pace
-    currentcallout = new Audio(`callouts/${pacecount * 100}.mp3`);
+    currentcallout.src = `callouts/${pacecount * 100}.mp3`;
     currentcallout.play();
     pacecount++;
 
@@ -315,7 +312,7 @@ updateCountdown = function () {
     pacemillicut == "01" &&
     pacecount >= numdistset
   ) {
-    currentcallout = new Audio(`callouts/rest.mp3`);
+    currentcallout.src = `callouts/rest.mp3`;
     currentcallout.play();
   }
 
@@ -323,13 +320,13 @@ updateCountdown = function () {
 
   for (const i of restarr) {
     if (i == distset / 1000 && pacecount >= numdistset) {
-      currentcallout = new Audio(`callouts/${i}.mp3`);
+      currentcallout.src = `callouts/${i}.mp3`;
       currentcallout.play();
     }
   }
 
   if (7000 == distset && pacecount >= numdistset) {
-    currentcallout = new Audio(`callouts/starting.mp3`);
+    currentcallout.src = `callouts/starting.mp3`;
     currentcallout.play();
   }
 

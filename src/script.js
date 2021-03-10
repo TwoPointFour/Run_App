@@ -220,7 +220,7 @@ updateCountdown = function () {
     ".timersec"
   ).textContent = `${pacesecondscut}:${pacemillicut}`;
 
-  if (pacecount >= numdistset) {
+  if (pacecount > numdistset) {
     document.querySelector(
       ".distrest"
     ).textContent = `Rest: ${setminutes}:${setsecondscut}`;

@@ -232,7 +232,6 @@ updateCountdown = function () {
 
 // Start timer when "start" button clicked
 document.querySelector(".timerstart").addEventListener("click", function () {
-  console.log(starttimepace);
   starttimepace = starttimepace ? Date.now() - tempdeltapace : Date.now();
   starttimeset = starttimeset ? Date.now() - tempdeltaset : Date.now();
   disttime = setInterval(updateCountdown, 10);

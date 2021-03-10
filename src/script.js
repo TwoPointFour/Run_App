@@ -132,6 +132,63 @@ let permdistsetmin;
 let permdistsetsec;
 let permdistset;
 
+function unlockAudio() {
+  const soundarr = [
+    1,
+    2,
+    3,
+    4,
+    5,
+    10,
+    20,
+    30,
+    40,
+    50,
+    60,
+    70,
+    80,
+    90,
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800,
+    900,
+    1000,
+    1100,
+    1200,
+    1300,
+    1400,
+    1500,
+    1600,
+    1700,
+    1800,
+    1900,
+    2000,
+    2100,
+    2200,
+    2300,
+    2400,
+    "rest",
+    "starting",
+  ];
+  for (const k of soundarr) {
+    const sound = new Audio(`callouts/${k}.mp3`);
+    sound.play();
+    sound.pause();
+    sound.currentTime = 0;
+  }
+
+  document.body.removeEventListener("click", unlockAudio);
+  document.body.removeEventListener("touchstart", unlockAudio);
+}
+
+document.body.addEventListener("click", unlockAudio);
+document.body.addEventListener("touchstart", unlockAudio);
+
 addzero = (numchange) => {
   if (numchange.toString().length == 3) {
     numchange = numchange.toString().slice(0, -1);

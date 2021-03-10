@@ -111,6 +111,8 @@ let numdistset;
 let pacecount;
 let distrepcount;
 let disttime;
+let starttime;
+let starttimepace;
 
 let permdistrepetition;
 let permdistrepcount;
@@ -164,7 +166,23 @@ document
   });
 
 updateCountdown = function () {
-  if (distset === 0 && distrepcount <= distrepetition) {
+  let deltatimeset = Date.now() - starttimeset;
+  let deltatimepace = Date.now() - starttimepace;
+
+  if (distpace <= 0 && pacecount < numdistset) {
+    starttimepace = Date.now();
+    pacecount++;
+    deltatimepace = Date.now() - starttimepace;
+    distpace = permdistpace - deltatimepace;
+  } else if (pacecount >= numdistset && distpace <= 0) {
+    distpace = 0;
+  } else {
+    distpace = permdistpace - deltatimepace;
+  }
+
+  if (distset <= 0 && distrepcount < distrepetition) {
+    starttimeset = Date.now();
+    starttimepace = Date.now();
     pacecount = permpacecount;
     distdistance = permdistdistance;
     numdistset = permnumdistset;
@@ -173,7 +191,19 @@ updateCountdown = function () {
     distsetsec = permdistsetsec;
     distset = permdistset;
     distrepcount++;
+  } else if (distrepcount >= distrepetition && distset <= 0) {
+    distset = 0;
+  } else {
+    distset = permdistset - deltatimeset;
   }
+
+  // if (pacecount > numdistset) {
+  //   distpace = 0;
+  // } else {
+  //   distpace = permdistpace;
+  //   pacecount++;
+  // }
+
   const paceseconds = Math.floor(distpace / 1000);
   const pacesecondscut = addzero(paceseconds);
   const pacemilli = distpace - paceseconds * 1000;
@@ -191,16 +221,9 @@ updateCountdown = function () {
   document.querySelector(
     ".timersec"
   ).textContent = `${pacesecondscut}:${pacemillicut}`;
-  distset > 0 ? (distset -= 10) : (distset = 0);
 
-  if (distpace > 0 && pacecount <= numdistset) {
-    distpace -= 10;
-  } else if (pacecount > numdistset) {
-    distpace = 0;
-  } else {
-    distpace = Number(document.querySelector("#distpace").value) * 1000;
-    pacecount++;
-  }
+  console.log(distset);
+  console.log(distpace);
 
   if (distpace <= 0) {
     document.querySelector(
@@ -214,6 +237,8 @@ updateCountdown = function () {
 
 // Start timer when "start" button clicked
 document.querySelector(".timerstart").addEventListener("click", function () {
+  starttimepace = Date.now();
+  starttimeset = Date.now();
   disttime = setInterval(updateCountdown, 10);
 });
 

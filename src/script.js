@@ -239,6 +239,8 @@ updateCountdown = function () {
 document.querySelector(".timerstart").addEventListener("click", function () {
   starttimepace = starttimepace ? Date.now() - tempdeltapace : Date.now();
   starttimeset = starttimeset ? Date.now() - tempdeltaset : Date.now();
+  document.querySelector(".timerstart").classList.add("disabled");
+  document.querySelector(".timerpause").classList.remove("disabled");
   disttime = setInterval(updateCountdown, 10);
 });
 
@@ -248,6 +250,8 @@ document.querySelector(".timerpause").addEventListener("click", function () {
   tempdeltaset = deltatimeset;
   starttimepace = "to be changed";
   starttimeset = "to be changed";
+  document.querySelector(".timerstart").classList.remove("disabled");
+  document.querySelector(".timerpause").classList.add("disabled");
   clearInterval(disttime);
 });
 

@@ -213,22 +213,13 @@ updateCountdown = function () {
   const setmilli = distset - setminutes * 1000 * 60 - setseconds * 1000;
   // Millicut adds a 0 in front of the number when the number of milliseconds fall below 10
 
-  document.querySelector(
-    ".timermin"
-  ).textContent = `${setminutes}:${setsecondscut}`;
+  document.querySelector(".timermin").textContent =
+    pacecount <= numdistset && distpace
+      ? `${setminutes}:${setsecondscut}`
+      : `Rest: ${setminutes}:${setsecondscut}`;
   document.querySelector(
     ".timersec"
   ).textContent = `${pacesecondscut}:${pacemillicut}`;
-
-  if (pacecount <= numdistset) {
-    document.querySelector(".distrest").classList.add("d-none");
-  }
-
-  if (pacecount > numdistset) {
-    document.querySelector(
-      ".distrest"
-    ).textContent = `Rest: ${setminutes}:${setsecondscut}`;
-  }
 
   document.querySelector(".currdist").textContent = `${pacecount * 100}m`;
   document.querySelector(".currrep").textContent = `Set ${distrepcount}`;

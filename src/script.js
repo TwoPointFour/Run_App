@@ -189,16 +189,18 @@ function unlockAudio() {
 //     soundtest.currentTime = 0;
 // }
 
-let soundtest;
+// let soundtest;
 
-document.querySelector(".audioenable").addEventListener("click", function () {
-  soundtest = new Audio(`callouts/100.mp3`);
-  soundtest.play();
-});
+// document.querySelector(".audioenable").addEventListener("click", function () {
+//   currentcallout = new Audio(`callouts/100.mp3`);
+//   currentcallout.play();
+// });
 
 setInterval(function () {
-  soundtest.play();
-}, 3000);
+  document.querySelector(".audioenable").play();
+}, 10000);
+
+document.querySelector(".audioenable").src = "callouts/200.mp3";
 
 addzero = (numchange) => {
   if (numchange.toString().length == 3) {
@@ -264,7 +266,7 @@ updateCountdown = function () {
   if (distpace <= 0 && pacecount < numdistset) {
     starttimepace = Date.now();
     // Callouts for Pace
-    let currentcallout = new Audio(`callouts/${pacecount * 100}.mp3`);
+    currentcallout = new Audio(`callouts/${pacecount * 100}.mp3`);
     currentcallout.play();
     pacecount++;
 

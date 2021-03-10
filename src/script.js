@@ -113,6 +113,11 @@ let distrepcount;
 let disttime;
 let starttime;
 let starttimepace;
+let starttimeset;
+let tempdeltaset;
+let tempdeltapace;
+let deltatimeset;
+let deltatimepace;
 
 let permdistrepetition;
 let permdistrepcount;
@@ -166,8 +171,8 @@ document
   });
 
 updateCountdown = function () {
-  let deltatimeset = Date.now() - starttimeset;
-  let deltatimepace = Date.now() - starttimepace;
+  deltatimeset = Date.now() - starttimeset;
+  deltatimepace = Date.now() - starttimepace;
 
   if (distpace <= 0 && pacecount < numdistset) {
     starttimepace = Date.now();
@@ -227,13 +232,18 @@ updateCountdown = function () {
 
 // Start timer when "start" button clicked
 document.querySelector(".timerstart").addEventListener("click", function () {
-  starttimepace = Date.now();
-  starttimeset = Date.now();
+  console.log(starttimepace);
+  starttimepace = starttimepace ? Date.now() - tempdeltapace : Date.now();
+  starttimeset = starttimeset ? Date.now() - tempdeltaset : Date.now();
   disttime = setInterval(updateCountdown, 10);
 });
 
 // Pause timer when "pause" button clicked
 document.querySelector(".timerpause").addEventListener("click", function () {
+  tempdeltapace = deltatimepace;
+  tempdeltaset = deltatimeset;
+  starttimepace = "to be changed";
+  starttimeset = "to be changed";
   clearInterval(disttime);
 });
 

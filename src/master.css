@@ -42,12 +42,6 @@ h6,
   font-weight: 700;
 }
 
-.info {
-  padding: 20px;
-  font-size: 1rem;
-  color: rgb(185, 184, 184);
-}
-
 .timer {
   text-align: center;
 }
@@ -106,6 +100,10 @@ h6,
   font-size: 1.5rem;
 }
 
+.info:hover {
+  color: white;
+}
+
 .timerbtn {
   height: 20vh;
   width: 12vh;
@@ -133,4 +131,12 @@ h6,
   border: none;
   background: #ced6e0 !important;
   color: #9ea9b8 !important;
+}
+
+/* ------ Button Descriptions ----------- */
+
+.info {
+  padding: 20px 20px 20px 20px;
+  font-size: 1rem;
+  color: rgb(69, 144, 253);
 }

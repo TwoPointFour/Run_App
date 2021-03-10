@@ -197,10 +197,9 @@ function unlockAudio() {
 // });
 
 setInterval(function () {
+  document.querySelector(".audioenable").src = "callouts/200.mp3";
   document.querySelector(".audioenable").play();
 }, 10000);
-
-document.querySelector(".audioenable").src = "callouts/200.mp3";
 
 addzero = (numchange) => {
   if (numchange.toString().length == 3) {

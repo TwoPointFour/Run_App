@@ -181,13 +181,24 @@ function unlockAudio() {
     sound.pause();
     sound.currentTime = 0;
   }
-
-  document.body.removeEventListener("click", unlockAudio);
-  document.body.removeEventListener("touchstart", unlockAudio);
 }
 
-document.body.addEventListener("click", unlockAudio);
-document.body.addEventListener("touchstart", unlockAudio);
+// unlockAudiotest = () => {
+
+//     soundtest.pause();
+//     soundtest.currentTime = 0;
+// }
+
+let soundtest;
+
+document.querySelector(".audioenable").addEventListener("click", function () {
+  soundtest = new Audio(`callouts/100.mp3`);
+  soundtest.play();
+});
+
+setInterval(function () {
+  soundtest.play();
+}, 3000);
 
 addzero = (numchange) => {
   if (numchange.toString().length == 3) {

@@ -66,6 +66,17 @@ h6,
   box-shadow: 2px 4px 20px 1px rgba(78, 78, 78, 0.2);
 }
 
+.resttime {
+  background-color: #dbefd7;
+  color: #57c458;
+  padding: 1vh;
+  border-radius: 8px;
+  font-size: 2rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  box-shadow: 2px 4px 20px 1px rgba(9, 78, 59, 0.2);
+}
+
 /* ---------- Cards --------------- */
 
 .smallcard {
@@ -111,6 +122,10 @@ h6,
   width: 100%;
 }
 
+.col-6 .btmnav {
+  width: 100%;
+}
+
 .btn {
   font-weight: 600;
 }
@@ -126,6 +141,10 @@ h6,
 .btn-outline-warning {
   background-color: rgb(255, 243, 205);
   box-shadow: 2px 4px 20px 1px rgba(102, 77, 3, 0.2);
+}
+.btn-outline-info {
+  background-color: rgb(207, 244, 252);
+  box-shadow: 2px 4px 20px 1px rgba(0, 75, 92, 0.2);
 }
 
 .disabled {

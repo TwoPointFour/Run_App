@@ -216,6 +216,10 @@ addzerosec = (numchange) => {
   return numchange;
 };
 
+document.querySelector(".audioactivate").addEventListener("click", function () {
+  currentcallout.play();
+});
+
 document
   .querySelector(".distancesubmit")
   .addEventListener("click", function () {
@@ -331,10 +335,19 @@ updateCountdown = function () {
   }
 
   // DISPLAY FOR MINUTES TIMER - SHOW REST when run time complete ---------
-  document.querySelector(".timermin").textContent =
-    pacecount <= numdistset && distpace
-      ? `${setminutes}:${setsecondscut}`
-      : `Rest: ${setminutes}:${setsecondscut}`;
+  if (pacecount >= numdistset && distpace <= 0) {
+    document.querySelector(".timermin").classList.remove("smalltime");
+    document.querySelector(".timermin").classList.add("resttime");
+    document.querySelector(
+      ".timermin"
+    ).textContent = `Rest\u00A0\u00A0\u00A0${setminutes}:${setsecondscut}`;
+  } else {
+    document.querySelector(".timermin").classList.add("smalltime");
+    document.querySelector(".timermin").classList.remove("resttime");
+    document.querySelector(
+      ".timermin"
+    ).textContent = `${setminutes}:${setsecondscut}`;
+  }
 
   // DISPLAY FOR SECONDS TIMER --------------------------------------
   document.querySelector(

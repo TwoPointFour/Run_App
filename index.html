@@ -239,7 +239,7 @@
             <div class="col-6 valuecard currdist">0m</div>
           </div>
           <!-- User Control Buttons -->
-          <div class="row mb-4 mt-4">
+          <div class="row mb-2 mt-4">
             <div class="col-4">
               <button
                 type="button"
@@ -265,6 +265,24 @@
               </button>
             </div>
           </div>
+          <div class="row mb-2">
+            <div class="col-6">
+              <button
+                type="button"
+                class="audioactivate mt-4 btn btn-outline-info btmnav"
+              >
+                🔊 Enable Audio (iOS users)
+              </button>
+            </div>
+            <div class="col-6">
+              <button
+                type="button"
+                class="mt-4 backdt btn btn-outline-warning btmnav"
+              >
+                Go Back
+              </button>
+            </div>
+          </div>
           <!-- END OF User Control Buttons-->
 
           <!-- Live Training Records-->
@@ -286,15 +304,9 @@
           </div>
         </div>
       </div>
-      <button type="button" class="mt-4 btn btn-outline-warning">
-        🔊 Enable Audio
-      </button>
-      <audio controls class="audioenable">
-        <source src="callouts/100.mp3" />
+      <audio class="audioenable">
+        <source src="callouts/audioenabled.mp3" />
       </audio>
-      <button type="button" class="mt-4 backdt btn btn-outline-warning">
-        Go Back
-      </button>
     </div>
     <!-- END OF Distance Interval Timer-->
 

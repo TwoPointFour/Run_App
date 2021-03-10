@@ -104,10 +104,10 @@ h6,
   color: white;
 }
 
-.timerbtn {
-  height: 20vh;
-  width: 12vh;
-  border-radius: 15px;
+.col-4 .ctrlbtn {
+  padding: 5rem 3rem;
+  font-size: 1.25rem;
+  border-radius: 2rem;
 }
 
 .btn {

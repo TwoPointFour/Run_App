@@ -197,13 +197,6 @@ updateCountdown = function () {
     distset = permdistset - deltatimeset;
   }
 
-  // if (pacecount > numdistset) {
-  //   distpace = 0;
-  // } else {
-  //   distpace = permdistpace;
-  //   pacecount++;
-  // }
-
   const paceseconds = Math.floor(distpace / 1000);
   const pacesecondscut = addzero(paceseconds);
   const pacemilli = distpace - paceseconds * 1000;
@@ -222,10 +215,7 @@ updateCountdown = function () {
     ".timersec"
   ).textContent = `${pacesecondscut}:${pacemillicut}`;
 
-  console.log(distset);
-  console.log(distpace);
-
-  if (distpace <= 0) {
+  if (pacecount >= numdistset) {
     document.querySelector(
       ".distrest"
     ).textContent = `Rest: ${setminutes}:${setsecondscut}`;
@@ -255,11 +245,6 @@ document.querySelector(".timersplit").addEventListener("click", function () {
   );
   const splitmilli = addzero(
     splittotal - splitminutes * 1000 * 60 - splitseconds * 1000
-  );
-  console.log(
-    `Time: ${splitminutes}:${splitseconds}:${splitmilli} Set: ${distrepcount} Expected: ${addzero(
-      expectsplitmin
-    )}:${addzero(expectsplitsec)}:00`
   );
 
   document.querySelector(".timerecord").innerHTML += `

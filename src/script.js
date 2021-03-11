@@ -269,6 +269,9 @@ generateMilli = function () {
 updateCountdown = function () {
   let dt = Date.now() - expjump;
 
+  // DEBUGGING CODE --- UNCOMMENT TO USE TO DEBUG/////////////////////
+  ///////////////////////////////////////////////////////////////////
+
   // ddt = dt - tempdt;
   // tempdt = dt;
 
@@ -279,22 +282,39 @@ updateCountdown = function () {
   //   <td>${ddt}</td>
   // </tr>`;
 
+  // if (dt > timejump) {
+  //   document.querySelector(".timerecord").innerHTML += `
+  //   <tr>
+  //     <th scope="row">Timer Out of Sync</th>
+  //     <td>${`DT : ${dt}`}</td>
+  //     <td>${`Time Jump : ${timejump}`}</td>
+  //   </tr>`;
+  // }
+
+  // console.log(
+  //   `Pace count: ${permdistpace - distpace} Set Count: ${permdistset - distset}`
+  // );
+
+  ////////////////////////////////////////////////////////////////////////////////
+  //////////////////// DEBUGGING CODE ENDS ////////////////////////////////////////
+
   // EXECUTION CODE STARTS HERE ---------------------
 
   // Diff between time of function execution and timer started
-  deltatimeset = Date.now() - starttimeset;
-  deltatimepace = Date.now() - starttimepace;
+  // deltatimeset = Date.now() - starttimeset;
+  // deltatimepace = Date.now() - starttimepace;
 
   // Logic to rundown set and pace time || also resets the pace timer for distance
   if (distpace <= 0 && pacecount < numdistset) {
-    starttimepace = Date.now();
+    // starttimepace = Date.now();
     // Callouts for Pace
     currentcallout.src = `callouts/${pacecount * 100}.mp3`;
     currentcallout.play();
     pacecount++;
+    distpace = permdistpace - timejump;
 
-    deltatimepace = Date.now() - starttimepace;
-    distpace = permdistpace - deltatimepace;
+    // deltatimepace = Date.now() - starttimepace;
+    // distpace = permdistpace - deltatimepace;
   } else if (pacecount >= numdistset && distpace <= 0) {
     distpace = 0;
   } else {
@@ -303,15 +323,15 @@ updateCountdown = function () {
 
   // Logic to reset the set timer for repetitions
   if (distset <= 0 && distrepcount < distrepetition) {
-    starttimeset = Date.now();
-    starttimepace = Date.now();
+    // starttimeset = Date.now();
+    // starttimepace = Date.now();
     pacecount = permpacecount;
     distdistance = permdistdistance;
     numdistset = permnumdistset;
-    distpace = permdistpace;
+    distpace = permdistpace - 100;
     distsetmin = permdistsetmin;
     distsetsec = permdistsetsec;
-    distset = permdistset;
+    distset = permdistset - 100;
     distrepcount++;
   } else if (distrepcount >= distrepetition && distset <= 0) {
     distset = 0;

@@ -417,18 +417,19 @@ document.querySelector(".timerpause").addEventListener("click", function () {
 
 document.querySelector(".timersplit").addEventListener("click", function () {
   const splittotal = permdistset - distset;
-  const splitminutes = addzero(Math.floor(splittotal / (1000 * 60)));
-  const splitseconds = addzero(
-    Math.floor((splittotal - splitminutes * 1000 * 60) / 1000)
+  const splitminutes = Math.floor(splittotal / (1000 * 60));
+  const splitseconds = Math.floor(
+    (splittotal - splitminutes * 1000 * 60) / 1000
   );
-  const splitmilli = addzero(
-    splittotal - splitminutes * 1000 * 60 - splitseconds * 1000
-  );
+  const splitmilli =
+    splittotal - splitminutes * 1000 * 60 - splitseconds * 1000;
 
   document.querySelector(".timerecord").innerHTML += `
   <tr>
     <th scope="row">${distrepcount}</th>
-    <td>${`${splitminutes}:${splitseconds}:${splitmilli}`}</td>
-    <td>${`${addzero(expectsplitmin)}:${addzero(expectsplitsec)}:00`}</td>
+    <td>${`${addzerosec(splitminutes)}:${addzerosec(splitseconds)}:${addzero(
+      splitmilli
+    )}`}</td>
+    <td>${`${addzero(expectsplitmin)}:${addzerosec(expectsplitsec)}:00`}</td>
   </tr>`;
 });

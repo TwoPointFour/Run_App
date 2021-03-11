@@ -275,7 +275,7 @@ updateCountdown = function () {
   } else if (pacecount >= numdistset && distpace <= 0) {
     distpace = 0;
   } else {
-    distpace -= 10;
+    distpace -= 50;
   }
 
   // Logic to reset the set timer for repetitions
@@ -293,7 +293,7 @@ updateCountdown = function () {
   } else if (distrepcount >= distrepetition && distset <= 0) {
     distset = 0;
   } else {
-    distset -= 10;
+    distset -= 50;
   }
 
   // Logic to convert bulk milliseconds into Minutes: Seconds: Milliseconds
@@ -313,7 +313,7 @@ updateCountdown = function () {
   // -------- CALL OUTS FOR REST -------------------------
   if (
     pacesecondscut == "00" &&
-    pacemillicut == "01" &&
+    pacemillicut == "05" &&
     pacecount >= numdistset
   ) {
     currentcallout.src = `callouts/rest.mp3`;
@@ -378,7 +378,7 @@ updateCountdown = function () {
 document.querySelector(".timerstart").addEventListener("click", function () {
   document.querySelector(".timerstart").classList.add("disabled");
   document.querySelector(".timerpause").classList.remove("disabled");
-  timejump = 10;
+  timejump = 50;
   expjump = Date.now(0) + timejump;
   setTimeout(updateCountdown, timejump);
   pause = false;

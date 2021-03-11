@@ -255,6 +255,18 @@ getCallout = (pacecount) => {};
 
 updateCountdown = function () {
   let dt = Date.now() - expjump;
+  console.log(dt);
+  // ERROR HANDLING ---------------------------
+  if (dt > timejump) {
+    console.log("Something went wrong!");
+  }
+
+  document.querySelector(".timerecord").innerHTML += `
+  <tr>
+    <th scope="row">${Date.now()}</th>
+    <td>${dt}</td>
+    <td>50</td>
+  </tr>`;
 
   // EXECUTION CODE STARTS HERE ---------------------
 
@@ -308,8 +320,6 @@ updateCountdown = function () {
   const setsecondscut = addzerosec(setseconds);
   const setmilli = distset - setminutes * 1000 * 60 - setseconds * 1000;
   // Millicut adds a 0 in front of the number when the number of milliseconds fall below 10
-
-  console.log(pacemillicut);
   // -------- CALL OUTS FOR REST -------------------------
   if (
     pacesecondscut == "00" &&

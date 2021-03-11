@@ -122,6 +122,9 @@ let timejump;
 let expjump;
 let pause;
 
+let tempdt = 0;
+let ddt;
+
 let permdistrepetition;
 let permdistrepcount;
 let permpacecount;
@@ -251,7 +254,14 @@ document
     );
   });
 
-getCallout = (pacecount) => {};
+generateMilli = function () {
+  document.querySelector(".millione").textContent = `${Math.floor(
+    Math.random() * 10
+  )}`;
+  if (!pause) {
+    setTimeout(generateMilli, 10);
+  }
+};
 
 updateCountdown = function () {
   let dt = Date.now() - expjump;
@@ -260,13 +270,15 @@ updateCountdown = function () {
   if (dt > timejump) {
     console.log("Something went wrong!");
   }
+  // ddt = dt - tempdt;
+  // tempdt = dt;
 
-  document.querySelector(".timerecord").innerHTML += `
-  <tr>
-    <th scope="row">${Date.now()}</th>
-    <td>${dt}</td>
-    <td>50</td>
-  </tr>`;
+  // document.querySelector(".timerecord").innerHTML += `
+  // <tr>
+  //   <th scope="row">${Date.now()}</th>
+  //   <td>${dt}</td>
+  //   <td>${ddt}</td>
+  // </tr>`;
 
   // EXECUTION CODE STARTS HERE ---------------------
 
@@ -287,7 +299,7 @@ updateCountdown = function () {
   } else if (pacecount >= numdistset && distpace <= 0) {
     distpace = 0;
   } else {
-    distpace -= 50;
+    distpace -= 100;
   }
 
   // Logic to reset the set timer for repetitions
@@ -305,7 +317,7 @@ updateCountdown = function () {
   } else if (distrepcount >= distrepetition && distset <= 0) {
     distset = 0;
   } else {
-    distset -= 50;
+    distset -= 100;
   }
 
   // Logic to convert bulk milliseconds into Minutes: Seconds: Milliseconds
@@ -323,7 +335,7 @@ updateCountdown = function () {
   // -------- CALL OUTS FOR REST -------------------------
   if (
     pacesecondscut == "00" &&
-    pacemillicut == "05" &&
+    pacemillicut == "10" &&
     pacecount >= numdistset
   ) {
     currentcallout.src = `callouts/rest.mp3`;
@@ -369,9 +381,9 @@ updateCountdown = function () {
   document.querySelector(
     ".milliten"
   ).textContent = `${pacemillicut.toString().slice(0, 1)}`;
-  document.querySelector(
-    ".millione"
-  ).textContent = `${pacemillicut.toString().slice(1, 2)}`;
+  // document.querySelector(
+  //   ".millione"
+  // ).textContent = `${pacemillicut.toString().slice(1, 2)}`;
 
   //DISPLAY FOR PACE AND DISTANCE COUNT ----------------------------
   document.querySelector(".currdist").textContent = `${pacecount * 100}m`;
@@ -388,9 +400,10 @@ updateCountdown = function () {
 document.querySelector(".timerstart").addEventListener("click", function () {
   document.querySelector(".timerstart").classList.add("disabled");
   document.querySelector(".timerpause").classList.remove("disabled");
-  timejump = 50;
+  timejump = 100;
   expjump = Date.now(0) + timejump;
   setTimeout(updateCountdown, timejump);
+  setTimeout(generateMilli, 10);
   pause = false;
 });
 

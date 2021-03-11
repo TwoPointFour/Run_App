@@ -268,11 +268,7 @@ generateMilli = function () {
 
 updateCountdown = function () {
   let dt = Date.now() - expjump;
-  console.log(dt);
-  // ERROR HANDLING ---------------------------
-  if (dt > timejump) {
-    console.log("Something went wrong!");
-  }
+
   // ddt = dt - tempdt;
   // tempdt = dt;
 
@@ -344,12 +340,6 @@ updateCountdown = function () {
     currentcallout.src = `callouts/rest.mp3`;
     currentcallout.play();
   }
-
-  console.log(
-    `paceseconds: ${paceseconds} Pacemillicut: ${pacemillicut
-      .toString()
-      .slice(0, 1)} pacecount:  ${pacecount}`
-  );
 
   const restarr = [1, 2, 3, 4, 5, 10, 20, 30, 40, 50];
 

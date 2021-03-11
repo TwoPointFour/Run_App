@@ -121,6 +121,7 @@ let deltatimepace;
 let timejump;
 let expjump;
 let pause;
+let restswitch = false;
 
 let tempdt = 0;
 let ddt;
@@ -258,8 +259,10 @@ generateMilli = function () {
   document.querySelector(".millione").textContent = `${Math.floor(
     Math.random() * 10
   )}`;
-  if (!pause) {
+  if (!pause && !restswitch) {
     setTimeout(generateMilli, 10);
+  } else {
+    document.querySelector(".millione").textContent = "0";
   }
 };
 
@@ -334,13 +337,19 @@ updateCountdown = function () {
   // Millicut adds a 0 in front of the number when the number of milliseconds fall below 10
   // -------- CALL OUTS FOR REST -------------------------
   if (
-    pacesecondscut == "00" &&
-    pacemillicut == "10" &&
+    paceseconds == 0 &&
+    `${pacemillicut.toString().slice(0, 1)}` == `1` &&
     pacecount >= numdistset
   ) {
     currentcallout.src = `callouts/rest.mp3`;
     currentcallout.play();
   }
+
+  console.log(
+    `paceseconds: ${paceseconds} Pacemillicut: ${pacemillicut
+      .toString()
+      .slice(0, 1)} pacecount:  ${pacecount}`
+  );
 
   const restarr = [1, 2, 3, 4, 5, 10, 20, 30, 40, 50];
 
@@ -358,6 +367,7 @@ updateCountdown = function () {
 
   // DISPLAY FOR MINUTES TIMER - SHOW REST when run time complete ---------
   if (pacecount >= numdistset && distpace <= 0) {
+    restswitch = true;
     document.querySelector(".timermin").classList.remove("smalltime");
     document.querySelector(".timermin").classList.add("resttime");
     document.querySelector(
@@ -372,12 +382,13 @@ updateCountdown = function () {
   }
 
   // DISPLAY FOR SECONDS TIMER --------------------------------------
-  document.querySelector(
-    ".secten"
-  ).textContent = `${pacesecondscut.toString().slice(0, 1)}`;
-  document.querySelector(
-    ".secone"
-  ).textContent = `${pacesecondscut.toString().slice(1, 2)}`;
+  document.querySelector(".secten").textContent = `${
+    paceseconds <= 0 ? `0` : pacesecondscut.toString().slice(0, 1)
+  }`;
+  document.querySelector(".secone").textContent = `${
+    paceseconds <= 0 ? `0` : `${pacesecondscut.toString().slice(1, 2)}`
+  }`;
+
   document.querySelector(
     ".milliten"
   ).textContent = `${pacemillicut.toString().slice(0, 1)}`;

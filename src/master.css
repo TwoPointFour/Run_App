@@ -102,6 +102,21 @@ h6,
   padding: 1vh;
 }
 
+/* Training Cards */
+
+.recordcard {
+  border-radius: 15px;
+}
+
+.trainingRecords {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.table {
+  width: 80%;
+}
+
 /* --------- Buttons --------------- */
 
 .intervalbtn {

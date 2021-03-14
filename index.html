@@ -3,10 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="theme-color" content="#009578" />
     <title>TwoPointFour Intervals</title>
     <link rel="stylesheet" href="css/bootstrap.min.css" />
@@ -16,10 +13,7 @@
     <link rel="icon" href="images/twopointfouricon.png" />
     <link rel="serviceWorker" href="sw.js" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
     <script type="module" src="src/db.js"></script>
     <script type="module" src="src/index.js"></script>
   </head>
@@ -37,21 +31,22 @@
         <div class="col-lg-6 d-grid">
           <button class="btn btn-outline-primary intervalbtn timed">
             Timed Interval
-            <p class="info">
-              ⌚ For intervals with a fixed set time and variable distance
-            </p>
+            <p class="info">⌚ For intervals with a fixed set time and variable distance</p>
           </button>
         </div>
         <div class="col-lg-6 d-grid">
-          <button
-            title="🏃‍♂️ For intervals with a fixed distance and a variable run time"
-            class="btn btn-outline-primary intervalbtn distance"
-          >
+          <button title="🏃‍♂️ For intervals with a fixed distance and a variable run time" class="btn btn-outline-primary intervalbtn distance">
             Distance Interval
-            <p class="info">
-              🏃‍♂️ For intervals with a fixed distance and a variable run time
-            </p>
+            <p class="info">🏃‍♂️ For intervals with a fixed distance and a variable run time</p>
           </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 d-grid">
+          <a class="btn btn-outline-primary intervalbtn timed" role="button" href="trainingRecords.html">
+            View Training Records
+            <p class="info">📝 A memory lane down your training improvement journey</p>
+          </a>
         </div>
       </div>
     </div>
@@ -64,41 +59,18 @@
       <div class="row justify-content-center">
         <div class="col-lg-6 col-md-9 col-sm-10">
           <div class="input-group mb-3">
-            <input
-              type="text"
-              id="distrepetition"
-              class="form-control"
-              placeholder="Repetitions"
-              aria-label="Repetitions"
-              aria-describedby="basic-addon1"
-            />
+            <input type="text" id="distrepetition" class="form-control" placeholder="Repetitions" aria-label="Repetitions" aria-describedby="basic-addon1" />
             <span class="input-group-text" id="basic-add-on1">sets</span>
           </div>
 
           <div class="input-group mb-3">
-            <input
-              type="text"
-              class="form-control"
-              id="distdistance"
-              placeholder="Distance"
-              aria-label="Distance"
-              aria-describedby="basic-addon2"
-            />
+            <input type="text" class="form-control" id="distdistance" placeholder="Distance" aria-label="Distance" aria-describedby="basic-addon2" />
             <span class="input-group-text" id="basic-add-on2">metres</span>
           </div>
 
           <div class="input-group mb-3">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Pace"
-              aria-label="Pace"
-              aria-describedby="basic-addon3"
-              id="distpace"
-            />
-            <span class="input-group-text" id="basic-add-on3"
-              >seconds / 100m</span
-            >
+            <input type="text" class="form-control" placeholder="Pace" aria-label="Pace" aria-describedby="basic-addon3" id="distpace" />
+            <span class="input-group-text" id="basic-add-on3">seconds / 100m</span>
           </div>
 
           <div class="input-group mb-3">
@@ -107,37 +79,19 @@
               <option value="Rest Time">Rest Time</option>
               <option value="Set Time">Set Time</option>
             </select>
-            <input
-              type="text"
-              class="form-control"
-              id="distsetmin"
-              placeholder="Duration minutes"
-              aria-label="Duration minutes"
-              aria-describedby="basic-addon4"
-            />
+            <input type="text" class="form-control" id="distsetmin" placeholder="Duration minutes" aria-label="Duration minutes" aria-describedby="basic-addon4" />
 
             <span class="input-group-text" id="basic-add-on5">minutes</span>
-            <input
-              type="text"
-              class="form-control"
-              id="distsetsec"
-              placeholder="Duration seconds"
-              aria-label="Duration seconds"
-              aria-describedby="basic-addon4"
-            />
+            <input type="text" class="form-control" id="distsetsec" placeholder="Duration seconds" aria-label="Duration seconds" aria-describedby="basic-addon4" />
 
             <span class="input-group-text" id="basic-add-on4">seconds</span>
           </div>
           <div class="col-12">
-            <button class="btn btn-primary distancesubmit" type="submit">
-              Submit form
-            </button>
+            <button class="btn btn-primary distancesubmit" type="submit">Submit form</button>
           </div>
         </div>
       </div>
-      <button type="button" class="mt-4 back1 btn btn-outline-warning">
-        Go Back
-      </button>
+      <button type="button" class="mt-4 back1 btn btn-outline-warning">Go Back</button>
     </div>
     <!-- END OF Distance Interval User Input Form-->
 
@@ -150,67 +104,33 @@
       <div class="row justify-content-center">
         <div class="col-lg-6 col-md-9 col-sm-10">
           <div class="input-group mb-3">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Repetitions"
-              aria-label="Repetitions"
-              aria-describedby="basic-addon1"
-            />
+            <input type="text" class="form-control" placeholder="Repetitions" aria-label="Repetitions" aria-describedby="basic-addon1" />
             <span class="input-group-text" id="basic-add-on1">sets</span>
           </div>
 
           <label class="form-label">High Intensity</label>
           <div class="input-group mb-3">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="High Intensity Duration minutes"
-              aria-label="High Intensity Duration minutes"
-              aria-describedby="basic-addon4"
-            />
+            <input type="text" class="form-control" placeholder="High Intensity Duration minutes" aria-label="High Intensity Duration minutes" aria-describedby="basic-addon4" />
 
             <span class="input-group-text" id="basic-add-on5">minutes</span>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="High Intensity Duration seconds"
-              aria-label="High Intensity Duration seconds"
-              aria-describedby="basic-addon4"
-            />
+            <input type="text" class="form-control" placeholder="High Intensity Duration seconds" aria-label="High Intensity Duration seconds" aria-describedby="basic-addon4" />
             <span class="input-group-text" id="basic-add-on4">seconds</span>
           </div>
 
           <label class="form-label">Low Intensity</label>
           <div class="input-group mb-3">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Low Intensity Duration minutes"
-              aria-label="Low Intensity Duration minutes"
-              aria-describedby="basic-addon4"
-            />
+            <input type="text" class="form-control" placeholder="Low Intensity Duration minutes" aria-label="Low Intensity Duration minutes" aria-describedby="basic-addon4" />
 
             <span class="input-group-text" id="basic-add-on5">minutes</span>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Low Intensity Duration seconds"
-              aria-label="Low Intensity Duration seconds"
-              aria-describedby="basic-addon4"
-            />
+            <input type="text" class="form-control" placeholder="Low Intensity Duration seconds" aria-label="Low Intensity Duration seconds" aria-describedby="basic-addon4" />
             <span class="input-group-text" id="basic-add-on4">seconds</span>
           </div>
           <div class="col-12">
-            <button class="btn btn-primary timedsubmit" type="submit">
-              Submit form
-            </button>
+            <button class="btn btn-primary timedsubmit" type="submit">Submit form</button>
           </div>
         </div>
       </div>
-      <button type="button" class="mt-4 back2 btn btn-outline-warning">
-        Go Back
-      </button>
+      <button type="button" class="mt-4 back2 btn btn-outline-warning">Go Back</button>
     </div>
     <!-- END OF Timed Interval User Input Form-->
 
@@ -241,46 +161,21 @@
           <!-- User Control Buttons -->
           <div class="row mb-2 mt-4">
             <div class="col-4">
-              <button
-                type="button"
-                class="btn-lg btn btn-outline-success ctrlbtn timerstart"
-              >
-                Start
-              </button>
+              <button type="button" class="btn-lg btn btn-outline-success ctrlbtn timerstart">Start</button>
             </div>
             <div class="col-4">
-              <button
-                type="button"
-                class="btn-lg btn btn-outline-danger ctrlbtn timersplit"
-              >
-                Split
-              </button>
+              <button type="button" class="btn-lg btn btn-outline-danger ctrlbtn timersplit">Split</button>
             </div>
             <div class="col-4">
-              <button
-                type="button"
-                class="btn-lg btn btn-outline-warning ctrlbtn timerpause"
-              >
-                Pause
-              </button>
+              <button type="button" class="btn-lg btn btn-outline-warning ctrlbtn timerpause">Pause</button>
             </div>
           </div>
           <div class="row mb-2">
             <div class="col-6">
-              <button
-                type="button"
-                class="audioactivate mt-4 btn btn-outline-info btmnav"
-              >
-                🔊 Enable Audio (iOS users)
-              </button>
+              <button type="button" class="audioactivate mt-4 btn btn-outline-info btmnav">🔊 Enable Audio (iOS users)</button>
             </div>
             <div class="col-6">
-              <button
-                type="button"
-                class="mt-4 backdt btn btn-outline-warning btmnav"
-              >
-                Go Back
-              </button>
+              <button type="button" class="mt-4 backdt btn btn-outline-warning btmnav">Go Back</button>
             </div>
           </div>
           <!-- END OF User Control Buttons-->
@@ -326,28 +221,21 @@
           <!-- User Control Buttons-->
           <div class="row">
             <div class="col-4">
-              <button type="button" class="btn-lg btn btn-outline-success">
-                Start
-              </button>
+              <button type="button" class="btn-lg btn btn-outline-success">Start</button>
             </div>
             <div class="col-4">
-              <button type="button" class="btn-lg btn btn-outline-danger">
-                Stop
-              </button>
+              <button type="button" class="btn-lg btn btn-outline-danger">Stop</button>
             </div>
             <div class="col-4">
-              <button type="button" class="btn-lg btn btn-outline-warning">
-                Pause
-              </button>
+              <button type="button" class="btn-lg btn btn-outline-warning">Pause</button>
             </div>
           </div>
         </div>
       </div>
-      <button type="button" class="mt-4 backtt btn btn-outline-warning">
-        Go Back
-      </button>
+      <button type="button" class="mt-4 backtt btn btn-outline-warning">Go Back</button>
     </div>
     <!--END OF  Timed Interval Timer-->
-    <script src="src/script.js"></script>
+    <script type="module" src="src/script.js"></script>
+    <script type="module" src="src/timer.js"></script>
   </body>
 </html>

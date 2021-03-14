@@ -1,4 +1,4 @@
-import { initialiseTimer } from "timer.js";
+import { initialiseTimer } from "./timer.js";
 
 /////////
 /*
@@ -45,12 +45,11 @@ const backtt = document.querySelector(".backtt");
 const backdt = document.querySelector(".backdt");
 
 const visible = (elementClass, state) => {
-  state
-    ? document.querySelector(`.${elementClass}`).classList.remove("d-none")
-    : document.querySelector(`.${elementClass}`).classList.add("d-none");
+  state ? document.querySelector(`.${elementClass}`).classList.remove("d-none") : document.querySelector(`.${elementClass}`).classList.add("d-none");
 };
 
 timedBtn.addEventListener("click", function () {
+  console.log("button clicked!");
   visible("TypeChoice", false);
   visible("TimedForm", true);
 });
@@ -78,7 +77,7 @@ TimedSubmit.addEventListener("click", function () {
 });
 
 DistanceSubmit.addEventListener("click", function () {
-  visible("TimedTimer", false);
+  visible("DistanceForm", false);
   visible("DistanceTimer", true);
 });
 
@@ -92,21 +91,18 @@ backtt.addEventListener("click", function () {
   visible("TimedTimer", false);
 });
 
-document
-  .querySelector(".distancesubmit")
-  .addEventListener("click", function () {
-    const distRepetition = Number(
-      document.querySelector("#distrepetition").value
-    );
-    const distDistance = Number(document.querySelector("#distdistance").value);
-    const distPace = Number(document.querySelector("#distpace").value) * 1000;
-    const distSetMin = Number(document.querySelector("#distsetmin").value);
-    const distSetSec = Number(document.querySelector("#distsetsec").value);
-    initialiseTimer(
-      distRepetition,
-      distDistance,
-      distPace,
-      distSetMin,
-      distSetSec
-    );
-  });
+document.querySelector(".distancesubmit").addEventListener("click", function () {
+  const permSetCount = Number(document.querySelector("#distrepetition").value);
+  const permDistance = Number(document.querySelector("#distdistance").value);
+  const permPaceTime = Number(document.querySelector("#distpace").value) * 1000;
+  const permSetTimeMin = Number(document.querySelector("#distsetmin").value);
+  const permSetTimeSec = Number(document.querySelector("#distsetsec").value);
+  const permUserInput = {
+    permSetCount,
+    permDistance,
+    permPaceTime,
+    permSetTimeMin,
+    permSetTimeSec,
+  };
+  initialiseTimer(permUserInput);
+});

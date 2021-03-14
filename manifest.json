@@ -1,34 +1,14 @@
 {
   "name": "TwoPointFour Intervals",
   "short_name": "TwoPointFour",
-  "start_url": "/Run_App/index.html",
+  "start_url": "./two.four/index.html",
   "background_color": "#6dcdb1",
   "theme_color": "#009578",
   "display": "standalone",
   "icons": [
     {
       "src": "images/twopointfouricon.png",
-      "sizes": "72x72",
-      "type": "image/png"
-    },
-    {
-      "src": "images/twopointfouricon.png",
-      "sizes": "96x96",
-      "type": "image/png"
-    },
-    {
-      "src": "images/twopointfouricon.png",
-      "sizes": "128x128",
-      "type": "image/png"
-    },
-    {
-      "src": "images/twopointfouricon.png",
-      "sizes": "144x144",
-      "type": "image/png"
-    },
-    {
-      "src": "images/twopointfouricon.png",
-      "sizes": "152x152",
+      "sizes": "700x700",
       "type": "image/png"
     }
   ]

@@ -1,240 +1,242 @@
 /////////////////////// Timer Function //////////////////////////////////
-let currentcallout = document.querySelector(".audioenable");
-let tempdt = 0;
-let ddt;
 let expectsplit;
 
-let pause;
-let restswitch = false;
+let milliGeneratorSwitch = false;
 
-expectsplit = permdistpace * permnumdistset;
-expectsplitmin = Math.floor(expectsplit / (1000 * 60));
-expectsplitsec = Math.floor((expectsplit - expectsplitmin * 1000 * 60) / 1000);
+// expectsplit = permPaceTime * permnumdistset;
+// expectsplitmin = Math.floor(expectsplit / (1000 * 60));
+// expectsplitsec = Math.floor((expectsplit - expectsplitmin * 1000 * 60) / 1000);
+const currentCallout = document.querySelector(".audioenable");
 
-const distrepcount = 1;
+// const permPaceCount = distance / 100;
 
-const numdistset = distdistance / 100;
-const distset = distsetmin * 1000 * 60 + distsetsec * 1000;
+function callCallout(musicTune) {
+  currentCallout.src = `${musicTune}.mp3`;
+  currentCallout.play();
+  console.log(`Callouts of ${musicTune} activated!`);
+}
 
-export function initialiseTimer(
-  distRepetition,
-  distDistance,
-  distPace,
-  distSetMin,
-  distSetSec
-) {
+// DISPLAY FOR SECONDS TIMER --------------------------------------
+
+// function convertedMinutes(milliseconds) {
+//   return Math.floor(milliseconds / (1000 * 60));
+//   // return Math.floor((milliseconds - convertedMinutes * 1000 * 60) / 1000);
+// }
+
+// function convertedSeconds(milliseconds) {
+//   return Math.floor(
+//     (milliseconds - convertedMinutes(milliseconds) * 60 * 1000) / 1000
+//   );
+// }
+
+// function toMinutesSeconds(milliseconds) {
+//   return [convertedMinutes(milliseconds), convertedSeconds(milliseconds)];
+// }
+
+// function toSecondsMilli(milliseconds) {
+//   const convertedMilli =
+//     milliseconds - convertedMinutes * 1000 * 60 - convertedSeconds * 1000;
+//   return [convertedSeconds(milliseconds), convertedMilli];
+// }
+
+function toMinutesSeconds(milliseconds) {
+  const minutes = Math.floor(milliseconds / (1000 * 60));
+  const seconds = Math.floor((milliseconds - minutes * 1000 * 60) / 1000);
+  return [minutes, seconds];
+}
+
+function toSecondsMilli(milliseconds) {
+  const seconds = Math.floor(milliseconds / 1000);
+  const millisecondsnew = milliseconds - seconds * 1000;
+  return [seconds, millisecondsnew];
+}
+
+function displaySeconds(paceTime) {
+  let [seconds, milliseconds] = toSecondsMilli(paceTime);
+
+  // if (seconds <= 0) {
+  //   document.querySelector(".secten").textContent = `0`
+  // } else {
+  //   document.querySelector(".secten").textContent = `${addZeroSecNew(seconds).toString().slice(0, 1)}`
+  // }
+
+  document.querySelector(".secten").textContent = `${seconds <= 0 ? `0` : `${addZeroSecNew(seconds).toString().slice(0, 1)}`}`;
+  document.querySelector(".secone").textContent = `${seconds <= 0 ? `0` : `${addZeroSecNew(seconds).toString().slice(1, 2)}`}`;
+
+  document.querySelector(".milliten").textContent = `${addZeroMilliNew(milliseconds).toString().slice(0, 1)}`;
+  document.querySelector(".millione").textContent = `${addZeroMilliNew(milliseconds).toString().slice(1, 2)}`;
+}
+
+function displayMinutes(setTime, paceCount, paceTime, permPaceCount, milliGeneratorSwitch) {
+  let [minutes, seconds] = toMinutesSeconds(setTime);
+  if (paceCount >= permPaceCount && paceTime <= 0) {
+    milliGeneratorSwitch = true; //// need to edit in the future - for generateMilli function
+    document.querySelector(".timermin").classList.remove("smalltime");
+    document.querySelector(".timermin").classList.add("resttime");
+    document.querySelector(".timermin").textContent = `Rest\u00A0\u00A0\u00A0${minutes}:${addZeroSecNew(seconds)}`;
+  } else {
+    document.querySelector(".timermin").classList.add("smalltime");
+    document.querySelector(".timermin").classList.remove("resttime");
+    document.querySelector(".timermin").textContent = `${minutes}:${addZeroSecNew(seconds)}`;
+  }
+}
+
+/*
+0. Activate audio
+1. Start clicked
+2. updatePaceTimer()
+    displayPaceTimer()
+4. updateSetTimer()
+    displaySetTimer()
+6. getCallout()
+
+== Non recursive ==
+7. Pause clicked
+8. Split clicked
+
+
+*/
+export function initialiseTimer(input) {
   // Start timer when "start" button clicked
   document.querySelector(".timerstart").addEventListener("click", function () {
     document.querySelector(".timerstart").classList.add("disabled");
     document.querySelector(".timerpause").classList.remove("disabled");
-    let timeJump = 100;
-    let expJump = Date.now(0) + timeJump;
-    setTimeout(
-      updateCountdown(
-        distRepetition,
-        distDistance,
-        distPace,
-        distSetMin,
-        distSetSec,
-        timeJump,
-        expJump
-      ),
-      timeJump
-    );
-    setTimeout(generateMilli, 10);
-    pause = false;
+    let timerUpdateInterval = 20;
+    let expectedFunctionExecutionTime = Date.now() + timerUpdateInterval;
+    // test
+    const { permSetCount, permDistance, permPaceTime, permSetTimeMin, permSetTimeSec } = input;
+    const permSetTime = permSetTimeMin * 1000 * 60 + permSetTimeSec * 1000;
+    const permPaceCount = permDistance / 100;
+    let distance = permDistance;
+    let paceTime = permPaceTime;
+    let paceCount = 1;
+    let setTime = permSetTime;
+    let setCount = 1; // Numnber of Sets
+    let pause = false;
+    setTimeout(function () {
+      updateCountdown(distance, paceTime, paceCount, setTime, setCount, permDistance, permPaceTime, permPaceCount, permSetTime, permSetCount, timerUpdateInterval, expectedFunctionExecutionTime, pause);
+    }, timerUpdateInterval);
+    // setTimeout(function () {
+    //   generateMilli(pause, milliGeneratorSwitch);
+    // }, 10);
   });
 }
 
-const resetPaceTimer = () => {
+function updatePaceTimer(paceTime, paceCount, permPaceCount, permPaceTime, timerUpdateInterval) {
   // Logic to rundown set and pace time || also resets the pace timer for distance
-  if (distpace <= 0 && pacecount < numdistset) {
+  if (paceTime <= 0 && paceCount <= permPaceCount) {
     // starttimepace = Date.now();
     // Callouts for Pace
-    currentcallout.src = `callouts/${pacecount * 100}.mp3`;
-    currentcallout.play();
-    pacecount++;
-    distpace = permdistpace - tiJejump;
-
-    // deltatimepace = Date.now() - starttimepace;
-    // distpace = permdistpace - deltatimepace;
-  } else if (pacecount >= numdistset && distpace <= 0) {
-    distpace = 0;
+    callCallout(`callouts/${paceCount * 100}`);
+    paceCount++;
+    paceTime = permPaceTime - timerUpdateInterval;
+  } else if (paceTime <= 0 && paceCount > permPaceCount) {
+    paceTime = 0;
   } else {
-    distpace -= 100;
+    paceTime -= 20;
   }
-  return { pacecount, distpace };
-};
+  displaySeconds(paceTime);
+  return [paceCount, paceTime];
+}
 
-updateCountdown = function (
-  distRepetition,
-  distDistance,
-  distPace,
-  distSetMin,
-  distSetSec,
-  timeJump,
-  expJump
-) {
-  let dt = Date.now() - expJump;
-
-  const pacecount = 1;
-  resetPaceTimer();
-  // EXECUTION CODE STARTS HERE ---------------------
-
-  // Logic to reset the set timer for repetitions
-  if (distset <= 0 && distrepcount < distrepetition) {
+function updateSetTimer(setTime, setCount, paceCount, paceTime, permPaceCount, permPaceTime, permSetCount, permSetTime, milliGeneratorSwitch) {
+  if (setTime <= 0 && setCount < permSetCount) {
     // starttimeset = Date.now();
     // starttimepace = Date.now();
-    pacecount = permpacecount;
-    distdistance = permdistdistance;
-    numdistset = permnumdistset;
-    distpace = permdistpace - 100;
-    distsetmin = permdistsetmin;
-    distsetsec = permdistsetsec;
-    distset = permdistset - 100;
-    distrepcount++;
-  } else if (distrepcount >= distrepetition && distset <= 0) {
-    distset = 0;
+    paceCount = 1;
+    paceTime = permPaceTime - 20;
+    setTime = permSetTime - 20;
+    setCount++;
+    console.log(`values reset! paceCount: ${paceCount}, paceTime: ${paceTime} setTime: ${setTime}`);
+  } else if (setCount >= permSetCount && setTime <= 0) {
+    setTime = 0;
   } else {
-    distset -= 100;
+    setTime -= 20;
   }
+  displayMinutes(setTime, paceCount, paceTime, permPaceCount, milliGeneratorSwitch);
 
-  // Logic to convert bulk milliseconds into Minutes: Seconds: Milliseconds
-
-  const paceseconds = Math.floor(distpace / 1000);
-  const pacesecondscut = addzerosec(paceseconds);
-  const pacemilli = distpace - paceseconds * 1000;
-  const pacemillicut = addzero(pacemilli);
-  const setminutes = Math.floor(distset / (1000 * 60));
-  const setseconds = Math.floor((distset - setminutes * 1000 * 60) / 1000);
-  // Seconds cut adds a 0 in front of the number when the number of seconds fall below 10
-  const setsecondscut = addzerosec(setseconds);
-  const setmilli = distset - setminutes * 1000 * 60 - setseconds * 1000;
-  // Millicut adds a 0 in front of the number when the number of milliseconds fall below 10
-  // -------- CALL OUTS FOR REST -------------------------
-  if (
-    paceseconds == 0 &&
-    `${pacemillicut.toString().slice(0, 1)}` == `1` &&
-    pacecount >= numdistset
-  ) {
-    currentcallout.src = `callouts/rest.mp3`;
-    currentcallout.play();
+  if (paceCount == permPaceCount && 50 <= paceTime && paceTime <= 150) {
+    setTimeout(function () {
+      callCallout(`callouts/rest`);
+    }, 1500);
   }
 
   const restarr = [1, 2, 3, 4, 5, 10, 20, 30, 40, 50];
 
   for (const i of restarr) {
-    if (i == distset / 1000 && pacecount >= numdistset) {
-      currentcallout.src = `callouts/${i}.mp3`;
-      currentcallout.play();
+    if (i == setTime / 1000 && paceCount >= permPaceCount) {
+      callCallout(`callouts/${i}`);
     }
   }
 
-  if (7000 == distset && pacecount >= numdistset) {
-    currentcallout.src = `callouts/starting.mp3`;
-    currentcallout.play();
+  if (7000 == setTime && paceCount >= permPaceCount) {
+    callCallout(`callouts/starting`);
   }
 
-  // DISPLAY FOR MINUTES TIMER - SHOW REST when run time complete ---------
-  if (pacecount >= numdistset && distpace <= 0) {
-    restswitch = true;
-    document.querySelector(".timermin").classList.remove("smalltime");
-    document.querySelector(".timermin").classList.add("resttime");
-    document.querySelector(
-      ".timermin"
-    ).textContent = `Rest\u00A0\u00A0\u00A0${setminutes}:${setsecondscut}`;
-  } else {
-    document.querySelector(".timermin").classList.add("smalltime");
-    document.querySelector(".timermin").classList.remove("resttime");
-    document.querySelector(
-      ".timermin"
-    ).textContent = `${setminutes}:${setsecondscut}`;
-  }
+  return [paceCount, paceTime, setTime, setCount];
+}
 
-  // DISPLAY FOR SECONDS TIMER --------------------------------------
-  document.querySelector(".secten").textContent = `${
-    paceseconds <= 0 ? `0` : pacesecondscut.toString().slice(0, 1)
-  }`;
-  document.querySelector(".secone").textContent = `${
-    paceseconds <= 0 ? `0` : `${pacesecondscut.toString().slice(1, 2)}`
-  }`;
+function updateCountdown(distance, paceTime, paceCount, setTime, setCount, permDistance, permPaceTime, permPaceCount, permSetTime, permSetCount, timerUpdateInterval, expectedFunctionExecutionTime, pause) {
+  const lagTime = Date.now() - expectedFunctionExecutionTime;
+  console.log(`${lagTime} (Lag Time) = ${Date.now()} (Datenow) - ${expectedFunctionExecutionTime} (expected time)  Pace Time: ${paceTime} PaceCount: ${paceCount}   Pause: ${pause}`);
+  [paceCount, paceTime] = updatePaceTimer(paceTime, paceCount, permPaceCount, permPaceTime, timerUpdateInterval);
+  [paceCount, paceTime, setTime, setCount] = updateSetTimer(setTime, setCount, paceCount, paceTime, permPaceCount, permPaceTime, permSetCount, permSetTime, milliGeneratorSwitch);
 
-  document.querySelector(
-    ".milliten"
-  ).textContent = `${pacemillicut.toString().slice(0, 1)}`;
-  // document.querySelector(
-  //   ".millione"
-  // ).textContent = `${pacemillicut.toString().slice(1, 2)}`;
+  expectedFunctionExecutionTime += timerUpdateInterval;
 
-  //DISPLAY FOR PACE AND DISTANCE COUNT ----------------------------
-  document.querySelector(".currdist").textContent = `${pacecount * 100}m`;
-  document.querySelector(".currrep").textContent = `${distrepcount}`;
-  // -------------- Execution Code ENDS HERE --------------------------
+  // Pause timer when "pause" button clicked
+  document.querySelector(".timerpause").addEventListener("click", function () {
+    document.querySelector(".timerstart").classList.remove("disabled");
+    document.querySelector(".timerpause").classList.add("disabled");
+    pause = true;
+  });
 
-  expJump += timeJump;
   if (!pause) {
-    setTimeout(updateCountdown, Math.max(0, timeJump - dt));
+    setTimeout(function () {
+      updateCountdown(distance, paceTime, paceCount, setTime, setCount, permDistance, permPaceTime, permPaceCount, permSetTime, permSetCount, timerUpdateInterval, expectedFunctionExecutionTime, pause);
+    }, Math.max(0, timerUpdateInterval - lagTime));
   }
-};
+}
 
-generateMilli = function () {
-  document.querySelector(".millione").textContent = `${Math.floor(
-    Math.random() * 10
-  )}`;
-  if (!pause && !restswitch) {
-    setTimeout(generateMilli, 10);
-  } else {
-    document.querySelector(".millione").textContent = "0";
-  }
-};
+// function generateMilli(pause, milliGeneratorSwitch) {
+//   document.querySelector(".millione").textContent = `${Math.floor(Math.random() * 10)}`;
+//   if (!pause && !milliGeneratorSwitch) {
+//     setTimeout(generateMilli, 10);
+//   } else {
+//     document.querySelector(".millione").textContent = "0";
+//   }
+// }
 
-// Pause timer when "pause" button clicked
-document.querySelector(".timerpause").addEventListener("click", function () {
-  document.querySelector(".timerstart").classList.remove("disabled");
-  document.querySelector(".timerpause").classList.add("disabled");
-  pause = true;
-});
+// // Record timing when "split" button clicked
 
-// Record timing when "split" button clicked
+// document.querySelector(".timersplit").addEventListener("click", function () {
+//   const splittotal = permdistset - setTime;
+//   const splitminutes = Math.floor(splittotal / (1000 * 60));
+//   const splitseconds = Math.floor(
+//     (splittotal - splitminutes * 1000 * 60) / 1000
+//   );
+//   const splitmilli =
+//     splittotal - splitminutes * 1000 * 60 - splitseconds * 1000;
 
-document.querySelector(".timersplit").addEventListener("click", function () {
-  const splittotal = permdistset - distset;
-  const splitminutes = Math.floor(splittotal / (1000 * 60));
-  const splitseconds = Math.floor(
-    (splittotal - splitminutes * 1000 * 60) / 1000
-  );
-  const splitmilli =
-    splittotal - splitminutes * 1000 * 60 - splitseconds * 1000;
-
-  document.querySelector(".timerecord").innerHTML += `
-    <tr>
-      <th scope="row">${distrepcount}</th>
-      <td>${`${addzerosec(splitminutes)}:${addzerosec(splitseconds)}:${addzero(
-        splitmilli
-      )}`}</td>
-      <td>${`${addzero(expectsplitmin)}:${addzerosec(expectsplitsec)}:00`}</td>
-    </tr>`;
-});
+//   document.querySelector(".timerecord").innerHTML += `
+//     <tr>
+//       <th scope="row">${setCount}</th>
+//       <td>${`${addZeroSec(splitminutes)}:${addZeroSec(splitseconds)}:${addZero(
+//         splitmilli
+//       )}`}</td>
+//       <td>${`${addZero(expectsplitmin)}:${addZeroSec(expectsplitsec)}:00`}</td>
+//     </tr>`;
+// });
 
 document.querySelector(".audioactivate").addEventListener("click", function () {
-  currentcallout.play();
+  currentCallout.play();
 });
 
 ////// Timer Display Padding - should be replaced with built-in JS functions ////
-addzero = (numchange) => {
-  if (numchange.toString().length == 3) {
-    numchange = numchange.toString().slice(0, -1);
-  } else if (numchange.toString().length == 2) {
-    numchange = `0${numchange.toString().slice(0, 1)}`;
-  } else if (numchange.toString().length == 1) {
-    numchange = `00`;
-  }
-  return numchange;
-};
+function addZeroMilliNew(numchange) {
+  return numchange.toString().padStart(3, "0");
+}
 
-addzerosec = (numchange) => {
-  if (numchange.toString().length == 1) {
-    numchange = `0${numchange}`;
-  }
-  return numchange;
-};
+function addZeroSecNew(numchange) {
+  return numchange.toString().padStart(2, "0");
+}

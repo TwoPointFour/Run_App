@@ -10,26 +10,34 @@ const deltaDifficultyPerWeek = (info) => {
 }
 
 const getTrainingIntervals = (weeklyTargetImprovement, targetPace) => {
-    let array = []
+    const targetPaceString = targetPace.toString()
     if (weeklyTargetImprovement < 106) {
-        array = ["10", "300", 2 * targetPace]
+        return ["10", "300", targetPaceString, '2']
     }
     if (weeklyTargetImprovement < 109) {
-        array = ["8", "400", 2.33 * targetPace]
+        return ["8", "400", targetPaceString, '2.33']
     }
-    if (weeklyTargetImprovement < 112) {}
-    if (weeklyTargetImprovement < 114) {}
-    if (weeklyTargetImprovement < 120) {}
-    if (weeklyTargetImprovement < 122) {}
-    if (weeklyTargetImprovement < 125) {}
-    if (weeklyTargetImprovement < 129) {}
+    if (weeklyTargetImprovement < 112) {
+        return ["6", "500", targetPaceString, '2.33']
+    }
+    if (weeklyTargetImprovement < 114) {
+        return ["8", "400", targetPaceString, '2.33']
+    }
+    if (weeklyTargetImprovement < 120) {
+        return ["8", "400", targetPaceString, '2.33']
+    }
+    if (weeklyTargetImprovement < 122) {
+        return ["8", "400", targetPaceString, '2.33']
+    }
+    if (weeklyTargetImprovement < 125) {
+        return ["8", "400", targetPaceString, '2.33']
+    }
+    if (weeklyTargetImprovement < 129) {
+        return ["8", "400", targetPaceString, '2.33']
+    }
     else {
-
+        return ["8", "400", targetPaceString, '2.33']
     }
-    if (array && array[2]) {
-        array[2] = array[2].toString()
-    }
-    return array
 }
 
 const info = {
@@ -39,18 +47,15 @@ const info = {
     targetTimeSec: "30",
     weeks: "5"
 }
+// getTrainingPlan(info)
 
-// Unit is metres and seconds
-// Check the format in which user will input time
-/*export default */
-function getTrainingPlan(info) {
+// Units are in metres and seconds
+export default function getTrainingPlan(info) {
     const userInfo = {
         'currentTime': parseInt(info.currentTimeMin) * 60 + parseInt(info.currentTimeSec),
         'targetTime': parseInt(info.targetTimeMin) * 60 + parseInt(info.targetTimeSec),
         weeks: parseInt(info.weeks)
     };
-    const weeklyTargetImprovement = 100 + deltaDifficultyPerWeek(userInfo);
-    getTrainingIntervals(weeklyTargetImprovement(info), getTargetPace(parseInt(info.targetTime)));
+    const initialTargetImprovement = 100 + deltaDifficultyPerWeek(userInfo);
+    getTrainingIntervals(initialTargetImprovement(info), getTargetPace(parseInt(info.targetTime)));
 }
-
-getTrainingPlan(info)

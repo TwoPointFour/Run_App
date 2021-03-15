@@ -9,15 +9,22 @@ const deltaDifficultyPerWeek = (info) => {
     return (((Math.exp(getTargetPace(info.targetTime)) / Math.exp(getCurrentPace(info.currentTime)) * 100) - 100) / parseInt(info.weeks));
 }
 
-// Decision logic
-// random numbers used for the conditions
 const getTrainingIntervals = (weeklyTargetImprovement, targetPace) => {
     let array = []
-    if (weeklyTargetImprovement < 82 && weeklyTargetImprovement >= 50) {
+    if (weeklyTargetImprovement < 106) {
         array = ["10", "300", 2 * targetPace]
     }
-    if (weeklyTargetImprovement < 84) {
+    if (weeklyTargetImprovement < 109) {
         array = ["8", "400", 2.33 * targetPace]
+    }
+    if (weeklyTargetImprovement < 112) {}
+    if (weeklyTargetImprovement < 114) {}
+    if (weeklyTargetImprovement < 120) {}
+    if (weeklyTargetImprovement < 122) {}
+    if (weeklyTargetImprovement < 125) {}
+    if (weeklyTargetImprovement < 129) {}
+    else {
+
     }
     if (array && array[2]) {
         array[2] = array[2].toString()
@@ -43,7 +50,7 @@ function getTrainingPlan(info) {
         weeks: parseInt(info.weeks)
     };
     const weeklyTargetImprovement = 100 + deltaDifficultyPerWeek(userInfo);
-    // return getTrainingIntervals(weeklyTargetImprovement(info), getTargetPace(parseInt(info.targetTime)));
+    getTrainingIntervals(weeklyTargetImprovement(info), getTargetPace(parseInt(info.targetTime)));
 }
 
 getTrainingPlan(info)

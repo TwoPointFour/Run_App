@@ -13,7 +13,6 @@ async function processData(e) {
     }
     console.log(user)
     const display = document.getElementById("display");
-    display.innerText = "Processing your input - lalala - while waiting, go and shower you filthy dog";
     document.getElementById("inputForm").reset();
 
     console.log("User data processed")
@@ -39,16 +38,3 @@ if ("serviceWorker" in navigator) {
 } else {
     console.log("application not supported");
 }
-
-/*
-    var submitBtn = document.getElementById("submitBtn");
-   submitBtn.addEventListener("click", () => {
-       console.log("clicked");
-
-    let arrayOfValues = [];
-    let user = {};
-    for (let i = 0; i < 4; i++) {
-        arrayOfValues.push(e.target[i].value);
-    }
-    [user.firstName, user.weight, user.trainTime, user.targetTime] = arrayOfValues;
-*/

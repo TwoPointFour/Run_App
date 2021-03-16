@@ -50,12 +50,15 @@ const info = {
 // getTrainingPlan(info)
 
 // Units are in metres and seconds
-export default function getTrainingPlan(info) {
+// export default
+function getTrainingPlan(info) {
     const userInfo = {
         'currentTime': parseInt(info.currentTimeMin) * 60 + parseInt(info.currentTimeSec),
         'targetTime': parseInt(info.targetTimeMin) * 60 + parseInt(info.targetTimeSec),
         weeks: parseInt(info.weeks)
     };
     const initialTargetImprovement = 100 + deltaDifficultyPerWeek(userInfo);
-    getTrainingIntervals(initialTargetImprovement(info), getTargetPace(parseInt(info.targetTime)));
+    return getTrainingIntervals(initialTargetImprovement, getTargetPace(parseInt(userInfo.targetTime)));
 }
+
+console.log(getTrainingPlan(info))

@@ -4,7 +4,6 @@ self.addEventListener("install", e => {
             return cache.addAll(["./", "images/twopointfouricon.png", "src/master.css"]);
         })
     );
-
 });
 
 /*
@@ -21,7 +20,7 @@ self.addEventListener("fetch", function(event) {
   event.respondWith(async function(){
     try{
       var res = await fetch(event.request);
-      var cache = await caches.open("cache");
+      var cache = await caches.open("static");
       cache.put(event.request.url, res.clone());
       return res;
     }

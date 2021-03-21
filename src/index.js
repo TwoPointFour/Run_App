@@ -43,16 +43,3 @@ if ("serviceWorker" in navigator) {
 } else {
   console.log("application not supported");
 }
-
-/*
-    var submitBtn = document.getElementById("submitBtn");
-   submitBtn.addEventListener("click", () => {
-       console.log("clicked");
-
-    let arrayOfValues = [];
-    let user = {};
-    for (let i = 0; i < 4; i++) {
-        arrayOfValues.push(e.target[i].value);
-    }
-    [user.firstName, user.weight, user.trainTime, user.targetTime] = arrayOfValues;
-*/

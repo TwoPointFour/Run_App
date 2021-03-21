@@ -1,30 +1,7 @@
-import getUser from "./main.js";
-
 ("use strict");
-
-async function processData(e) {
-  // Prevent JS from running the stupid form submission thing - need to remove this line if we actually implement NodeJS
-  e.preventDefault();
-
-  const elements = document.getElementById("inputForm").elements;
-  const user = {};
-  for (let i = 0; i < 4; i++) {
-    user[elements[i].name] = elements[i].value;
-  }
-  console.log(user);
-  const display = document.getElementById("display");
-  display.innerText =
-    "Processing your input - lalala - while waiting, go and shower you filthy dog";
-  document.getElementById("inputForm").reset();
-
-  console.log("User data processed");
-  display.innerText = await getUser(user);
-}
 
 function init() {
   console.log("init done");
-  const form = document.getElementById("inputForm");
-  form.addEventListener("submit", processData);
 }
 
 window.onload = init;

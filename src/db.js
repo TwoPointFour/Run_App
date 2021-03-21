@@ -61,7 +61,7 @@ export function insert_data(records) {
             console.log("Completed all transactions!");
         }
         
-        records.forEach(record => {   // records to be stored in JSON format {"name": "XXX", "time": xx.xx}
+        records.forEach(record => {                               // records to be stored in JSON format {"name": "XXX", "time": xx.xx}
             let request = store.add(record);   
             request.onerror = function() {
                 console.log("Error in adding record!");

@@ -1,36 +1,15 @@
 {
-    "name": "Two.Four Trainer",
-    "short_name": "Trainer",
-    "start_url": "/index.html",
-    "background_color": "#6dcdb1",
-    "theme_color": "#009578",
-    "display": "standalone",
-    "icons": [
-        {
-            "src": "images/icon_x72.png",
-            "sizes": "72x72",
-            "type": "image/png"
-        },
-        {
-            "src": "images/icon_x96.png",
-            "sizes": "96x96",
-            "type": "image/png"
-        },
-        {
-            "src": "images/icon_x128.png",
-            "sizes": "128x128",
-            "type": "image/png"
-        },
-        {
-            "src": "images/icon_x144.png",
-            "sizes": "144x144",
-            "type": "image/png"
-        },
-        {
-            "src": "images/icon_x152.png",
-            "sizes": "152x152",
-            "type": "image/png"
-        }
-
-    ]
+  "name": "TwoPointFour Intervals",
+  "short_name": "TwoPointFour",
+  "start_url": "https://twopointfour.github.io/Run_App/index.html",
+  "background_color": "#6dcdb1",
+  "theme_color": "#009578",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "images/twopointfouricon.png",
+      "sizes": "700x700",
+      "type": "image/png"
+    }
+  ]
 }

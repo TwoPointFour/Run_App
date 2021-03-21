@@ -1,4 +1,4 @@
-import * as DB from "./db.js"
+import * as DB from "./db.js";
 
 /*const user = {
     "firstName": "XXX",
@@ -8,16 +8,16 @@ import * as DB from "./db.js"
 }*/
 
 export default function getUser(user) {
-    createUser(user);
-    // console.log("User.weight,", user.weight)
-    return "Whatever needs to be returned to the user can be returned through this function"
+  createUser(user);
+  // console.log("User.weight,", user.weight)
+  return "Whatever needs to be returned to the user can be returned through this function";
 }
 
 function createUser(user) {
-    // DB.create_db(user);
-    console.log(user.firstName, " created");
+  // DB.create_db(user);
+  console.log(user.firstName, " created");
 }
 
 function insertData(user) {
-    DB.insert_data(user);
+  DB.insert_data(user);
 }

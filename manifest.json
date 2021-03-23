@@ -7,9 +7,9 @@
   "display": "standalone",
   "icons": [
     {
-      "src": "images/twopointfouricon.png",
+      "src": "images/twopointfouriconnew.svg",
       "sizes": "700x700",
-      "type": "image/png"
+      "type": "image/svg"
     }
   ]
 }

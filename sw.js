@@ -1,9 +1,9 @@
-self.addEventListener("install", e => {
-    e.waitUntil(
-        caches.open("static").then(cache => {
-            return cache.addAll(["./", "images/twopointfouricon.png", "src/master.css"]);
-        })
-    );
+self.addEventListener("install", (e) => {
+  e.waitUntil(
+    caches.open("static").then((cache) => {
+      return cache.addAll(["./", "images/twopointfouriconnew.svg", "src/master.css"]);
+    })
+  );
 });
 
 /*
@@ -16,21 +16,20 @@ self.addEventListener("fetch", e => {
 });
 */
 
-self.addEventListener("fetch", function(event) {
-  event.respondWith(async function(){
-    try{
-      var res = await fetch(event.request);
-      var cache = await caches.open("static");
-      cache.put(event.request.url, res.clone());
-      return res;
-    }
-    catch(error){
-      return caches.match(event.request);
-    }
-  }());
+self.addEventListener("fetch", function (event) {
+  event.respondWith(
+    (async function () {
+      try {
+        var res = await fetch(event.request);
+        var cache = await caches.open("static");
+        cache.put(event.request.url, res.clone());
+        return res;
+      } catch (error) {
+        return caches.match(event.request);
+      }
+    })()
+  );
 });
-
-
 
 /* HAVE DIFF SIZE IMAGES
     {

@@ -1,5 +1,11 @@
 /////////////////////// Timer Function //////////////////////////////////
 let expectsplit;
+let pause;
+let pauseDistance;
+let pausePaceTime;
+let pausePaceCount;
+let pauseSetTime;
+let pauseSetCount;
 
 let milliGeneratorSwitch = false;
 
@@ -60,11 +66,19 @@ function displaySeconds(paceTime) {
   //   document.querySelector(".secten").textContent = `${addZeroSecNew(seconds).toString().slice(0, 1)}`
   // }
 
-  document.querySelector(".secten").textContent = `${seconds <= 0 ? `0` : `${addZeroSecNew(seconds).toString().slice(0, 1)}`}`;
-  document.querySelector(".secone").textContent = `${seconds <= 0 ? `0` : `${addZeroSecNew(seconds).toString().slice(1, 2)}`}`;
+  document.querySelector(".secten").textContent = `${
+    seconds <= 0 ? `0` : `${addZeroSecNew(seconds).toString().slice(0, 1)}`
+  }`;
+  document.querySelector(".secone").textContent = `${
+    seconds <= 0 ? `0` : `${addZeroSecNew(seconds).toString().slice(1, 2)}`
+  }`;
 
-  document.querySelector(".milliten").textContent = `${addZeroMilliNew(milliseconds).toString().slice(0, 1)}`;
-  document.querySelector(".millione").textContent = `${addZeroMilliNew(milliseconds).toString().slice(1, 2)}`;
+  document.querySelector(".milliten").textContent = `${addZeroMilliNew(milliseconds)
+    .toString()
+    .slice(0, 1)}`;
+  document.querySelector(".millione").textContent = `${addZeroMilliNew(milliseconds)
+    .toString()
+    .slice(1, 2)}`;
 }
 
 function displayMinutes(setTime, paceCount, paceTime, permPaceCount, milliGeneratorSwitch) {
@@ -73,7 +87,9 @@ function displayMinutes(setTime, paceCount, paceTime, permPaceCount, milliGenera
     milliGeneratorSwitch = true; //// need to edit in the future - for generateMilli function
     document.querySelector(".timermin").classList.remove("smalltime");
     document.querySelector(".timermin").classList.add("resttime");
-    document.querySelector(".timermin").textContent = `Rest\u00A0\u00A0\u00A0${minutes}:${addZeroSecNew(seconds)}`;
+    document.querySelector(
+      ".timermin"
+    ).textContent = `Rest\u00A0\u00A0\u00A0${minutes}:${addZeroSecNew(seconds)}`;
   } else {
     document.querySelector(".timermin").classList.add("smalltime");
     document.querySelector(".timermin").classList.remove("resttime");
@@ -99,6 +115,7 @@ function displayMinutes(setTime, paceCount, paceTime, permPaceCount, milliGenera
 export function initialiseTimer(input) {
   // Start timer when "start" button clicked
   document.querySelector(".timerstart").addEventListener("click", function () {
+    console.log(pause);
     document.querySelector(".timerstart").classList.add("disabled");
     document.querySelector(".timerpause").classList.remove("disabled");
     let timerUpdateInterval = 20;
@@ -107,14 +124,54 @@ export function initialiseTimer(input) {
     const { permSetCount, permDistance, permPaceTime, permSetTimeMin, permSetTimeSec } = input;
     const permSetTime = permSetTimeMin * 1000 * 60 + permSetTimeSec * 1000;
     const permPaceCount = permDistance / 100;
-    let distance = permDistance;
-    let paceTime = permPaceTime;
-    let paceCount = 1;
-    let setTime = permSetTime;
-    let setCount = 1; // Numnber of Sets
-    let pause = false;
+    let distance;
+    let paceTime;
+    let paceCount;
+    let setTime;
+    let setCount;
+    // Pause timer when "pause" button clicked
+    document.querySelector(".timerpause").addEventListener("click", function () {
+      document.querySelector(".timerstart").classList.remove("disabled");
+      document.querySelector(".timerpause").classList.add("disabled");
+      pause = true;
+      pauseDistance = distance;
+      pausePaceTime = paceTime;
+      pausePaceCount = paceCount;
+      pauseSetTime = setTime;
+      pauseSetCount = setCount;
+    });
+    if (pause === true) {
+      distance = pauseDistance;
+      paceTime = pausePaceTime;
+      paceCount = pausePaceCount;
+      setTime = pauseSetTime;
+      setCount = pauseSetCount;
+    } else {
+      distance = permDistance;
+      paceTime = permPaceTime;
+      paceCount = 1;
+      setTime = permSetTime;
+      setCount = 1; // Numnber of Sets
+      console.log("original values set");
+    }
+    // pause = false;
+
     setTimeout(function () {
-      updateCountdown(distance, paceTime, paceCount, setTime, setCount, permDistance, permPaceTime, permPaceCount, permSetTime, permSetCount, timerUpdateInterval, expectedFunctionExecutionTime, pause);
+      updateCountdown(
+        distance,
+        paceTime,
+        paceCount,
+        setTime,
+        setCount,
+        permDistance,
+        permPaceTime,
+        permPaceCount,
+        permSetTime,
+        permSetCount,
+        timerUpdateInterval,
+        expectedFunctionExecutionTime,
+        pause
+      );
     }, timerUpdateInterval);
     // setTimeout(function () {
     //   generateMilli(pause, milliGeneratorSwitch);
@@ -139,7 +196,17 @@ function updatePaceTimer(paceTime, paceCount, permPaceCount, permPaceTime, timer
   return [paceCount, paceTime];
 }
 
-function updateSetTimer(setTime, setCount, paceCount, paceTime, permPaceCount, permPaceTime, permSetCount, permSetTime, milliGeneratorSwitch) {
+function updateSetTimer(
+  setTime,
+  setCount,
+  paceCount,
+  paceTime,
+  permPaceCount,
+  permPaceTime,
+  permSetCount,
+  permSetTime,
+  milliGeneratorSwitch
+) {
   if (setTime <= 0 && setCount < permSetCount) {
     // starttimeset = Date.now();
     // starttimepace = Date.now();
@@ -176,24 +243,63 @@ function updateSetTimer(setTime, setCount, paceCount, paceTime, permPaceCount, p
   return [paceCount, paceTime, setTime, setCount];
 }
 
-function updateCountdown(distance, paceTime, paceCount, setTime, setCount, permDistance, permPaceTime, permPaceCount, permSetTime, permSetCount, timerUpdateInterval, expectedFunctionExecutionTime, pause) {
+function updateCountdown(
+  distance,
+  paceTime,
+  paceCount,
+  setTime,
+  setCount,
+  permDistance,
+  permPaceTime,
+  permPaceCount,
+  permSetTime,
+  permSetCount,
+  timerUpdateInterval,
+  expectedFunctionExecutionTime,
+  pause
+) {
   const lagTime = Date.now() - expectedFunctionExecutionTime;
-  console.log(`${lagTime} (Lag Time) = ${Date.now()} (Datenow) - ${expectedFunctionExecutionTime} (expected time)  Pace Time: ${paceTime} PaceCount: ${paceCount}   Pause: ${pause}`);
-  [paceCount, paceTime] = updatePaceTimer(paceTime, paceCount, permPaceCount, permPaceTime, timerUpdateInterval);
-  [paceCount, paceTime, setTime, setCount] = updateSetTimer(setTime, setCount, paceCount, paceTime, permPaceCount, permPaceTime, permSetCount, permSetTime, milliGeneratorSwitch);
+  console.log(
+    `${lagTime} (Lag Time) = ${Date.now()} (Datenow) - ${expectedFunctionExecutionTime} (expected time)  Pace Time: ${paceTime} PaceCount: ${paceCount}   Pause: ${pause}`
+  );
+  [paceCount, paceTime] = updatePaceTimer(
+    paceTime,
+    paceCount,
+    permPaceCount,
+    permPaceTime,
+    timerUpdateInterval
+  );
+  [paceCount, paceTime, setTime, setCount] = updateSetTimer(
+    setTime,
+    setCount,
+    paceCount,
+    paceTime,
+    permPaceCount,
+    permPaceTime,
+    permSetCount,
+    permSetTime,
+    milliGeneratorSwitch
+  );
 
   expectedFunctionExecutionTime += timerUpdateInterval;
 
-  // Pause timer when "pause" button clicked
-  document.querySelector(".timerpause").addEventListener("click", function () {
-    document.querySelector(".timerstart").classList.remove("disabled");
-    document.querySelector(".timerpause").classList.add("disabled");
-    pause = true;
-  });
-
   if (!pause) {
     setTimeout(function () {
-      updateCountdown(distance, paceTime, paceCount, setTime, setCount, permDistance, permPaceTime, permPaceCount, permSetTime, permSetCount, timerUpdateInterval, expectedFunctionExecutionTime, pause);
+      updateCountdown(
+        distance,
+        paceTime,
+        paceCount,
+        setTime,
+        setCount,
+        permDistance,
+        permPaceTime,
+        permPaceCount,
+        permSetTime,
+        permSetCount,
+        timerUpdateInterval,
+        expectedFunctionExecutionTime,
+        pause
+      );
     }, Math.max(0, timerUpdateInterval - lagTime));
   }
 }

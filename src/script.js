@@ -45,7 +45,9 @@ const backtt = document.querySelector(".backtt");
 const backdt = document.querySelector(".backdt");
 
 const visible = (elementClass, state) => {
-  state ? document.querySelector(`.${elementClass}`).classList.remove("d-none") : document.querySelector(`.${elementClass}`).classList.add("d-none");
+  state
+    ? document.querySelector(`.${elementClass}`).classList.remove("d-none")
+    : document.querySelector(`.${elementClass}`).classList.add("d-none");
 };
 
 timedBtn.addEventListener("click", function () {
@@ -61,8 +63,8 @@ distanceBtn.addEventListener("click", function () {
 
 BackBtn1.addEventListener("click", function () {
   visible("TypeChoice", true);
-  visible("TimedTimer", false);
-  visible("TimedForm", false);
+  visible("DistanceTimer", false);
+  visible("DistanceForm", false);
 });
 
 BackBtn2.addEventListener("click", function () {

@@ -27,46 +27,52 @@
     <div class="container-fluid Logo">
       <div class="row justify-content-center">
         <div class="col-lg-12">
-          <p class="logoname">TwoPointFour</p>
+          <img src="images/icon_x128.svg" alt="logo" width="72" height="72" />
+          <span class="logoname">TwoPointFour</span>
         </div>
       </div>
     </div>
     <!-- User Choice between Timed Interval and Distance Interval-->
     <div class="container-fluid TypeChoice">
+      <div class="col-lg-12 d-grid featureCard">
+        <div class="row featureCardTitle">TwoPointFour Train</div>
+        <div class="row">
+          <div class="col-lg-6 d-grid">
+            <button
+              title="🏃‍♂️ For intervals with a fixed distance and a variable run time"
+              class="btn btn-outline-warning intervalbtn distance"
+            >
+              Distance Interval
+              <p class="info">🏃‍♂️ For intervals with a fixed distance and a variable run time</p>
+            </button>
+          </div>
+          <div class="col-lg-6 d-grid">
+            <button class="btn btn-outline-warning disabled intervalbtn timed">
+              Timed Interval
+              <p class="info disabled">
+                ⌚ For intervals with a fixed set time and variable distance
+              </p>
+            </button>
+          </div>
+        </div>
+      </div>
+
       <div class="row">
-        <div class="col-lg-12 d-grid">
-          <a class="btn btn-outline-primary intervalbtn timed" role="button" href="suggest.html">
-            Suggest
-            <p class="info">🔍 Find the optimal training plan for you</p>
+        <div class="col-lg-6 d-grid">
+          <a class="btn btn-outline-info intervalbtn timed" role="button" href="suggest.html">
+            <p class="btnTitle">TwoPointFour Suggest</p>
+            <p class="info" style="color: rgb(13, 202, 240)">
+              🔍 Find the optimal training plan for you
+            </p>
           </a>
         </div>
-      </div>
-      <div class="row">
+
         <div class="col-lg-6 d-grid">
-          <button class="btn btn-outline-primary intervalbtn timed">
-            Timed Interval
-            <p class="info">⌚ For intervals with a fixed set time and variable distance</p>
-          </button>
-        </div>
-        <div class="col-lg-6 d-grid">
-          <button
-            title="🏃‍♂️ For intervals with a fixed distance and a variable run time"
-            class="btn btn-outline-primary intervalbtn distance"
-          >
-            Distance Interval
-            <p class="info">🏃‍♂️ For intervals with a fixed distance and a variable run time</p>
-          </button>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-12 d-grid">
-          <a
-            class="btn btn-outline-primary intervalbtn timed"
-            role="button"
-            href="trainingRecords.html"
-          >
-            View Training Records
-            <p class="info">📝 A memory lane down your training improvement journey</p>
+          <a class="btn btn-outline-success intervalbtn timed" role="button" href="track.html">
+            <p class="btnTitle">TwoPointFour Track</p>
+            <p class="info" style="color: rgb(25, 135, 84)">
+              📝 A memory lane down your training improvement journey
+            </p>
           </a>
         </div>
       </div>
@@ -116,16 +122,11 @@
           </div>
 
           <div class="input-group mb-3">
-            <select class="form-select" aria-label="Default select">
-              <option selected>Rest time / Set time</option>
-              <option value="Rest Time">Rest Time</option>
-              <option value="Set Time">Set Time</option>
-            </select>
+            <span class="input-group-text" id="basic-add-on5">Set Time</span>
             <input
               type="text"
               class="form-control"
               id="distsetmin"
-              placeholder="Duration minutes"
               aria-label="Duration minutes"
               aria-describedby="basic-addon4"
             />
@@ -135,7 +136,6 @@
               type="text"
               class="form-control"
               id="distsetsec"
-              placeholder="Duration seconds"
               aria-label="Duration seconds"
               aria-describedby="basic-addon4"
             />

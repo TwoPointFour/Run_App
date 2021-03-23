@@ -46,6 +46,37 @@ h6,
   text-align: center;
 }
 
+/* ------------ Landing Menu ------------*/
+.btnTitle {
+  margin-top: 5%;
+}
+
+.featureCard {
+  background-color: #fdd9a25d;
+  border-radius: 16px;
+  padding: 2rem;
+  width: 95vw;
+  margin: 0 auto;
+}
+
+.intervalbtn {
+  height: 200px;
+  margin: 20px;
+  border-radius: 15px;
+  font-size: 1.5rem;
+  background-color: white;
+}
+
+.featureCardTitle {
+  font-size: 1.5rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  margin: 0 auto;
+  background: radial-gradient(85.84% 61.87% at 7.52% 38.09%, #ff302c 0%, #febb4e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 /* ------------ Timers --------------- */
 
 #bigtime {
@@ -118,16 +149,12 @@ h6,
 }
 
 /* --------- Buttons --------------- */
-
-.intervalbtn {
-  height: 200px;
-  margin: 20px;
-  border-radius: 15px;
-  font-size: 1.5rem;
-}
-
 .info:hover {
   color: white;
+}
+
+.featureCard .info:hover {
+  color: #000000;
 }
 
 .col-4 .ctrlbtn {
@@ -170,6 +197,12 @@ h6,
 
 /* ------ Button Descriptions ----------- */
 
+.featureCard .info {
+  padding: 20px 20px 20px 20px;
+  font-size: 1rem;
+  color: #ffc107;
+}
+
 .info {
   padding: 20px 20px 20px 20px;
   font-size: 1rem;
@@ -198,4 +231,9 @@ h6,
 .inputCardEmoji {
   font-size: 5rem;
   text-align: center;
+}
+
+/* Forms */
+.DistanceForm {
+  max-width: 60rem;
 }

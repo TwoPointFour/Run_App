@@ -8,7 +8,11 @@ const getTargetPace = (targetTime) => getPace(parseInt(targetTime));
 const getCurrentPace = (currentTime) => getPace(parseInt(currentTime));
 
 const deltaDifficultyPerWeek = (info) => {
-  return ((Math.exp(getTargetPace(info.targetTime)) / Math.exp(getCurrentPace(info.currentTime))) * 100 - 100) / parseInt(info.weeks);
+  return (
+    ((Math.exp(getTargetPace(info.targetTime)) / Math.exp(getCurrentPace(info.currentTime))) * 100 -
+      100) /
+    parseInt(info.weeks)
+  );
 };
 
 const getTrainingIntervals = (weeklyTargetImprovement, targetPace) => {
@@ -63,7 +67,9 @@ const info = {
 
 // Later add to utils
 const visible = (elementClass, state) => {
-  state ? document.querySelector(`.${elementClass}`).classList.remove("d-none") : document.querySelector(`.${elementClass}`).classList.add("d-none");
+  state
+    ? document.querySelector(`.${elementClass}`).classList.remove("d-none")
+    : document.querySelector(`.${elementClass}`).classList.add("d-none");
 };
 
 const getTrainingPlan = async (e) => {

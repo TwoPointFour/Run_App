@@ -34,46 +34,28 @@
     </div>
     <div class="container-fluid">
       <div class="row">
+        <button class="btn btn-outline-warning loadData">Loading Data</button>
         <h4 class="d-flex justify-content-center mb-4">Training Records</h4>
       </div>
       <div class="row justify-content-center trainingRecords">
-        <div class="d-grid col-lg-12">
-          <div class="btn btn-outline-dark recordcard">
+        <div class="d-grid col-lg-12 trainingList">
+          <div class="btn btn-outline-dark recordcard mb-3">
             <div class="row justify-content-center mb-3">
-              <h5>JLow's Sunday Training</h5>
-              <h6>14/03/2021</h6>
+              <h5>Training Name (Date: )</h5>
             </div>
             <div class="row justify-content-center">
               <div class="d-grid col-3">
-                <h6>Reptitions: 5</h6>
+                <h6>Sets</h6>
               </div>
               <div class="d-grid col-3">
-                <h6>Distance: 500m</h6>
+                <h6>Distance</h6>
               </div>
               <div class="d-grid col-3">
-                <h6>Set Time: 2:30</h6>
+                <h6>Set Time</h6>
               </div>
               <div class="d-grid col-3">
-                <h6>Distance (Set)</h6>
+                <h6>Type</h6>
               </div>
-            </div>
-            <div class="row justify-content-center">
-              <table class="table">
-                <thread>
-                  <tr>
-                    <th scope="col">Set</th>
-                    <th scope="col">Time</th>
-                    <th scope="col">Target</th>
-                  </tr>
-                </thread>
-                <tbody class="">
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>1:22</td>
-                    <td>1:25</td>
-                  </tr>
-                </tbody>
-              </table>
             </div>
           </div>
         </div>
@@ -82,5 +64,47 @@
         >Go Back</a
       >
     </div>
+    <script type="module" src="src/track.js"></script>
   </body>
 </html>
+
+<!-- <div class="d-grid col-lg-12">
+  <div class="btn btn-outline-dark recordcard">
+    <div class="row justify-content-center mb-3">
+      <h5>JLow's Sunday Training</h5>
+      <h6>14/03/2021</h6>
+    </div>
+    <div class="row justify-content-center">
+      <div class="d-grid col-3">
+        <h6>Reptitions: 5</h6>
+      </div>
+      <div class="d-grid col-3">
+        <h6>Distance: 500m</h6>
+      </div>
+      <div class="d-grid col-3">
+        <h6>Set Time: 2:30</h6>
+      </div>
+      <div class="d-grid col-3">
+        <h6>Distance (Set)</h6>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <table class="table">
+        <thread>
+          <tr>
+            <th scope="col">Set</th>
+            <th scope="col">Time</th>
+            <th scope="col">Target</th>
+          </tr>
+        </thread>
+        <tbody class="">
+          <tr>
+            <th scope="row">1</th>
+            <td>1:22</td>
+            <td>1:25</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div> -->

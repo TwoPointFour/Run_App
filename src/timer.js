@@ -1,49 +1,10 @@
+import { account_1 } from "./script.js";
+export let variablePackage = {};
 /////////////////////// Timer Function //////////////////////////////////
-let expectsplit;
-let pause;
-let pauseDistance;
-let pausePaceTime;
-let pausePaceCount;
-let pauseSetTime;
-let pauseSetCount;
 
-let milliGeneratorSwitch = false;
-
-// expectsplit = permPaceTime * permnumdistset;
-// expectsplitmin = Math.floor(expectsplit / (1000 * 60));
-// expectsplitsec = Math.floor((expectsplit - expectsplitmin * 1000 * 60) / 1000);
 const currentCallout = document.querySelector(".audioenable");
 
-// const permPaceCount = distance / 100;
-
-function callCallout(musicTune) {
-  currentCallout.src = `${musicTune}.mp3`;
-  currentCallout.play();
-  console.log(`Callouts of ${musicTune} activated!`);
-}
-
-// DISPLAY FOR SECONDS TIMER --------------------------------------
-
-// function convertedMinutes(milliseconds) {
-//   return Math.floor(milliseconds / (1000 * 60));
-//   // return Math.floor((milliseconds - convertedMinutes * 1000 * 60) / 1000);
-// }
-
-// function convertedSeconds(milliseconds) {
-//   return Math.floor(
-//     (milliseconds - convertedMinutes(milliseconds) * 60 * 1000) / 1000
-//   );
-// }
-
-// function toMinutesSeconds(milliseconds) {
-//   return [convertedMinutes(milliseconds), convertedSeconds(milliseconds)];
-// }
-
-// function toSecondsMilli(milliseconds) {
-//   const convertedMilli =
-//     milliseconds - convertedMinutes * 1000 * 60 - convertedSeconds * 1000;
-//   return [convertedSeconds(milliseconds), convertedMilli];
-// }
+///// Mathematical Helper Functions /////////////////
 
 function toMinutesSeconds(milliseconds) {
   const minutes = Math.floor(milliseconds / (1000 * 60));
@@ -57,14 +18,194 @@ function toSecondsMilli(milliseconds) {
   return [seconds, millisecondsnew];
 }
 
+function toMinutesSecondsMilli(milliseconds) {
+  const minutes = Math.floor(milliseconds / (1000 * 60));
+  const seconds = Math.floor((milliseconds - minutes * 1000 * 60) / 1000);
+  const milli = milliseconds - minutes * 60 * 1000 - seconds * 1000;
+  return [minutes, seconds, milli];
+}
+
+////// Timer Display Padding - should be replaced with built-in JS functions ////
+function addZeroMilliNew(numchange) {
+  return numchange.toString().padStart(3, "0");
+}
+
+function addZeroSecNew(numchange) {
+  return numchange.toString().padStart(2, "0");
+}
+
+export function initialiseTimer(input) {
+  ///// Initialising Variables //////////////
+  let timerUpdateInterval = 20;
+  let expectedFunctionExecutionTime;
+  const { permSetCount, permDistance, permPaceTime, permSetTimeMin, permSetTimeSec } = input;
+  const permSetTime = permSetTimeMin * 1000 * 60 + permSetTimeSec * 1000;
+  const permPaceCount = permDistance / 100;
+  let distance = permDistance;
+  let paceTime = permPaceTime;
+  let paceCount = permPaceCount;
+  let setTime = permSetTime;
+  let setCount = permSetCount;
+  let pause;
+  let pauseDistance;
+  let pausePaceTime;
+  let pausePaceCount;
+  let pauseSetTime;
+  let pauseSetCount;
+  const runData = new Map();
+
+  variablePackage = {
+    timerUpdateInterval,
+    expectedFunctionExecutionTime,
+    permSetCount,
+    permDistance,
+    permPaceTime,
+    permSetTimeMin,
+    permSetTimeSec,
+    permSetTime,
+    permPaceCount,
+    distance,
+    paceTime,
+    paceCount,
+    setTime,
+    setCount,
+    pause,
+    pauseDistance,
+    pausePaceTime,
+    pausePaceCount,
+    pauseSetTime,
+    pauseSetCount,
+    runData,
+  };
+
+  ////// Callback functions for button presses /////////////
+
+  activateStartBtn(variablePackage);
+  activatePauseBtn(variablePackage);
+  activateSplitBtn(variablePackage);
+  activateCompleteBtn(variablePackage);
+}
+
+////// Buttons and effects /////////////////////
+
+function activatePauseBtn(variablePackage) {
+  document.querySelector(".timerpause").addEventListener("click", function () {
+    visibleStart(true);
+    visiblePause(false);
+    variablePackage.pause = true;
+    variablePackage.pauseDistance = variablePackage.distance;
+    variablePackage.pausePaceTime = variablePackage.paceTime;
+    variablePackage.pausePaceCount = variablePackage.paceCount;
+    variablePackage.pauseSetTime = variablePackage.setTime;
+    variablePackage.pauseSetCount = variablePackage.setCount;
+  });
+}
+
+function activateStartBtn(variablePackage) {
+  document.querySelector(".timerstart").addEventListener("click", function () {
+    visibleStart(false);
+    visiblePause(true);
+
+    //// Activate lag baseline //////////
+    variablePackage.expectedFunctionExecutionTime =
+      Date.now() + variablePackage.timerUpdateInterval;
+
+    /////////////////////////////////
+
+    if (variablePackage.pause === true) {
+      variablePackage.distance = variablePackage.pauseDistance;
+      variablePackage.paceTime = variablePackage.pausePaceTime;
+      variablePackage.paceCount = variablePackage.pausePaceCount;
+      variablePackage.setTime = variablePackage.pauseSetTime;
+      variablePackage.setCount = variablePackage.pauseSetCount;
+    } else {
+      variablePackage.distance = variablePackage.permDistance;
+      variablePackage.paceTime = variablePackage.permPaceTime;
+      variablePackage.paceCount = 0;
+      variablePackage.setTime = variablePackage.permSetTime;
+      variablePackage.setCount = 1;
+    }
+    variablePackage.pause = false;
+
+    setTimeout(function () {
+      updateCountdown(variablePackage);
+    }, variablePackage.timerUpdateInterval);
+    // setTimeout(function () {
+    //   generateMilli(pause, milliGeneratorSwitch);
+    // }, 10);
+  });
+}
+
+function activateSplitBtn(variablePackage) {
+  document.querySelector(".timersplit").addEventListener("click", function () {
+    const splitSetTime = variablePackage.permSetTime - variablePackage.setTime;
+    variablePackage.runData.set(variablePackage.setCount, splitSetTime);
+
+    const [minutes, seconds, milli] = toMinutesSecondsMilli(splitSetTime);
+
+    displaySplitTime(variablePackage, minutes, seconds, milli);
+    console.log(variablePackage.runData);
+  });
+}
+
+function activateCompleteBtn() {
+  document.querySelector(".completeTraining").addEventListener("click", function () {
+    const trainingInfo = Object.assign({}, variablePackage);
+    account_1.data.push(trainingInfo);
+    console.log(account_1.data);
+    document.querySelector(".trainingDataTable").innerHTML = `
+    <table class="table">
+    <thread>
+      <tr>
+        <th scope="col">Set</th>
+        <th scope="col">Time</th>
+        <th scope="col">Target</th>
+      </tr>
+    </thread>
+    <tbody class="timerecord"></tbody>
+  </table>`;
+  });
+}
+///////////// Display and Styles ////////////////////////
+
+function displaySetCount(setCount) {
+  document.querySelector(".currrep").textContent = setCount;
+}
+
+function displayPaceCount(paceCount) {
+  document.querySelector(".currdist").textContent = `${paceCount * 100}m`;
+}
+
+function displaySplitTime(variablePackage, minutes, seconds, milli) {
+  document.querySelector(".timerecord").innerHTML += `
+  <tr>
+    <th scope="row">${variablePackage.setCount}</th>
+    <td>${`${addZeroSecNew(minutes)}:${addZeroSecNew(seconds)}:${addZeroMilliNew(milli).slice(
+      0,
+      2
+    )}`}</td>
+    <td>No Target Set</td>
+  </tr>`;
+}
+
+function visibleStart(status) {
+  if (status) {
+    document.querySelector(".timerstart").classList.remove("disabled");
+  } else {
+    document.querySelector(".timerstart").classList.add("disabled");
+  }
+}
+
+function visiblePause(status) {
+  if (status) {
+    document.querySelector(".timerpause").classList.remove("disabled");
+  } else {
+    document.querySelector(".timerpause").classList.add("disabled");
+  }
+}
+
 function displaySeconds(paceTime) {
   let [seconds, milliseconds] = toSecondsMilli(paceTime);
-
-  // if (seconds <= 0) {
-  //   document.querySelector(".secten").textContent = `0`
-  // } else {
-  //   document.querySelector(".secten").textContent = `${addZeroSecNew(seconds).toString().slice(0, 1)}`
-  // }
 
   document.querySelector(".secten").textContent = `${
     seconds <= 0 ? `0` : `${addZeroSecNew(seconds).toString().slice(0, 1)}`
@@ -81,10 +222,9 @@ function displaySeconds(paceTime) {
     .slice(1, 2)}`;
 }
 
-function displayMinutes(setTime, paceCount, paceTime, permPaceCount, milliGeneratorSwitch) {
+function displayMinutes(setTime, paceCount, paceTime, permPaceCount) {
   let [minutes, seconds] = toMinutesSeconds(setTime);
   if (paceCount >= permPaceCount && paceTime <= 0) {
-    milliGeneratorSwitch = true; //// need to edit in the future - for generateMilli function
     document.querySelector(".timermin").classList.remove("smalltime");
     document.querySelector(".timermin").classList.add("resttime");
     document.querySelector(
@@ -97,132 +237,93 @@ function displayMinutes(setTime, paceCount, paceTime, permPaceCount, milliGenera
   }
 }
 
-/*
-0. Activate audio
-1. Start clicked
-2. updatePaceTimer()
-    displayPaceTimer()
-4. updateSetTimer()
-    displaySetTimer()
-6. getCallout()
+///////////// Timer Updates ////////////////////////////
+///////////// (Parent) /////////////////////////////
 
-== Non recursive ==
-7. Pause clicked
-8. Split clicked
+function updateCountdown(variablePackage) {
+  const lagTime = Date.now() - variablePackage.expectedFunctionExecutionTime;
+  console.log(
+    `${lagTime} (Lag Time) = ${Date.now()} (Datenow) - ${
+      variablePackage.expectedFunctionExecutionTime
+    } (expected time)  Pace Time: ${variablePackage.paceTime} PaceCount: ${
+      variablePackage.paceCount
+    }   Pause: ${variablePackage.pause}`
+  );
+  updatePaceTimer(variablePackage);
+  updateSetTimer(variablePackage);
+  displayPaceCount(variablePackage.paceCount);
+  displaySetCount(variablePackage.setCount);
 
+  variablePackage.expectedFunctionExecutionTime += variablePackage.timerUpdateInterval;
 
-*/
-export function initialiseTimer(input) {
-  // Start timer when "start" button clicked
-  document.querySelector(".timerstart").addEventListener("click", function () {
-    console.log(pause);
-    document.querySelector(".timerstart").classList.add("disabled");
-    document.querySelector(".timerpause").classList.remove("disabled");
-    let timerUpdateInterval = 20;
-    let expectedFunctionExecutionTime = Date.now() + timerUpdateInterval;
-    // test
-    const { permSetCount, permDistance, permPaceTime, permSetTimeMin, permSetTimeSec } = input;
-    const permSetTime = permSetTimeMin * 1000 * 60 + permSetTimeSec * 1000;
-    const permPaceCount = permDistance / 100;
-    let distance;
-    let paceTime;
-    let paceCount;
-    let setTime;
-    let setCount;
-    // Pause timer when "pause" button clicked
-    document.querySelector(".timerpause").addEventListener("click", function () {
-      document.querySelector(".timerstart").classList.remove("disabled");
-      document.querySelector(".timerpause").classList.add("disabled");
-      pause = true;
-      pauseDistance = distance;
-      pausePaceTime = paceTime;
-      pausePaceCount = paceCount;
-      pauseSetTime = setTime;
-      pauseSetCount = setCount;
-    });
-    if (pause === true) {
-      distance = pauseDistance;
-      paceTime = pausePaceTime;
-      paceCount = pausePaceCount;
-      setTime = pauseSetTime;
-      setCount = pauseSetCount;
-    } else {
-      distance = permDistance;
-      paceTime = permPaceTime;
-      paceCount = 1;
-      setTime = permSetTime;
-      setCount = 1; // Numnber of Sets
-      console.log("original values set");
-    }
-    // pause = false;
-
+  if (!variablePackage.pause) {
     setTimeout(function () {
-      updateCountdown(
-        distance,
-        paceTime,
-        paceCount,
-        setTime,
-        setCount,
-        permDistance,
-        permPaceTime,
-        permPaceCount,
-        permSetTime,
-        permSetCount,
-        timerUpdateInterval,
-        expectedFunctionExecutionTime,
-        pause
-      );
-    }, timerUpdateInterval);
-    // setTimeout(function () {
-    //   generateMilli(pause, milliGeneratorSwitch);
-    // }, 10);
-  });
+      updateCountdown(variablePackage);
+    }, Math.max(0, variablePackage.timerUpdateInterval - lagTime));
+  }
 }
 
-function updatePaceTimer(paceTime, paceCount, permPaceCount, permPaceTime, timerUpdateInterval) {
+///////////// Timer Updates ////////////////////////////
+///////////// (Children) /////////////////////////////
+
+function updatePaceTimer(variablePackage) {
   // Logic to rundown set and pace time || also resets the pace timer for distance
-  if (paceTime <= 0 && paceCount <= permPaceCount) {
+  if (variablePackage.paceTime <= 0 && variablePackage.paceCount < variablePackage.permPaceCount) {
     // starttimepace = Date.now();
     // Callouts for Pace
-    callCallout(`callouts/${paceCount * 100}`);
-    paceCount++;
-    paceTime = permPaceTime - timerUpdateInterval;
-  } else if (paceTime <= 0 && paceCount > permPaceCount) {
-    paceTime = 0;
+    variablePackage.paceCount++;
+    callCallout(`callouts/${variablePackage.paceCount * 100}`);
+    variablePackage.paceTime = variablePackage.permPaceTime - variablePackage.timerUpdateInterval;
+  } else if (variablePackage.paceCount >= variablePackage.permPaceCount) {
+    variablePackage.paceTime = 0;
   } else {
-    paceTime -= 20;
+    variablePackage.paceTime -= 20;
   }
-  displaySeconds(paceTime);
-  return [paceCount, paceTime];
+  displaySeconds(variablePackage.paceTime);
 }
 
-function updateSetTimer(
-  setTime,
-  setCount,
-  paceCount,
-  paceTime,
-  permPaceCount,
-  permPaceTime,
-  permSetCount,
-  permSetTime,
-  milliGeneratorSwitch
-) {
-  if (setTime <= 0 && setCount < permSetCount) {
+function updateSetTimer(variablePackage) {
+  if (variablePackage.setTime <= 0 && variablePackage.setCount < variablePackage.permSetCount) {
     // starttimeset = Date.now();
     // starttimepace = Date.now();
-    paceCount = 1;
-    paceTime = permPaceTime - 20;
-    setTime = permSetTime - 20;
-    setCount++;
-    console.log(`values reset! paceCount: ${paceCount}, paceTime: ${paceTime} setTime: ${setTime}`);
-  } else if (setCount >= permSetCount && setTime <= 0) {
-    setTime = 0;
+    variablePackage.paceCount = 0;
+    variablePackage.paceTime = variablePackage.permPaceTime - 20;
+    variablePackage.setTime = variablePackage.permSetTime - 20;
+    variablePackage.setCount++;
+    console.log(
+      `values reset! paceCount: ${variablePackage.paceCount}, paceTime: ${variablePackage.paceTime} setTime: ${variablePackage.setTime}`
+    );
+  } else if (
+    variablePackage.setCount >= variablePackage.permSetCount &&
+    variablePackage.setTime <= 0
+  ) {
+    variablePackage.setTime = 0;
   } else {
-    setTime -= 20;
+    variablePackage.setTime -= 20;
   }
-  displayMinutes(setTime, paceCount, paceTime, permPaceCount, milliGeneratorSwitch);
+  displayMinutes(
+    variablePackage.setTime,
+    variablePackage.paceCount,
+    variablePackage.paceTime,
+    variablePackage.permPaceCount
+  );
 
-  if (paceCount == permPaceCount && 50 <= paceTime && paceTime <= 150) {
+  restCallouts(variablePackage);
+}
+
+////////////////// Misc Callouts //////////////////
+function callCallout(musicTune) {
+  currentCallout.src = `${musicTune}.mp3`;
+  currentCallout.play();
+  console.log(`Callouts of ${musicTune} activated!`);
+}
+
+function restCallouts(variablePackage) {
+  if (
+    variablePackage.paceCount === variablePackage.permPaceCount - 1 &&
+    50 <= variablePackage.paceTime &&
+    variablePackage.paceTime <= 150
+  ) {
     setTimeout(function () {
       callCallout(`callouts/rest`);
     }, 1500);
@@ -231,118 +332,22 @@ function updateSetTimer(
   const restarr = [1, 2, 3, 4, 5, 10, 20, 30, 40, 50];
 
   for (const i of restarr) {
-    if (i == setTime / 1000 && paceCount >= permPaceCount) {
+    if (
+      i == variablePackage.setTime / 1000 &&
+      variablePackage.paceCount >= variablePackage.permPaceCount
+    ) {
       callCallout(`callouts/${i}`);
     }
   }
 
-  if (7000 == setTime && paceCount >= permPaceCount) {
+  if (
+    7000 == variablePackage.setTime &&
+    variablePackage.paceCount >= variablePackage.permPaceCount
+  ) {
     callCallout(`callouts/starting`);
   }
-
-  return [paceCount, paceTime, setTime, setCount];
 }
-
-function updateCountdown(
-  distance,
-  paceTime,
-  paceCount,
-  setTime,
-  setCount,
-  permDistance,
-  permPaceTime,
-  permPaceCount,
-  permSetTime,
-  permSetCount,
-  timerUpdateInterval,
-  expectedFunctionExecutionTime,
-  pause
-) {
-  const lagTime = Date.now() - expectedFunctionExecutionTime;
-  console.log(
-    `${lagTime} (Lag Time) = ${Date.now()} (Datenow) - ${expectedFunctionExecutionTime} (expected time)  Pace Time: ${paceTime} PaceCount: ${paceCount}   Pause: ${pause}`
-  );
-  [paceCount, paceTime] = updatePaceTimer(
-    paceTime,
-    paceCount,
-    permPaceCount,
-    permPaceTime,
-    timerUpdateInterval
-  );
-  [paceCount, paceTime, setTime, setCount] = updateSetTimer(
-    setTime,
-    setCount,
-    paceCount,
-    paceTime,
-    permPaceCount,
-    permPaceTime,
-    permSetCount,
-    permSetTime,
-    milliGeneratorSwitch
-  );
-
-  expectedFunctionExecutionTime += timerUpdateInterval;
-
-  if (!pause) {
-    setTimeout(function () {
-      updateCountdown(
-        distance,
-        paceTime,
-        paceCount,
-        setTime,
-        setCount,
-        permDistance,
-        permPaceTime,
-        permPaceCount,
-        permSetTime,
-        permSetCount,
-        timerUpdateInterval,
-        expectedFunctionExecutionTime,
-        pause
-      );
-    }, Math.max(0, timerUpdateInterval - lagTime));
-  }
-}
-
-// function generateMilli(pause, milliGeneratorSwitch) {
-//   document.querySelector(".millione").textContent = `${Math.floor(Math.random() * 10)}`;
-//   if (!pause && !milliGeneratorSwitch) {
-//     setTimeout(generateMilli, 10);
-//   } else {
-//     document.querySelector(".millione").textContent = "0";
-//   }
-// }
-
-// // Record timing when "split" button clicked
-
-// document.querySelector(".timersplit").addEventListener("click", function () {
-//   const splittotal = permdistset - setTime;
-//   const splitminutes = Math.floor(splittotal / (1000 * 60));
-//   const splitseconds = Math.floor(
-//     (splittotal - splitminutes * 1000 * 60) / 1000
-//   );
-//   const splitmilli =
-//     splittotal - splitminutes * 1000 * 60 - splitseconds * 1000;
-
-//   document.querySelector(".timerecord").innerHTML += `
-//     <tr>
-//       <th scope="row">${setCount}</th>
-//       <td>${`${addZeroSec(splitminutes)}:${addZeroSec(splitseconds)}:${addZero(
-//         splitmilli
-//       )}`}</td>
-//       <td>${`${addZero(expectsplitmin)}:${addZeroSec(expectsplitsec)}:00`}</td>
-//     </tr>`;
-// });
 
 document.querySelector(".audioactivate").addEventListener("click", function () {
   currentCallout.play();
 });
-
-////// Timer Display Padding - should be replaced with built-in JS functions ////
-function addZeroMilliNew(numchange) {
-  return numchange.toString().padStart(3, "0");
-}
-
-function addZeroSecNew(numchange) {
-  return numchange.toString().padStart(2, "0");
-}

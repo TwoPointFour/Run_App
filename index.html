@@ -12,8 +12,8 @@
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="src/master.css" />
     <link rel="manifest" href="manifest.json" />
-    <link rel="apple-touch-icon" href="images/icon_x128.svg" />
-    <link rel="icon" href="images/icon_x128.svg" />
+    <link rel="apple-touch-icon" href="images/icon_x128.png" />
+    <link rel="icon" href="images/icon_x128.png" />
     <link rel="serviceWorker" href="sw.js" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
@@ -25,15 +25,147 @@
   </head>
   <body>
     <div class="container-fluid Logo">
-      <div class="row justify-content-center">
-        <div class="col-lg-12">
-          <img src="images/icon_x128.svg" alt="logo" width="72" height="72" />
+      <div class="row d-flex justify-content-between">
+        <div class="col-3 loginGreeting mt-3 head2"></div>
+        <div class="col-lg-3">
+          <img src="images/icon_x128.png" alt="logo" width="72" height="72" />
           <span class="logoname">TwoPointFour</span>
+        </div>
+        <div class="col-3 logOut"><button class="btn btn-warning">Log Out</button></div>
+      </div>
+    </div>
+    <!------- Splash Screen ------------->
+    <div class="container-fluid splashScreen">
+      <div class="row">
+        <div class="col-lg-6">
+          <img class="img-fluid" style="max-width: 80%" src="images/landingSplash.png" />
+        </div>
+        <div class="col-lg-6 mt-4">
+          <div class="splashTitle">
+            Sign up for data driven, personalised running training that works.
+          </div>
+          <button
+            class="btn btn-warning mt-5 joinBtn"
+            style="padding: 1rem 3rem; border-radius: 2rem"
+          >
+            Join now
+          </button>
+        </div>
+      </div>
+      <div class="head1 mt-3">Our Plans</div>
+      <div class="row d-flex mt-4 justify-content-center">
+        <div class="col-lg-3 planCard">
+          <div class="head2">Basic</div>
+          <div class="row d-flex justify-content-center head3">TwoPointFour Train ✅</div>
+          <div class="row d-flex justify-content-center head3">TwoPointFour Track ✅</div>
+          <div class="row d-flex justify-content-center head3">TwoPointFour Community ✅</div>
+          <div class="row d-flex justify-content-center head3">TwoPointFour Suggest ⛔</div>
+          <div class="row d-flex justify-content-center head3">TwoPointFour Plan ⛔</div>
+          <div class="row d-flex justify-content-center head3">TwoPointFour Predict ⛔</div>
+          <div class="row d-flex justify-content-center head3">TwoPointFour Insights ⛔</div>
+          <div class="row d-flex justify-content-center head3">TwoPointFour Secure ⛔</div>
+          <div class="row d-flex justify-content-center head3">TwoPointFour Authentication ⛔</div>
+          <div class="row d-flex justify-content-center head2 mt-4">Free Forever</div>
+          <div class="row d-flex justify-content-center head3">
+            <button class="btn btn-warning mt-2 joinBtn">Join Now</button>
+          </div>
+        </div>
+        <div class="col-lg-3 planCard">
+          <div class="head2">Pro</div>
+          <div class="row d-flex justify-content-center head3">TwoPointFour Train ✅</div>
+          <div class="row d-flex justify-content-center head3">TwoPointFour Track ✅</div>
+          <div class="row d-flex justify-content-center head3">TwoPointFour Community ✅</div>
+          <div class="row d-flex justify-content-center head3">TwoPointFour Suggest ✅</div>
+          <div class="row d-flex justify-content-center head3">TwoPointFour Plan ✅</div>
+          <div class="row d-flex justify-content-center head3">TwoPointFour Predict ✅</div>
+          <div class="row d-flex justify-content-center head3">TwoPointFour Insights ⛔</div>
+          <div class="row d-flex justify-content-center head3">TwoPointFour Secure ⛔</div>
+          <div class="row d-flex justify-content-center head3">TwoPointFour Authentication ⛔</div>
+          <div class="row d-flex justify-content-center head2 mt-4">SGD 5 / month</div>
+          <div class="row d-flex justify-content-center head3">
+            <button class="btn btn-warning mt-2 joinBtn">Join Now</button>
+          </div>
+        </div>
+        <div class="col-lg-3 planCard">
+          <div class="head2">Organization</div>
+          <div class="row d-flex justify-content-center head3">TwoPointFour Train ✅</div>
+          <div class="row d-flex justify-content-center head3">TwoPointFour Track ✅</div>
+          <div class="row d-flex justify-content-center head3">TwoPointFour Community ✅</div>
+          <div class="row d-flex justify-content-center head3">TwoPointFour Suggest ✅</div>
+          <div class="row d-flex justify-content-center head3">TwoPointFour Plan ✅</div>
+          <div class="row d-flex justify-content-center head3">TwoPointFour Predict ✅</div>
+          <div class="row d-flex justify-content-center head3">TwoPointFour Insights ✅</div>
+          <div class="row d-flex justify-content-center head3">TwoPointFour Secure ✅</div>
+          <div class="row d-flex justify-content-center head3">TwoPointFour Authentication ✅</div>
+          <div class="row d-flex justify-content-center head2 mt-4">SGD 9 / month / user</div>
+          <div class="row d-flex justify-content-center head3">
+            <button class="btn btn-warning mt-2 joinBtn">Join Now</button>
+          </div>
+        </div>
+      </div>
+      <div class="head1 mt-3">Our Technology</div>
+      <div class="row d-flex justify-content-center mt-3 mb-5">
+        <div class="col-lg-9 text1">
+          TwoPointFour is a fully automated running app providing world's first data driven
+          personalised running programme to optimise results for any runners, regardless of their
+          starting level. TwoPointFour adapts training plans based on your performance to provide
+          the best outcome and help you achieve your goals faster.
+        </div>
+      </div>
+      <div class="row d-flex justify-content-center mt-3 mb-5">
+        <div class="col-lg-9 text1">
+          TwoPointFour offers the most effective running training in the world: 42% faster in 5K and
+          42% faster in 10K. TwoPointFour can be your edge to perform better, get fit, stay
+          motivated and have fun.
+        </div>
+      </div>
+      <div class="row d-flex justify-content-center mt-3 mb-5">
+        <div class="col-lg-9 text1">
+          Our running training programmes are for the long term runner. The programmes are developed
+          in close partnership with elite exercise-scientists with a sport-science foundation, who
+          ensure that every run is challenging and will lead to performance gains for runners of all
+          levels. The workouts are interconnected and can be varied in difficulty level making them
+          challenging to a high or low level runner. In order to master the challenges, we provide
+          two types of coaching that are delivered via our state-of-art technology as well as
+          tailor-made coaching from experienced coaches in your city.
         </div>
       </div>
     </div>
+    <!-------END OF Splash Screen ------------->
+
+    <div class="container-fluid loginPage d-none">
+      <div class="row d-flex justify-content-center">
+        <div class="col-lg-4 col-md-6 col-sm-8 planCard">
+          <div class="head2">Login</div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input
+              type="email"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+            />
+            <div id="emailHelp" class="form-text">
+              We'll never share your email with anyone else.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" />
+          </div>
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+            <label class="form-check-label" for="exampleCheck1"
+              >Consent for personal data sharing</label
+            >
+          </div>
+          <button type="submit" class="btn btn-warning mb-4 loginBtn">Submit</button>
+        </div>
+      </div>
+    </div>
+
     <!-- User Choice between Timed Interval and Distance Interval-->
-    <div class="container-fluid TypeChoice">
+    <div class="container-fluid TypeChoice d-none">
       <div class="col-lg-12 d-grid featureCard">
         <div class="row featureCardTitle">TwoPointFour Train</div>
         <div class="row">
@@ -80,5 +212,6 @@
         </div>
       </div>
     </div>
+    <script type="module" src="src/login.js"></script>
   </body>
 </html>

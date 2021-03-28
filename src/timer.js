@@ -34,8 +34,14 @@ function addZeroSecNew(numchange) {
   return numchange.toString().padStart(2, "0");
 }
 
-export function initialiseTimer(input) {
+window.onload = function initialiseTimer() {
   ///// Initialising Variables //////////////
+  const input = {
+    permSetCount: '2',
+    permDistance: '2',
+    permPaceTime: '2',
+    permSetTimeMin: '2',
+    permSetTimeSec: '2'}
   let timerUpdateInterval = 20;
   let expectedFunctionExecutionTime;
   const { permSetCount, permDistance, permPaceTime, permSetTimeMin, permSetTimeSec } = input;

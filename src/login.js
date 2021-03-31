@@ -6,6 +6,8 @@ const account_1 = {
   name: "Yi Hein",
 };
 
+// lol
+
 const visible = (elementClass, state) => {
   state
     ? document.querySelector(`.${elementClass}`).classList.remove("d-none")

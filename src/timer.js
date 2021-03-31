@@ -1,5 +1,6 @@
 import { account_1 } from "./script.js";
 export let variablePackage = {};
+export let trainingInfo;
 /////////////////////// Timer Function //////////////////////////////////
 
 const currentCallout = document.querySelector(".audioenable");
@@ -152,9 +153,9 @@ function activateSplitBtn(variablePackage) {
 
 function activateCompleteBtn() {
   document.querySelector(".completeTraining").addEventListener("click", function () {
-    const trainingInfo = Object.assign({}, variablePackage);
-    account_1.data.push(trainingInfo);
-    console.log(account_1.data);
+    trainingInfo = Object.assign({}, variablePackage);
+    // account_1.data.push(trainingInfo);
+    // console.log(account_1.data);
     document.querySelector(".trainingDataTable").innerHTML = `
     <table class="table">
     <thread>

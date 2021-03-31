@@ -195,6 +195,7 @@ h6,
 
 .recordcard {
   border-radius: 15px;
+  border: 1px solid black;
 }
 
 .trainingRecords {
@@ -300,4 +301,11 @@ h6,
 /* Forms */
 .DistanceForm {
   max-width: 60rem;
+}
+
+/* Distance Timer Form */
+
+.startSuggestedTraining {
+  padding: 5rem;
+  border-radius: 1rem;
 }

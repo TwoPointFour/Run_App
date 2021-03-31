@@ -1,4 +1,5 @@
 import { initialiseTimer } from "./timer.js";
+import { trainingPlan } from "./suggest.js";
 
 const timedBtn = document.querySelector(".timed");
 const distanceBtn = document.querySelector(".distance");
@@ -20,6 +21,12 @@ const visible = (elementClass, state) => {
 DistanceSubmit.addEventListener("click", function () {
   visible("DistanceForm", false);
   visible("DistanceTimer", true);
+});
+
+document.querySelector(".startSuggestedTraining").addEventListener("click", function () {
+  visible("DistanceForm", false);
+  visible("DistanceTimer", true);
+  initialiseTimer(trainingPlan);
 });
 
 document.querySelector(".distancesubmit").addEventListener("click", function () {

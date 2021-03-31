@@ -12,8 +12,8 @@
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="src/master.css" />
     <link rel="manifest" href="manifest.json" />
-    <link rel="apple-touch-icon" href="images/icon_x128.svg" />
-    <link rel="icon" href="images/icon_x128.svg" />
+    <link rel="apple-touch-icon" href="images/icon_x128.png" />
+    <link rel="icon" href="images/icon_x128.png" />
     <link rel="serviceWorker" href="sw.js" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
@@ -27,13 +27,20 @@
     <div class="container-fluid Logo">
       <div class="row justify-content-center">
         <div class="col-lg-12">
-          <img src="images/icon_x128.svg" alt="logo" width="72" height="72" />
+          <img src="images/icon_x128.png" alt="logo" width="72" height="72" />
           <span class="logoname">TwoPointFour</span>
         </div>
       </div>
     </div>
     <!-- Distance Interval User Input Form-->
     <div class="container-fluid DistanceForm">
+      <div class="row d-flex justify-content-center">
+        <div class="col-lg-6 d-flex justify-content-center mt-3 mb-5">
+          <button type="button" class="btn btn-outline-primary startSuggestedTraining">
+            Start Suggested Training
+          </button>
+        </div>
+      </div>
       <div class="row">
         <h4 class="d-flex justify-content-center mb-4">Distance Interval</h4>
       </div>
@@ -180,9 +187,9 @@
           </div>
           <div class="row">
             <div class="col-12">
-              <button type="button" class="mt-4 completeTraining btn btn-warning">
-                Complete Training
-              </button>
+              <a class="mt-4 completeTraining btn btn-warning" role="button" href="results.html"
+                >Complete Training</a
+              >
             </div>
           </div>
         </div>
@@ -194,6 +201,7 @@
     <!-- END OF Distance Interval Timer-->
 
     <script type="module" src="src/distanceTimer.js"></script>
+    <script type="module" src="src/suggest.js"></script>
     <script type="module" src="src/timer.js"></script>
   </body>
 </html>

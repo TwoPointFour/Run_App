@@ -1,4 +1,14 @@
 // import getUser from "./main.js";
+import { initialiseTimer } from "./timer.js";
+import { trainingInfo } from "./timer.js";
+
+export const trainingPlan = {
+  permSetCount: "2",
+  permDistance: "300",
+  permPaceTime: "10000",
+  permSetTimeMin: "2",
+  permSetTimeSec: "2",
+};
 
 const getPace = (time) => {
   return 2400 / time;
@@ -52,6 +62,7 @@ const info = {
   targetTimeSec: "30",
   weeks: "5",
 };
+
 // getTrainingPlan(info)
 
 // Units are in metres and seconds

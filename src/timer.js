@@ -86,6 +86,7 @@ export function initialiseTimer(input) {
   activateSplitBtn(variablePackage);
   activateCompleteBtn(variablePackage);
   activateAudio();
+  activateVolumeCtrl(variablePackage);
 }
 
 ////// Buttons and effects /////////////////////
@@ -148,7 +149,6 @@ function activateSplitBtn(variablePackage) {
     const [minutes, seconds, milli] = toMinutesSecondsMilli(splitSetTime);
 
     displaySplitTime(variablePackage, minutes, seconds, milli);
-    console.log(variablePackage.runData);
   });
 }
 
@@ -246,13 +246,13 @@ function displayMinutes(setTime, paceCount, paceTime, permPaceCount) {
 
 function updateCountdown(variablePackage) {
   const lagTime = Date.now() - variablePackage.expectedFunctionExecutionTime;
-  console.log(
-    `${lagTime} (Lag Time) = ${Date.now()} (Datenow) - ${
-      variablePackage.expectedFunctionExecutionTime
-    } (expected time)  Pace Time: ${variablePackage.paceTime} PaceCount: ${
-      variablePackage.paceCount
-    }   Pause: ${variablePackage.pause}`
-  );
+  // console.log(
+  //   `${lagTime} (Lag Time) = ${Date.now()} (Datenow) - ${
+  //     variablePackage.expectedFunctionExecutionTime
+  //   } (expected time)  Pace Time: ${variablePackage.paceTime} PaceCount: ${
+  //     variablePackage.paceCount
+  //   }   Pause: ${variablePackage.pause}`
+  // );
   updatePaceTimer(variablePackage);
   updateSetTimer(variablePackage);
   displayPaceCount(variablePackage.paceCount);
@@ -294,9 +294,6 @@ function updateSetTimer(variablePackage) {
     variablePackage.paceTime = variablePackage.permPaceTime - 20;
     variablePackage.setTime = variablePackage.permSetTime - 20;
     variablePackage.setCount++;
-    console.log(
-      `values reset! paceCount: ${variablePackage.paceCount}, paceTime: ${variablePackage.paceTime} setTime: ${variablePackage.setTime}`
-    );
   } else if (
     variablePackage.setCount >= variablePackage.permSetCount &&
     variablePackage.setTime <= 0
@@ -354,5 +351,16 @@ function restCallouts(variablePackage) {
 function activateAudio() {
   document.querySelector(".audioactivate").addEventListener("click", function () {
     currentCallout.play();
+  });
+}
+
+function activateVolumeCtrl(variablePackage) {
+  document.querySelector(".audioenable").addEventListener("volumechange", function () {
+    const splitSetTime = variablePackage.permSetTime - variablePackage.setTime;
+    variablePackage.runData.set(variablePackage.setCount, splitSetTime);
+
+    const [minutes, seconds, milli] = toMinutesSecondsMilli(splitSetTime);
+
+    displaySplitTime(variablePackage, minutes, seconds, milli);
   });
 }

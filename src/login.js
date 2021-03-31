@@ -14,15 +14,27 @@ const visible = (elementClass, state) => {
     : document.querySelector(`.${elementClass}`).classList.add("d-none");
 };
 
-document.querySelector(".priceBtn").addEventListener("click", function (e) {
-  document.querySelector(".pricingSection").scrollIntoView({ behavior: "smooth" });
+// Event Delegation for Navbar
+
+document.querySelector(".navContainer").addEventListener("click", function (e) {
+  e.preventDefault();
+  document.querySelectorAll(".navitem").forEach((ele) => {
+    const id = e.target.getAttribute("href");
+    if (e.target.classList.contains("navitem")) {
+      document.querySelector(id).scrollIntoView({ behavior: "smooth" });
+    }
+  });
 });
-document.querySelector(".techBtn").addEventListener("click", function (e) {
-  document.querySelector(".techSection").scrollIntoView({ behavior: "smooth" });
-});
-document.querySelector(".aboutBtn").addEventListener("click", function (e) {
-  document.querySelector(".aboutSection").scrollIntoView({ behavior: "smooth" });
-});
+
+// document.querySelector(".priceBtn").addEventListener("click", function (e) {
+//   document.querySelector(".pricingSection").scrollIntoView({ behavior: "smooth" });
+// });
+// document.querySelector(".techBtn").addEventListener("click", function (e) {
+//   document.querySelector(".techSection").scrollIntoView({ behavior: "smooth" });
+// });
+// document.querySelector(".aboutBtn").addEventListener("click", function (e) {
+//   document.querySelector(".aboutSection").scrollIntoView({ behavior: "smooth" });
+// });
 document.querySelector(".homeBtn").addEventListener("click", function (e) {
   visible("splashScreen", true);
   visible("TypeChoice", false);

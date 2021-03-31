@@ -12,10 +12,24 @@ const visible = (elementClass, state) => {
     : document.querySelector(`.${elementClass}`).classList.add("d-none");
 };
 
+document.querySelector(".priceBtn").addEventListener("click", function (e) {
+  document.querySelector(".pricingSection").scrollIntoView({ behavior: "smooth" });
+});
+document.querySelector(".techBtn").addEventListener("click", function (e) {
+  document.querySelector(".techSection").scrollIntoView({ behavior: "smooth" });
+});
+document.querySelector(".aboutBtn").addEventListener("click", function (e) {
+  document.querySelector(".aboutSection").scrollIntoView({ behavior: "smooth" });
+});
+document.querySelector(".homeBtn").addEventListener("click", function (e) {
+  visible("splashScreen", true);
+  visible("TypeChoice", false);
+});
+
 document.querySelectorAll(".joinBtn").forEach(function (element) {
   element.addEventListener("click", function () {
     visible("splashScreen", false);
-    visible("loginPage", true);
+    visible("TypeChoice", true);
   });
 });
 

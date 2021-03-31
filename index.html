@@ -26,16 +26,27 @@
   <body>
     <div class="container-fluid Logo">
       <div class="row d-flex justify-content-between">
-        <div class="col-3 loginGreeting mt-3 head2"></div>
         <div class="col-lg-3">
           <img src="images/icon_x128.png" alt="logo" width="72" height="72" />
           <span class="logoname">TwoPointFour</span>
         </div>
-        <div class="col-3 logOut"><button class="btn btn-warning">Log Out</button></div>
+        <div class="col-2 mt-3 head3">
+          <a class="navitem homeBtn" role="button">Home</a>
+        </div>
+        <div class="col-2 mt-3 head3">
+          <a class="navitem priceBtn" role="button">Pricing</a>
+        </div>
+        <div class="col-2 mt-3 head3">
+          <a class="navitem techBtn" role="button">Our Technology</a>
+        </div>
+        <div class="col-2 mt-3 head3">
+          <a class="navitem aboutBtn" role="button">About Us</a>
+        </div>
       </div>
     </div>
     <!------- Splash Screen ------------->
-    <div class="container-fluid splashScreen d-none">
+    <div class="container-fluid splashScreen">
+      <div class="row spacer-sm"></div>
       <div class="row">
         <div class="col-lg-6">
           <img class="img-fluid" style="max-width: 80%" src="images/landingSplash.png" />
@@ -48,12 +59,13 @@
             class="btn btn-warning mt-5 joinBtn"
             style="padding: 1rem 3rem; border-radius: 2rem"
           >
-            Join now
+            Start Now
           </button>
         </div>
       </div>
-      <div class="head1 mt-3">Our Plans</div>
-      <div class="row d-flex mt-4 justify-content-center">
+      <div class="row spacer"></div>
+      <div class="head1 mt-3 pricingSection">Pricing</div>
+      <div class="row d-flex mt-4 mx-1 justify-content-center">
         <div class="col-lg-3 planCard">
           <div class="head2">Basic</div>
           <div class="row d-flex justify-content-center head3">TwoPointFour Train ✅</div>
@@ -103,7 +115,8 @@
           </div>
         </div>
       </div>
-      <div class="head1 mt-3">Our Technology</div>
+      <div class="row spacer"></div>
+      <div class="head1 mt-3 techSection">Our Technology</div>
       <div class="row d-flex justify-content-center mt-3 mb-5">
         <div class="col-lg-9 text1">
           TwoPointFour is a fully automated running app providing world's first data driven
@@ -130,7 +143,131 @@
           tailor-made coaching from experienced coaches in your city.
         </div>
       </div>
+      <div class="row spacer"></div>
+      <div class="head1 mt-3 aboutSection">About Us</div>
+      <div class="row d-flex justify-content-center mx-1 mt-3 mb-5">
+        <div class="col-lg-3 text1 mb-4 planCard">
+          <div class="row">
+            <div class="col-12 head2" style="margin-bottom: 0rem">Ulva Tenny</div>
+          </div>
+          <div class="row">
+            <div class="col-12 head2">
+              <img
+                width="60%"
+                src="https://images.generated.photos/PbwhiOdRoy7YwBDGItg1nQCc5YdfKHLYf0lzqX-mF0s/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAyMjA2MDguanBn.jpg"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              As CEO of TwoPointFour, Ulva Tenny is a serial entrepreneur and has vast experience in
+              building great companies in the tech space. He is passionate about gamification and
+              providing value to startups and business to achieve phenomenal outcomes.
+            </div>
+          </div>
+          <div class="row">
+            <button class="btn btn-warning">Chief Executive Officer</button>
+          </div>
+        </div>
+        <div class="col-lg-3 text1 mb-4 planCard">
+          <div class="row">
+            <div class="col-12 head2" style="margin-bottom: 0rem">Ken Peters</div>
+          </div>
+          <div class="row">
+            <div class="col-12 head2">
+              <img
+                width="60%"
+                src="https://images.generated.photos/OrbAwWh-smb_TmaFOrzvtmHlf8UE2oAjjTmj2V6GbkE/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA5MjMyNzguanBn.jpg"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              Ken Peters is the CTO of TwoPointFour. He is a data scientist and machine learning
+              engineer who has developed new algorithms for solving problems in computer vision,
+              natural language processing, and user interfaces. He holds a master’s degree in
+              computer science from MIT.
+            </div>
+          </div>
+          <div class="row">
+            <button class="btn btn-warning">Chief Technology Officer</button>
+          </div>
+        </div>
+        <div class="col-lg-3 text1 mb-4 planCard">
+          <div class="row">
+            <div class="col-12 head2" style="margin-bottom: 0rem">Baz Coleman</div>
+          </div>
+          <div class="row">
+            <div class="col-12 head2">
+              <img
+                width="60%"
+                src="https://images.generated.photos/UGza78cjVIyYLJzEn_u46W4xIfrZsTUZ4xCtk9lS5q0/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAyNDAzOTEuanBn.jpg"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              Baz Coleman is TwoPointFour's Head of Business Development. Baz is responsible for the
+              company’s mergers, acquisitions and strategic investing efforts. He has overseen the
+              successful integration of vital technologies and new businesses across hardware,
+              software.
+            </div>
+          </div>
+          <div class="row">
+            <button class="btn btn-warning">Head of Business Development</button>
+          </div>
+        </div>
+        <div class="col-lg-3 text1 mb-4 planCard">
+          <div class="row">
+            <div class="col-12 head2" style="margin-bottom: 0rem">Theo Bond</div>
+          </div>
+          <div class="row">
+            <div class="col-12 head2">
+              <img
+                width="60%"
+                src="https://images.generated.photos/hqLxztxmRGnCA9VuRMqReWlVp-kojN5oV_T5oCYz9ig/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAyOTY3ODguanBn.jpg"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              Theo Bond is Two Point Four's Head of Fitness Innovation. Theo brings with him a
+              wealth of domain-expertise in the fitness space and innovates relentlessly. He works
+              alongside a product development team to build better ways to increase training
+              efficiency.
+            </div>
+          </div>
+          <div class="row">
+            <button class="btn btn-warning">Head of Fitness Innovation</button>
+          </div>
+        </div>
+        <div class="col-lg-3 text1 mb-4 planCard">
+          <div class="row">
+            <div class="col-12 head2" style="margin-bottom: 0rem">Toby Currey</div>
+          </div>
+          <div class="row">
+            <div class="col-12 head2">
+              <img
+                width="60%"
+                src="https://images.generated.photos/CLdBMKci_a8uQNYa80oa8SyvEw9UzAurvo9Hpc7xboo/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA5ODg0NjMuanBn.jpg"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              Toby Currey is a data science expert and cybersecurity expert, helping organisations
+              embrace analytics. Bringing critical analysis to some of the world’s most complex
+              technology challenges. He brings to TwoPointFour, 15 years of experience in
+              establishing data teams.
+            </div>
+          </div>
+          <div class="row">
+            <button class="btn btn-warning">Head of Data</button>
+          </div>
+        </div>
+      </div>
     </div>
+
     <!-------END OF Splash Screen ------------->
 
     <div class="container-fluid loginPage d-none">
@@ -165,7 +302,7 @@
     </div>
 
     <!-- User Choice between Timed Interval and Distance Interval-->
-    <div class="container-fluid TypeChoice">
+    <div class="container-fluid TypeChoice d-none">
       <div class="col-lg-12 d-grid featureCard">
         <div class="row featureCardTitle">TwoPointFour Train</div>
         <div class="row">

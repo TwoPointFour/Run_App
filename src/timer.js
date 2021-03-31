@@ -85,6 +85,7 @@ export function initialiseTimer(input) {
   activatePauseBtn(variablePackage);
   activateSplitBtn(variablePackage);
   activateCompleteBtn(variablePackage);
+  activateAudio();
 }
 
 ////// Buttons and effects /////////////////////
@@ -350,7 +351,8 @@ function restCallouts(variablePackage) {
     callCallout(`callouts/starting`);
   }
 }
-
-document.querySelector(".audioactivate").addEventListener("click", function () {
-  currentCallout.play();
-});
+function activateAudio() {
+  document.querySelector(".audioactivate").addEventListener("click", function () {
+    currentCallout.play();
+  });
+}

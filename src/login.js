@@ -12,29 +12,31 @@ const visible = (elementClass, state) => {
     : document.querySelector(`.${elementClass}`).classList.add("d-none");
 };
 
-document.querySelector(".joinBtn").addEventListener("click", function () {
-  visible("splashScreen", false);
-  visible("loginPage", true);
-});
-
-document.querySelectorAll(".loginBtn").forEach(function (element) {
+document.querySelectorAll(".joinBtn").forEach(function (element) {
   element.addEventListener("click", function () {
-    if (
-      document.querySelector("#exampleInputEmail1").value === account_1.email &&
-      document.querySelector("#exampleInputPassword1").value === account_1.password
-    ) {
-      visible("loginPage", false);
-      visible("TypeChoice", true);
-      document.querySelector(".loginGreeting").textContent = `Welcome, ${account_1.name}!`;
-      console.log(`Welcome, ${account_1.name}!`);
-    } else {
-      console.log("Wrong credentials!");
-    }
+    visible("splashScreen", false);
+    visible("loginPage", true);
   });
 });
 
+document.querySelector(".loginBtn").addEventListener("click", function () {
+  if (
+    document.querySelector("#exampleInputEmail1").value === account_1.email &&
+    document.querySelector("#exampleInputPassword1").value === account_1.password
+  ) {
+    visible("loginPage", false);
+    visible("TypeChoice", true);
+    document.querySelector(".loginGreeting").textContent = `Welcome, ${account_1.name}!`;
+    console.log(`Welcome, ${account_1.name}!`);
+  } else {
+    console.log("Wrong credentials!");
+  }
+});
+
 document.querySelector(".logOut").addEventListener("click", function () {
-  visible("loginPage", false);
-  visible("TypeChoice", false);
-  visible("splashScreen", true);
+  document.querySelector(".loginPage").classList.toggle("d-none");
+  document.querySelector(".splashScreen").classList.toggle("d-none");
+  // visible("loginPage", false);
+  // visible("TypeChoice", false);
+  // visible("splashScreen", true);
 });

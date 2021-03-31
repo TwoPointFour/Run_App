@@ -127,9 +127,11 @@ function activateStartBtn(variablePackage) {
     }
     variablePackage.pause = false;
 
-    setTimeout(function () {
-      updateCountdown(variablePackage);
-    }, variablePackage.timerUpdateInterval);
+    setTimeout(
+      updateCountdown(variablePackage),
+      variablePackage.timerUpdateInterval,
+      variablePackage
+    );
     // setTimeout(function () {
     //   generateMilli(pause, milliGeneratorSwitch);
     // }, 10);

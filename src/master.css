@@ -28,11 +28,16 @@ h6,
 }
 
 /* --------- Logos and Company Name ------------- */
+.sticky {
+  position: fixed !important;
+  background-color: white;
+}
 
 .Logo {
   text-align: center;
-  margin-top: 2vh;
-  margin-bottom: 1vh;
+  padding-top: 2vh;
+  top: 0px;
+  position: absolute;
 }
 
 .logoname {
@@ -326,4 +331,18 @@ h6,
 .startSuggestedTraining {
   padding: 5rem;
   border-radius: 1rem;
+}
+
+/* Animations */
+.section {
+  transition: transform 1s, opacity 1s;
+}
+.section--hidden {
+  opacity: 0;
+  transform: translateY(8rem);
+}
+
+/* Images */
+.lazyImage {
+  filter: blur(20px);
 }

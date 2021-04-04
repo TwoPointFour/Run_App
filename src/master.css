@@ -74,6 +74,24 @@ h6,
 
 /* Splash Screen */
 
+.spacer {
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+}
+.spacer-sm {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.navitem {
+  text-decoration: none;
+  color: black;
+}
+
+.navitem:hover {
+  color: #febb4e;
+}
+
 .splashTitle {
   font-size: 3rem;
   font-family: "Poppins", sans-serif;
@@ -195,6 +213,7 @@ h6,
 
 .recordcard {
   border-radius: 15px;
+  border: 1px solid black;
 }
 
 .trainingRecords {
@@ -300,4 +319,11 @@ h6,
 /* Forms */
 .DistanceForm {
   max-width: 60rem;
+}
+
+/* Distance Timer Form */
+
+.startSuggestedTraining {
+  padding: 5rem;
+  border-radius: 1rem;
 }

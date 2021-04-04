@@ -1,3 +1,15 @@
+// import getUser from "./main.js";
+import { initialiseTimer } from "./timer.js";
+import { trainingInfo } from "./timer.js";
+
+export const trainingPlan = {
+  permSetCount: "2",
+  permDistance: "300",
+  permPaceTime: "10000",
+  permSetTimeMin: "2",
+  permSetTimeSec: "2",
+};
+
 const getPace = (time) => {
   return 2400 / time;
 };
@@ -43,11 +55,32 @@ const getTrainingIntervals = (weeklyTargetImprovement, targetPace) => {
   }
 };
 
+const info = {
+  currentTimeMin: "11",
+  currentTimeSec: "30",
+  targetTimeMin: "10",
+  targetTimeSec: "30",
+  weeks: "5",
+};
+
+// getTrainingPlan(info)
+
+// Units are in metres and seconds
+// function getTrainingPlan(info) {
+//     const userInfo = {
+//         'currentTime': parseInt(info.currentTimeMin) * 60 + parseInt(info.currentTimeSec),
+//         'targetTime': parseInt(info.targetTimeMin) * 60 + parseInt(info.targetTimeSec),
+//         weeks: parseInt(info.weeks)
+//     };
+//     const initialTargetImprovement = 100 + deltaDifficultyPerWeek(userInfo);
+//     return getTrainingIntervals(initialTargetImprovement, getTargetPace(parseInt(userInfo.targetTime)));
+// }
+
 // Later add to utils, don't keep it for elementClass only
-const visible = (element, state) => {
+const visible = (elementClass, state) => {
   state
-    ? document.querySelector(`${element}`).classList.remove("d-none")
-    : document.querySelector(`${element}`).classList.add("d-none");
+    ? document.querySelector(`.${elementClass}`).classList.remove("d-none")
+    : document.querySelector(`.${elementClass}`).classList.add("d-none");
 };
 
 const fields = ['targetMin', 'targetSec', 'currentMin', 'currentSec', 'weeks']
@@ -99,6 +132,24 @@ const getTrainingPlan = (e) => {
   // https://www.aspsnippets.com/Articles/Redirect-to-another-Page-with-multiple-Parameters-using-JavaScript.aspx
 };
 
+/*
+const getTrainingPlan = async (e) => {
+  const display = document.querySelector(".inputSubmit");
+  display.innerText = "hhfdg";
+  // create new div to display results
+  visible("#display-suggest", false);
+  //   const user = {};
+  //   for (let i = 0; i < 4; i++) {
+  //     user[form.elements[i].name] = form.elements[i].value;
+  //   }
+  //   console.log(user);
+  //   const display = document.getElementById("display");
+
+  //   console.log("User data processed");
+  //   // display suggested workout, then go to timer
+  //   display.innerText = await getUser(user);
+};
+ */
 const init = () => {
   console.log("suggest init done");
   const submitButton = document.querySelector(".inputSubmit");

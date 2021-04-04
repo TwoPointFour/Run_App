@@ -1,5 +1,6 @@
 import { account_1 } from "./script.js";
 export let variablePackage = {};
+export let trainingInfo;
 /////////////////////// Timer Function //////////////////////////////////
 
 const currentCallout = document.querySelector(".audioenable");
@@ -90,6 +91,8 @@ window.onload = function initialiseTimer() {
   activatePauseBtn(variablePackage);
   activateSplitBtn(variablePackage);
   activateCompleteBtn(variablePackage);
+  activateAudio();
+  activateVolumeCtrl(variablePackage);
 }
 
 ////// Buttons and effects /////////////////////
@@ -133,9 +136,11 @@ function activateStartBtn(variablePackage) {
     }
     variablePackage.pause = false;
 
-    setTimeout(function () {
-      updateCountdown(variablePackage);
-    }, variablePackage.timerUpdateInterval);
+    setTimeout(
+      updateCountdown(variablePackage),
+      variablePackage.timerUpdateInterval,
+      variablePackage
+    );
     // setTimeout(function () {
     //   generateMilli(pause, milliGeneratorSwitch);
     // }, 10);
@@ -150,15 +155,14 @@ function activateSplitBtn(variablePackage) {
     const [minutes, seconds, milli] = toMinutesSecondsMilli(splitSetTime);
 
     displaySplitTime(variablePackage, minutes, seconds, milli);
-    console.log(variablePackage.runData);
   });
 }
 
 function activateCompleteBtn() {
   document.querySelector(".completeTraining").addEventListener("click", function () {
-    const trainingInfo = Object.assign({}, variablePackage);
-    account_1.data.push(trainingInfo);
-    console.log(account_1.data);
+    trainingInfo = Object.assign({}, variablePackage);
+    // account_1.data.push(trainingInfo);
+    // console.log(account_1.data);
     document.querySelector(".trainingDataTable").innerHTML = `
     <table class="table">
     <thread>
@@ -248,13 +252,13 @@ function displayMinutes(setTime, paceCount, paceTime, permPaceCount) {
 
 function updateCountdown(variablePackage) {
   const lagTime = Date.now() - variablePackage.expectedFunctionExecutionTime;
-  console.log(
-    `${lagTime} (Lag Time) = ${Date.now()} (Datenow) - ${
-      variablePackage.expectedFunctionExecutionTime
-    } (expected time)  Pace Time: ${variablePackage.paceTime} PaceCount: ${
-      variablePackage.paceCount
-    }   Pause: ${variablePackage.pause}`
-  );
+  // console.log(
+  //   `${lagTime} (Lag Time) = ${Date.now()} (Datenow) - ${
+  //     variablePackage.expectedFunctionExecutionTime
+  //   } (expected time)  Pace Time: ${variablePackage.paceTime} PaceCount: ${
+  //     variablePackage.paceCount
+  //   }   Pause: ${variablePackage.pause}`
+  // );
   updatePaceTimer(variablePackage);
   updateSetTimer(variablePackage);
   displayPaceCount(variablePackage.paceCount);
@@ -296,9 +300,6 @@ function updateSetTimer(variablePackage) {
     variablePackage.paceTime = variablePackage.permPaceTime - 20;
     variablePackage.setTime = variablePackage.permSetTime - 20;
     variablePackage.setCount++;
-    console.log(
-      `values reset! paceCount: ${variablePackage.paceCount}, paceTime: ${variablePackage.paceTime} setTime: ${variablePackage.setTime}`
-    );
   } else if (
     variablePackage.setCount >= variablePackage.permSetCount &&
     variablePackage.setTime <= 0
@@ -353,7 +354,19 @@ function restCallouts(variablePackage) {
     callCallout(`callouts/starting`);
   }
 }
+function activateAudio() {
+  document.querySelector(".audioactivate").addEventListener("click", function () {
+    currentCallout.play();
+  });
+}
 
-document.querySelector(".audioactivate").addEventListener("click", function () {
-  currentCallout.play();
-});
+function activateVolumeCtrl(variablePackage) {
+  document.querySelector(".audioenable").addEventListener("volumechange", function () {
+    const splitSetTime = variablePackage.permSetTime - variablePackage.setTime;
+    variablePackage.runData.set(variablePackage.setCount, splitSetTime);
+
+    const [minutes, seconds, milli] = toMinutesSecondsMilli(splitSetTime);
+
+    displaySplitTime(variablePackage, minutes, seconds, milli);
+  });
+}

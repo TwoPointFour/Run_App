@@ -148,9 +148,9 @@ const imageCallback = (entries, observer) => {
   const [entry] = entries;
   console.log(entry);
   if (!entry.isIntersecting) return;
-  entry.target.classList.remove("lazyImage");
   entry.target.src = entry.target.dataset.lazyImage;
   observer.unobserve(entry.target);
+  entry.target.addEventListener("load", () => entry.target.classList.remove("lazyImage"));
 };
 const imageObserver = new IntersectionObserver(imageCallback, imageOptions);
 

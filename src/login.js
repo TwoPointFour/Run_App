@@ -68,6 +68,7 @@ document.querySelectorAll(".joinBtn").forEach(function (element) {
   element.addEventListener("click", function () {
     visible("splashScreen", false);
     visible("TypeChoice", true);
+    navObserver.unobserve(document.querySelector(".header"));
   });
 });
 
@@ -114,6 +115,7 @@ const observerOptions = {
 const navObserver = new IntersectionObserver(observerCallback, observerOptions);
 
 navObserver.observe(document.querySelector(".header"));
+// choiceObserver.observe(document.querySelector(".TypeChoice"));
 
 // Fade in reveals
 

@@ -25,18 +25,23 @@
   </head>
   <body>
     <div class="container-fluid Logo">
-      <div class="row justify-content-center">
-        <div class="col-lg-12">
-          <img src="images/icon_x128.png" alt="logo" width="72" height="72" />
+      <div class="row d-flex justify-content-between navContainer">
+        <div class="col-lg-3">
+          <img src="images/icon_x48.png" alt="logo" width="48" height="48" />
           <span class="logoname">TwoPointFour</span>
+        </div>
+        <div class="col-2 mt-3 head3">
+          <a class="navitem priceBtn" href="distanceTimer.html" role="button">Train</a>
+        </div>
+        <div class="col-2 mt-3 head3">
+          <a class="navitem techBtn" href="track.html" role="button">Track</a>
+        </div>
+        <div class="col-2 mt-3 head3">
+          <a class="navitem aboutBtn" href="suggest.html" role="button">Suggest</a>
         </div>
       </div>
     </div>
     <div class="container-fluid">
-      <div class="row">
-        <button class="btn btn-outline-warning loadData">Loading Data</button>
-        <h4 class="d-flex justify-content-center mb-4">Training Records</h4>
-      </div>
       <div class="row justify-content-center trainingRecords">
         <div class="d-grid col-lg-12 trainingList">
           <div class="btn btn-outline-dark recordcard mb-3">

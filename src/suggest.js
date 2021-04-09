@@ -149,7 +149,74 @@ const getTrainingPlan = async (e) => {
   //   // display suggested workout, then go to timer
   //   display.innerText = await getUser(user);
 };
- */
+
+// Yi Hein's Area =============== Front END
+
+document.querySelector(".actionBtn").addEventListener("click", function () {
+  document.querySelector(".questionnaireStart").classList.toggle("d-none");
+  document.querySelector(".questionnaireProfile").classList.toggle("d-none");
+});
+
+document.querySelectorAll(".slide").forEach((s, i) => {
+  s.style = `transform: translateX(${i * 100}%)`;
+});
+
+let counter = 0;
+
+document.querySelectorAll(".proceedBtn").forEach((b, i) => {
+  b.addEventListener("click", slideAdvance);
+});
+document.querySelectorAll(".reverseBtn").forEach((b, i) => {
+  b.addEventListener("click", slideReverse);
+});
+
+document.addEventListener("keydown", function (e) {
+  e.key === "ArrowLeft" && slideReverse();
+  e.key === "ArrowRight" && slideAdvance();
+});
+
+function slideAdvance() {
+  counter >= 7 ? (counter = 7) : counter++;
+  goToSlide(counter);
+}
+function slideReverse() {
+  counter <= 0 ? (counter = 0) : counter--;
+  goToSlide(counter);
+}
+
+function goToSlide(counter) {
+  counter = Number(counter);
+  document
+    .querySelectorAll(".dots__dot")
+    .forEach((d, i) => d.classList.remove("dots__dot--active"));
+
+  document.querySelectorAll(".slide").forEach((s, i) => {
+    s.style = `transform: translateX(${(i - counter) * 100}%)`;
+  });
+  document
+    .querySelectorAll(".dots__dot")
+    .forEach((d, i) => (d.dataset.slide == counter ? d.classList.add("dots__dot--active") : null));
+  document.querySelector(".progressChip").textContent = `${Math.floor(((counter + 1) / 8) * 100)}%`;
+}
+
+// Slide Nav
+
+document.querySelectorAll(".slide").forEach((_, i) => {
+  document
+    .querySelector(".dotsContainer")
+    .insertAdjacentHTML("beforeend", `<button class="dots__dot" data-slide="${i}"></button>`);
+});
+
+document.querySelector(".dotsContainer").addEventListener("click", function (e) {
+  if (e.target.classList.contains("dots__dot")) {
+    e.target.classList.add("dots__dot--active");
+    goToSlide(e.target.dataset.slide);
+    counter = e.target.dataset.slide;
+  }
+});
+
+// Yi Hein's Area ===============
+
 const init = () => {
   console.log("suggest init done");
   const submitButton = document.querySelector(".inputSubmit");

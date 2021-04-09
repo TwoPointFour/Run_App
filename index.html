@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="src/master.css" />
     <link rel="manifest" href="manifest.json" />
     <link rel="apple-touch-icon" href="images/icon_x128apple.png" />
-    <link rel="icon" href="images/icon_x128.png" />
+    <link rel="icon" href="images/icon_x48.png" />
     <link rel="serviceWorker" href="sw.js" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
@@ -27,7 +27,7 @@
     <div class="container-fluid Logo">
       <div class="row d-flex justify-content-between navContainer">
         <div class="col-lg-3">
-          <img src="images/icon_x128.png" alt="logo" width="72" height="72" />
+          <img src="images/icon_x48.png" alt="logo" width="48" height="48" />
           <span class="logoname">TwoPointFour</span>
         </div>
         <div class="col-2 mt-3 head3">
@@ -47,15 +47,15 @@
     <!------- Splash Screen -------------->
     <div class="container-fluid splashScreen">
       <div class="row spacer-sm"></div>
-      <div class="row">
+      <div class="row header">
         <div class="col-lg-6 d-flex justify-content-center">
           <!-- <img class="img-fluid" style="max-width: 80%" src="images/landingSplash.png" /> -->
           <img class="img-fluid" style="max-height: 80%" src="images/splash.png" />
         </div>
-        <div class="col-lg-6 mt-5">
-          <div class="splashTitle">
+        <div class="col-lg-4 mt-5">
+          <h1 class="head1 text-start">
             Sign up for data driven, personalised running training that works.
-          </div>
+          </h1>
           <button
             class="btn btn-warning mt-5 joinBtn"
             style="padding: 1rem 3rem; border-radius: 2rem"
@@ -65,205 +65,229 @@
         </div>
       </div>
       <!-- <div class="row spacer-sm"></div> -->
-      <div class="head1 mt-3" id="pricingSection">Pricing</div>
-      <div class="row d-flex mt-4 mx-1 justify-content-center">
-        <div class="col-lg-3 planCard">
-          <div class="head2">Basic</div>
-          <div class="row d-flex justify-content-center head3">TwoPointFour Train ✅</div>
-          <div class="row d-flex justify-content-center head3">TwoPointFour Track ✅</div>
-          <div class="row d-flex justify-content-center head3">TwoPointFour Community ✅</div>
-          <div class="row d-flex justify-content-center head3">TwoPointFour Suggest ⛔</div>
-          <div class="row d-flex justify-content-center head3">TwoPointFour Plan ⛔</div>
-          <div class="row d-flex justify-content-center head3">TwoPointFour Predict ⛔</div>
-          <div class="row d-flex justify-content-center head3">TwoPointFour Insights ⛔</div>
-          <div class="row d-flex justify-content-center head3">TwoPointFour Secure ⛔</div>
-          <div class="row d-flex justify-content-center head3">TwoPointFour Authentication ⛔</div>
-          <div class="row d-flex justify-content-center head2 mt-4">Free Forever</div>
-          <div class="row d-flex justify-content-center head3">
-            <button class="btn btn-warning mt-2 joinBtn">Join Now</button>
+      <div class="section">
+        <h1 class="head1 mt-3" id="pricingSection">Pricing</h1>
+        <div class="row d-flex mt-4 mx-1 justify-content-center">
+          <div class="col-lg-3 planCard">
+            <div class="head2">Basic</div>
+            <div class="row d-flex justify-content-center head3">TwoPointFour Train ✅</div>
+            <div class="row d-flex justify-content-center head3">TwoPointFour Track ✅</div>
+            <div class="row d-flex justify-content-center head3">TwoPointFour Community ✅</div>
+            <div class="row d-flex justify-content-center head3">TwoPointFour Suggest ⛔</div>
+            <div class="row d-flex justify-content-center head3">TwoPointFour Plan ⛔</div>
+            <div class="row d-flex justify-content-center head3">TwoPointFour Predict ⛔</div>
+            <div class="row d-flex justify-content-center head3">TwoPointFour Insights ⛔</div>
+            <div class="row d-flex justify-content-center head3">TwoPointFour Secure ⛔</div>
+            <div class="row d-flex justify-content-center head3">
+              TwoPointFour Authentication ⛔
+            </div>
+            <div class="row d-flex justify-content-center head2 mt-4">Free Forever</div>
+            <div class="row d-flex justify-content-center head3">
+              <button class="btn btn-warning mt-2 joinBtn">Join Now</button>
+            </div>
+          </div>
+          <div class="col-lg-3 planCard">
+            <div class="head2">Pro</div>
+            <div class="row d-flex justify-content-center head3">TwoPointFour Train ✅</div>
+            <div class="row d-flex justify-content-center head3">TwoPointFour Track ✅</div>
+            <div class="row d-flex justify-content-center head3">TwoPointFour Community ✅</div>
+            <div class="row d-flex justify-content-center head3">TwoPointFour Suggest ✅</div>
+            <div class="row d-flex justify-content-center head3">TwoPointFour Plan ✅</div>
+            <div class="row d-flex justify-content-center head3">TwoPointFour Predict ✅</div>
+            <div class="row d-flex justify-content-center head3">TwoPointFour Insights ⛔</div>
+            <div class="row d-flex justify-content-center head3">TwoPointFour Secure ⛔</div>
+            <div class="row d-flex justify-content-center head3">
+              TwoPointFour Authentication ⛔
+            </div>
+            <div class="row d-flex justify-content-center head2 mt-4">SGD 5 / month</div>
+            <div class="row d-flex justify-content-center head3">
+              <button class="btn btn-warning mt-2 joinBtn">Join Now</button>
+            </div>
+          </div>
+          <div class="col-lg-3 planCard">
+            <div class="head2">Organization</div>
+            <div class="row d-flex justify-content-center head3">TwoPointFour Train ✅</div>
+            <div class="row d-flex justify-content-center head3">TwoPointFour Track ✅</div>
+            <div class="row d-flex justify-content-center head3">TwoPointFour Community ✅</div>
+            <div class="row d-flex justify-content-center head3">TwoPointFour Suggest ✅</div>
+            <div class="row d-flex justify-content-center head3">TwoPointFour Plan ✅</div>
+            <div class="row d-flex justify-content-center head3">TwoPointFour Predict ✅</div>
+            <div class="row d-flex justify-content-center head3">TwoPointFour Insights ✅</div>
+            <div class="row d-flex justify-content-center head3">TwoPointFour Secure ✅</div>
+            <div class="row d-flex justify-content-center head3">
+              TwoPointFour Authentication ✅
+            </div>
+            <div class="row d-flex justify-content-center head2 mt-4">SGD 9 / month / user</div>
+            <div class="row d-flex justify-content-center head3">
+              <button class="btn btn-warning mt-2 joinBtn">Join Now</button>
+            </div>
           </div>
         </div>
-        <div class="col-lg-3 planCard">
-          <div class="head2">Pro</div>
-          <div class="row d-flex justify-content-center head3">TwoPointFour Train ✅</div>
-          <div class="row d-flex justify-content-center head3">TwoPointFour Track ✅</div>
-          <div class="row d-flex justify-content-center head3">TwoPointFour Community ✅</div>
-          <div class="row d-flex justify-content-center head3">TwoPointFour Suggest ✅</div>
-          <div class="row d-flex justify-content-center head3">TwoPointFour Plan ✅</div>
-          <div class="row d-flex justify-content-center head3">TwoPointFour Predict ✅</div>
-          <div class="row d-flex justify-content-center head3">TwoPointFour Insights ⛔</div>
-          <div class="row d-flex justify-content-center head3">TwoPointFour Secure ⛔</div>
-          <div class="row d-flex justify-content-center head3">TwoPointFour Authentication ⛔</div>
-          <div class="row d-flex justify-content-center head2 mt-4">SGD 5 / month</div>
-          <div class="row d-flex justify-content-center head3">
-            <button class="btn btn-warning mt-2 joinBtn">Join Now</button>
+        <div class="row spacer"></div>
+      </div>
+      <div class="section">
+        <h1 class="head1 mt-3" id="techSection">Our Technology</h1>
+        <div class="row d-flex justify-content-center mt-3 mb-5">
+          <div class="col-lg-9 text1">
+            TwoPointFour is a fully automated running app providing world's first data driven
+            personalised running programme to optimise results for any runners, regardless of their
+            starting level. TwoPointFour adapts training plans based on your performance to provide
+            the best outcome and help you achieve your goals faster.
           </div>
         </div>
-        <div class="col-lg-3 planCard">
-          <div class="head2">Organization</div>
-          <div class="row d-flex justify-content-center head3">TwoPointFour Train ✅</div>
-          <div class="row d-flex justify-content-center head3">TwoPointFour Track ✅</div>
-          <div class="row d-flex justify-content-center head3">TwoPointFour Community ✅</div>
-          <div class="row d-flex justify-content-center head3">TwoPointFour Suggest ✅</div>
-          <div class="row d-flex justify-content-center head3">TwoPointFour Plan ✅</div>
-          <div class="row d-flex justify-content-center head3">TwoPointFour Predict ✅</div>
-          <div class="row d-flex justify-content-center head3">TwoPointFour Insights ✅</div>
-          <div class="row d-flex justify-content-center head3">TwoPointFour Secure ✅</div>
-          <div class="row d-flex justify-content-center head3">TwoPointFour Authentication ✅</div>
-          <div class="row d-flex justify-content-center head2 mt-4">SGD 9 / month / user</div>
-          <div class="row d-flex justify-content-center head3">
-            <button class="btn btn-warning mt-2 joinBtn">Join Now</button>
+        <div class="row d-flex justify-content-center mt-3 mb-5">
+          <div class="col-lg-9 text1">
+            TwoPointFour offers the most effective running training in the world: 42% faster in 5K
+            and 42% faster in 10K. TwoPointFour can be your edge to perform better, get fit, stay
+            motivated and have fun.
+          </div>
+        </div>
+        <div class="row d-flex justify-content-center mt-3 mb-5">
+          <div class="col-lg-9 text1">
+            Our running training programmes are for the long term runner. The programmes are
+            developed in close partnership with elite exercise-scientists with a sport-science
+            foundation, who ensure that every run is challenging and will lead to performance gains
+            for runners of all levels. The workouts are interconnected and can be varied in
+            difficulty level making them challenging to a high or low level runner. In order to
+            master the challenges, we provide two types of coaching that are delivered via our
+            state-of-art technology as well as tailor-made coaching from experienced coaches in your
+            city.
           </div>
         </div>
       </div>
       <div class="row spacer"></div>
-      <div class="head1 mt-3" id="techSection">Our Technology</div>
-      <div class="row d-flex justify-content-center mt-3 mb-5">
-        <div class="col-lg-9 text1">
-          TwoPointFour is a fully automated running app providing world's first data driven
-          personalised running programme to optimise results for any runners, regardless of their
-          starting level. TwoPointFour adapts training plans based on your performance to provide
-          the best outcome and help you achieve your goals faster.
-        </div>
-      </div>
-      <div class="row d-flex justify-content-center mt-3 mb-5">
-        <div class="col-lg-9 text1">
-          TwoPointFour offers the most effective running training in the world: 42% faster in 5K and
-          42% faster in 10K. TwoPointFour can be your edge to perform better, get fit, stay
-          motivated and have fun.
-        </div>
-      </div>
-      <div class="row d-flex justify-content-center mt-3 mb-5">
-        <div class="col-lg-9 text1">
-          Our running training programmes are for the long term runner. The programmes are developed
-          in close partnership with elite exercise-scientists with a sport-science foundation, who
-          ensure that every run is challenging and will lead to performance gains for runners of all
-          levels. The workouts are interconnected and can be varied in difficulty level making them
-          challenging to a high or low level runner. In order to master the challenges, we provide
-          two types of coaching that are delivered via our state-of-art technology as well as
-          tailor-made coaching from experienced coaches in your city.
-        </div>
-      </div>
       <div class="row spacer"></div>
-      <div class="head1 mt-3" id="aboutSection">About Us</div>
-      <div class="row d-flex justify-content-center mx-1 mt-3 mb-5">
-        <div class="col-lg-3 text1 mb-4 planCard">
-          <div class="row">
-            <div class="col-12 head2" style="margin-bottom: 0rem">Ulva Tenny</div>
-          </div>
-          <div class="row">
-            <div class="col-12 head2">
-              <img
-                width="60%"
-                src="https://images.generated.photos/PbwhiOdRoy7YwBDGItg1nQCc5YdfKHLYf0lzqX-mF0s/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAyMjA2MDguanBn.jpg"
-              />
+      <div class="section">
+        <h1 class="head1 mt-3" id="aboutSection">About Us</h1>
+        <div class="row d-flex justify-content-center mx-1 mt-3 mb-5">
+          <div class="col-lg-4 text1 mb-4 planCard">
+            <div class="row">
+              <div class="col-12 head2" style="margin-bottom: 0rem">Ulva Tenny</div>
+            </div>
+            <div class="row">
+              <div class="col-12 head2">
+                <img
+                  width="60%"
+                  src="images/profiles/profile1-min.jpg"
+                  data-lazy-image="images/profiles/profile1.jpg"
+                  class="lazyImage"
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                As CEO of TwoPointFour, Ulva Tenny is a serial entrepreneur and has vast experience
+                in building great companies in the tech space. He is passionate about gamification
+                and providing value to startups and business to achieve phenomenal outcomes.
+              </div>
+            </div>
+            <div class="row">
+              <button class="btn btn-warning">Chief Executive Officer</button>
             </div>
           </div>
-          <div class="row">
-            <div class="col-12">
-              As CEO of TwoPointFour, Ulva Tenny is a serial entrepreneur and has vast experience in
-              building great companies in the tech space. He is passionate about gamification and
-              providing value to startups and business to achieve phenomenal outcomes.
+          <div class="col-lg-4 text1 mb-4 planCard">
+            <div class="row">
+              <div class="col-12 head2" style="margin-bottom: 0rem">Ken Peters</div>
+            </div>
+            <div class="row">
+              <div class="col-12 head2">
+                <img
+                  width="60%"
+                  src="images/profiles/profile2-min.jpg"
+                  data-lazy-image="images/profiles/profile2.jpg"
+                  class="lazyImage"
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                Ken Peters is the CTO of TwoPointFour. He is a data scientist and machine learning
+                engineer who has developed new algorithms for solving problems in computer vision,
+                natural language processing, and user interfaces. He holds a master’s degree in
+                computer science from MIT.
+              </div>
+            </div>
+            <div class="row">
+              <button class="btn btn-warning">Chief Technology Officer</button>
             </div>
           </div>
-          <div class="row">
-            <button class="btn btn-warning">Chief Executive Officer</button>
-          </div>
-        </div>
-        <div class="col-lg-3 text1 mb-4 planCard">
-          <div class="row">
-            <div class="col-12 head2" style="margin-bottom: 0rem">Ken Peters</div>
-          </div>
-          <div class="row">
-            <div class="col-12 head2">
-              <img
-                width="60%"
-                src="https://images.generated.photos/js1LHKGGX3gnvbF_Vb-K_1j4HIM5QYj5LoR-WbXT6j8/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAzMzMxODUuanBn.jpg"
-              />
+          <div class="col-lg-4 text1 mb-4 planCard">
+            <div class="row">
+              <div class="col-12 head2" style="margin-bottom: 0rem">Baz Coleman</div>
+            </div>
+            <div class="row">
+              <div class="col-12 head2">
+                <img
+                  width="60%"
+                  src="images/profiles/profile3-min.jpg"
+                  data-lazy-image="images/profiles/profile3.jpg"
+                  class="lazyImage"
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                Baz Coleman is TwoPointFour's Head of Business Development. Baz is responsible for
+                the company’s mergers, acquisitions and strategic investing efforts. He has overseen
+                the successful integration of vital technologies and new businesses across hardware,
+                software.
+              </div>
+            </div>
+            <div class="row">
+              <button class="btn btn-warning">Head of Business Development</button>
             </div>
           </div>
-          <div class="row">
-            <div class="col-12">
-              Ken Peters is the CTO of TwoPointFour. He is a data scientist and machine learning
-              engineer who has developed new algorithms for solving problems in computer vision,
-              natural language processing, and user interfaces. He holds a master’s degree in
-              computer science from MIT.
+          <div class="col-lg-4 text1 mb-4 planCard">
+            <div class="row">
+              <div class="col-12 head2" style="margin-bottom: 0rem">Theo Bond</div>
+            </div>
+            <div class="row">
+              <div class="col-12 head2">
+                <img
+                  width="60%"
+                  src="images/profiles/profile4-min.jpg"
+                  data-lazy-image="images/profiles/profile4.jpg"
+                  class="lazyImage"
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                Theo Bond is Two Point Four's Head of Fitness Innovation. Theo brings with him a
+                wealth of domain-expertise in the fitness space and innovates relentlessly. He works
+                alongside a product development team to build better ways to increase training
+                efficiency.
+              </div>
+            </div>
+            <div class="row">
+              <button class="btn btn-warning">Head of Fitness Innovation</button>
             </div>
           </div>
-          <div class="row">
-            <button class="btn btn-warning">Chief Technology Officer</button>
-          </div>
-        </div>
-        <div class="col-lg-3 text1 mb-4 planCard">
-          <div class="row">
-            <div class="col-12 head2" style="margin-bottom: 0rem">Baz Coleman</div>
-          </div>
-          <div class="row">
-            <div class="col-12 head2">
-              <img
-                width="60%"
-                src="https://images.generated.photos/UGza78cjVIyYLJzEn_u46W4xIfrZsTUZ4xCtk9lS5q0/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAyNDAzOTEuanBn.jpg"
-              />
+          <div class="col-lg-4 text1 mb-4 planCard">
+            <div class="row">
+              <div class="col-12 head2" style="margin-bottom: 0rem">Toby Currey</div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              Baz Coleman is TwoPointFour's Head of Business Development. Baz is responsible for the
-              company’s mergers, acquisitions and strategic investing efforts. He has overseen the
-              successful integration of vital technologies and new businesses across hardware,
-              software.
+            <div class="row">
+              <div class="col-12 head2">
+                <img
+                  width="60%"
+                  src="images/profiles/profile5-min.jpg"
+                  data-lazy-image="images/profiles/profile5.jpg"
+                  class="lazyImage"
+                />
+              </div>
             </div>
-          </div>
-          <div class="row">
-            <button class="btn btn-warning">Head of Business Development</button>
-          </div>
-        </div>
-        <div class="col-lg-3 text1 mb-4 planCard">
-          <div class="row">
-            <div class="col-12 head2" style="margin-bottom: 0rem">Theo Bond</div>
-          </div>
-          <div class="row">
-            <div class="col-12 head2">
-              <img
-                width="60%"
-                src="https://images.generated.photos/hqLxztxmRGnCA9VuRMqReWlVp-kojN5oV_T5oCYz9ig/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzAyOTY3ODguanBn.jpg"
-              />
+            <div class="row">
+              <div class="col-12">
+                Toby Currey is a data science expert and cybersecurity expert, helping organisations
+                embrace analytics. Bringing critical analysis to some of the world’s most complex
+                technology challenges. He brings to TwoPointFour, 15 years of experience in
+                establishing data teams.
+              </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              Theo Bond is Two Point Four's Head of Fitness Innovation. Theo brings with him a
-              wealth of domain-expertise in the fitness space and innovates relentlessly. He works
-              alongside a product development team to build better ways to increase training
-              efficiency.
+            <div class="row">
+              <button class="btn btn-warning">Head of Data</button>
             </div>
-          </div>
-          <div class="row">
-            <button class="btn btn-warning">Head of Fitness Innovation</button>
-          </div>
-        </div>
-        <div class="col-lg-3 text1 mb-4 planCard">
-          <div class="row">
-            <div class="col-12 head2" style="margin-bottom: 0rem">Toby Currey</div>
-          </div>
-          <div class="row">
-            <div class="col-12 head2">
-              <img
-                width="60%"
-                src="https://images.generated.photos/CLdBMKci_a8uQNYa80oa8SyvEw9UzAurvo9Hpc7xboo/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yz/XzA5ODg0NjMuanBn.jpg"
-              />
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              Toby Currey is a data science expert and cybersecurity expert, helping organisations
-              embrace analytics. Bringing critical analysis to some of the world’s most complex
-              technology challenges. He brings to TwoPointFour, 15 years of experience in
-              establishing data teams.
-            </div>
-          </div>
-          <div class="row">
-            <button class="btn btn-warning">Head of Data</button>
           </div>
         </div>
       </div>

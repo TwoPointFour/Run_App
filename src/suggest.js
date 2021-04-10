@@ -286,8 +286,6 @@ const getTrainingPlan = async (e) => {
  const initialTargetImprovement = 100 + deltaDifficultyPerWeek(userInfo);
   // const trainingPlan = getTrainingIntervals(initialTargetImprovement, getTargetPace(parseInt(userInfo.targetTime)));
 
-// getTrainingPlan(info)
-
 // Units are in metres and seconds
 // function getTrainingPlan(info) {
 //     const userInfo = {

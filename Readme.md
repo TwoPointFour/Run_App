@@ -5,10 +5,4 @@ No var, only let or const
 Semicolons  
 Double quotes?
 
-Add error handling
-
-Use Package Managers
-
-Use frameworks - vanilla JS is a time-drag - JQuery, Express and Node.JS, AJAX?
-
 Performance test - use Chrome's Lighthouse test to check PWA score

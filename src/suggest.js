@@ -1,237 +1,308 @@
-import { initialiseTimer } from "./timer.js";
-import { trainingInfo } from "./timer.js";
-import { primaryIntervals } from "./intervals";
-import { scoredWorkouts } from "./workoutScorer";
+// import { initialiseTimer } from "./timer.js";
+// import { trainingInfo } from "./timer.js";
+import { primaryIntervals } from "./intervals.js";
+import { scoredWorkouts } from "./workoutScorer.js";
 
 export const trainingPlan = {
-    permSetCount: "2",
-    permDistance: "300",
-    permPaceTime: "10000",
-    permSetTimeMin: "2",
-    permSetTimeSec: "2",
+  permSetCount: "2",
+  permDistance: "300",
+  permPaceTime: "10000",
+  permSetTimeMin: "2",
+  permSetTimeSec: "2",
 };
 
 // All constants below TBC
-const rho = 7.0
+const rho = 7.0;
 // tePace, ltPace, vPace, stPace
-const phi = [1, 1, 1, 1]
-const paceConstants = ['1.243', '1.19', '1.057', '0.89']
-const deltas = [0.025, 0.03, 0.035, 0.04, 0.045]
+const phi = [1, 1, 1, 1];
+const paceConstants = [1.243, 1.19, 1.057, 0.89];
+const deltas = [0.025, 0.03, 0.035, 0.04, 0.045];
 
 const getPace = (time) => 2400 / time;
 const getTargetPace = (targetTime) => getPace(targetTime);
 const getCurrentPace = (currentTime) => getPace(currentTime);
 
-//todo Later add to utils, don't keep it for elementClass only
-const visible = (elementClass, state) => {
-    state
-        ? document.querySelector(`.${elementClass}`).classList.remove("d-none")
-        : document.querySelector(`.${elementClass}`).classList.add("d-none");
+const fields = ["targetMin", "targetSec", "currentMin", "currentSec", "weeks"];
+
+const getOverallFitness = (speedDifficulty, velocity, targetPace, weeks, currentFitness) => {
+  //todo confirm what the deltaDifficulty final formula is
+  const deltaDifficulty = speedDifficulty - 100;
+  const deltaDifficultyPerWeek = deltaDifficulty / weeks;
+  const previousScoredWorkouts = scoredWorkouts();
+  //todo we're only using the first/latest workout!
+  if (previousScoredWorkouts[0].workoutScore < 94) {
+    return currentFitness + deltaDifficultyPerWeek;
+  } else {
+    return previousScoredWorkouts[0].workoutScore + deltaDifficultyPerWeek;
+  }
 };
 
-const fields = ['targetMin', 'targetSec', 'currentMin', 'currentSec', 'weeks']
-
-const getOverallFitness = (velocity, targetPace, weeks, currentFitness) => {
-    //todo confirm what the deltaDifficulty final formula is
-    const deltaDifficulty = (Math.exp(targetPace) / Math.exp(velocity)) * 100 - 100
-    const deltaDifficultyPerWeek = deltaDifficulty / weeks
-    const previousScoredWorkouts = scoredWorkouts()
-    //todo we're only using the first/latest workout!
-    if (previousScoredWorkouts[0].workoutScore < 94) {
-        return currentFitness + deltaDifficultyPerWeek
-    }
-    else {
-        return previousScoredWorkouts[0].workoutScore + deltaDifficultyPerWeek
-    }
-}
-
 const getSpeedDifficulty = (velocity, paces) => {
-    const [tePace, ltPace, vPace, stPace] = paces
-    const initDiff = 0
-    //todo TBC with Jlow where D(TE), D(LT), D(V02), D(ST) come from, currently using initDiff
-    //todo confirm formulae below, missing a bracket in the originial formulae
-    //todo confirm if we use currentPace in if-condition, and targetPace to get difficulty
-    if (true) {
-        return 1
-    }
-    if (velocity < tePace) {
-        return initDiff + Math.exp((deltas[0] * tePace) * (tePace - velocity))
-    }
-    else if (velocity < ltPace) {
-        return initDiff + Math.exp((deltas[1] * tePace) * (velocity - tePace))
-    }
-    else if (velocity < vPace) {
-        return initDiff + Math.exp((deltas[2] * ltPace) * (velocity - ltPace))
-    }
-    else if (velocity < stPace) {
-        return initDiff + Math.exp((deltas[3] * vPace) * (velocity - vPace))
-    }
-    else {
-        return initDiff + Math.exp((deltas[4] * stPace) * (velocity - stPace))
-    }
-}
+  const [tePace, ltPace, vPace, stPace] = paces;
+  console.log("paces", paces);
+  console.log("vel", velocity);
+  const initDiff = 0;
+  //todo TBC with Jlow where D(TE), D(LT), D(V02), D(ST) come from, currently using initDiff
+  //todo confirm formulae below, missing a bracket in the originial formulae
+  //todo confirm if we use currentPace in if-condition, and targetPace to get difficulty
+  if (true) {
+    // console.log(Math.exp(deltas[4] * stPace) * (velocity - stPace));
+    // console.log(`
+    // deltas: ${deltas[4]}
+    // stPace: ${stPace}
+    // velocity: ${velocity}`);
+    return 100;
+  }
+  if (velocity < tePace) {
+    return initDiff - Math.exp(deltas[0] * tePace) * (tePace - velocity);
+  } else if (velocity < ltPace) {
+    return initDiff + Math.exp(deltas[1] * tePace) * (velocity - tePace);
+  } else if (velocity < vPace) {
+    return initDiff + Math.exp(deltas[2] * ltPace) * (velocity - ltPace);
+  } else if (velocity < stPace) {
+    return initDiff + Math.exp(deltas[3] * vPace) * (velocity - vPace);
+  } else {
+    return initDiff + Math.exp(deltas[4] * stPace) * (velocity - stPace);
+  }
+};
 
 const generateConstants = (answers) => {
-    //todo confirm formula for alpha
-    const alpha = 1 / (Math.exp((-1) * (1 / 3) * ((answers.fFrequency * answers.dDistance / 30) + (answers.lMonths / 3) + (answers.fFrequency / 3)))) * beta
-    if (alpha >= 0 && alpha <= 1) {
-        console.log("alpha passed")
-    }
-    const cNewbieGains = (1 / rho) * (Math.exp(1 - alpha)) + (rho - 1) / rho
-    return {alpha, beta: answers.personalBests ? 1 : 0.975, cNewbieGains}
-}
+  const beta = answers.personalBests["d800"] ? 1 : 0.975;
+  //todo confirm formula for alpha
+  const alpha =
+    (1 /
+      Math.exp(
+        -1 *
+          (1 / 3) *
+          ((answers.fFrequency * answers.dDistance) / 30 +
+            answers.lMonths / 3 +
+            answers.fFrequency / 3)
+      )) *
+    beta;
+  if (alpha >= 0 && alpha <= 1) {
+    console.log("alpha passed");
+  }
+  const cNewbieGains = (1 / rho) * Math.exp(1 - alpha) + (rho - 1) / rho;
+  return { alpha, beta, cNewbieGains };
+};
 
 const getTrainingPlan = (e) => {
-    const data = {
-        currentMin: "11",
-        currentSec: "30",
-        targetMin: "10",
-        targetSec: "30",
-        weeks: "5",
-    };
-    /*
+  // document.querySelector(".runRegular").
+  console.log("Running getTrainingPlan");
+  const [runRegular] = [
+    [...document.querySelectorAll(".runRegular")].filter((selection) => selection.checked === true),
+  ];
+
+  const fFrequency = Number(document.querySelector(".fFrequency").value) || 3;
+  const dDistance = Number(document.querySelector(".dDistance").value) || 20000;
+  const lMonths = Number(document.querySelector(".lMonths").value) || 10;
+  const d800 = document.querySelector(".d800").value;
+  const d1500 = document.querySelector(".d1500").value;
+  const d3000 = document.querySelector(".d3000").value;
+  const d5000 = document.querySelector(".d5000").value;
+  const d10000 = document.querySelector(".d10000").value;
+  const currentMin = Number(document.querySelector(".currentMin").value.slice(0, 2)) || 18;
+  const currentSec = Number(document.querySelector(".currentMin").value.slice(3)) || 0;
+  const targetMin = Number(document.querySelector(".targetMin").value.slice(0, 2)) || 17;
+  const targetSec = Number(document.querySelector(".targetMin").value.slice(3)) || 59;
+  const weeks = Number(document.querySelector(".weeks").value) || 5;
+
+  const answers = {
+    runRegular,
+    fFrequency,
+    dDistance,
+    lMonths,
+    personalBests: {
+      d800,
+      d1500,
+      d3000,
+      d5000,
+      d10000,
+    },
+  };
+  if (answers.personalBests) {
+    //TBC logic
+  }
+
+  const data = {
+    currentMin,
+    currentSec,
+    targetMin,
+    targetSec,
+    weeks,
+  };
+  const userInfo = {
+    currentTime: parseInt(data["currentMin"]) + 60 * parseInt(data["currentSec"]),
+    targetTime: parseInt(data["targetMin"]) + 60 * parseInt(data["targetSec"]),
+    weeks: parseInt(data["weeks"]),
+    currentFitness: 100,
+  };
+  if (data.currentFitness) {
+    userInfo.currentFitness = data.currentFitness;
+  }
+  /*
     const data = {};
     fields.forEach((inputField) => {
       data[inputField] = document.querySelector('#' + inputField).value
     })
   */
-    const userInfo = {
-        'currentTime': parseInt(data['currentMin']) + 60 * parseInt(data['currentSec']),
-        'targetTime': parseInt(data['targetMin']) + 60 * parseInt(data['targetSec']),
-        weeks: parseInt(data['weeks']),
-        currentFitness: 100
-    };
-    if (data.currentFitness) {
-        userInfo.currentFitness = data.currentFitness
-    }
-    const answers = {
-        runRegular: 'yes',
-        fFrequency: '2',
-        dDistance: '1000', //in metres?,
-        lMonths: '2',
-        personalBests: {
-            'd800': '2000'
-        }
-    }
-    if (answers.personalBests) {
-        //TBC logic
-    }
-    const {beta, alpha, cNewbieGains} = generateConstants(answers)
-    const targetPace = getTargetPace(userInfo.targetTime)
-    const paces = phi.map((phiValue, i) => ((targetPace * paceConstants[i])/(cNewbieGains * phiValue)) * (18 / 5)) // 18/5 for conversion
-    //velocity is the same as current pace
-    const velocity = getCurrentPace(userInfo.currentTime)
-    const speedDifficulty = getSpeedDifficulty(velocity, paces)
-    const restRatio = 100 //todo (the rest the user is going to use)/prescribed rest * 100
-    const restMultiplier = 1 / Math.exp(0.0024 * restRatio)
-    const workoutsWithDifficulty = primaryIntervals.map((workout) => workout.unshift(speedDifficulty * workout[0] * restMultiplier * 100))
-    const targetDifficulty = getOverallFitness(velocity, targetPace, userInfo.weeks, userInfo.currentFitness)
-    const trainingPlan = workoutsWithDifficulty.reduce((variance, workout) => {
-        const workoutVariance = (workout[0] - targetDifficulty) / targetDifficulty
-        if (variance[0] > workoutVariance) {
-            return workout.unshift(workoutVariance)
-        }
-        return variance
-    }, [1000])
+  const { beta, alpha, cNewbieGains } = generateConstants(answers);
+  const targetPace = getTargetPace(userInfo.targetTime);
+  const paces = phi.map(
+    (phiValue, i) => ((targetPace * paceConstants[i]) / (cNewbieGains * phiValue)) * (18 / 5)
+  ); // 18/5 for conversion
+  //velocity is the same as current pace
+  const velocity = getCurrentPace(userInfo.currentTime);
+  const speedDifficulty = getSpeedDifficulty(velocity, paces);
+  const restRatio = 100; //todo (the rest the user is going to use)/prescribed rest * 100
+  const restMultiplier = 1 / Math.exp(0.0024 * restRatio);
+  console.log(primaryIntervals);
+  primaryIntervals.forEach((workout) => {
+    workout.unshift((speedDifficulty / 100) * workout[0] * restMultiplier * 100);
+  });
+  const targetDifficulty = getOverallFitness(
+    speedDifficulty,
+    velocity,
+    targetPace,
+    userInfo.weeks,
+    userInfo.currentFitness
+  );
+  const trainingPlan = primaryIntervals.reduce(
+    (variance, workout) => {
+      const workoutVariance = (workout[0] - targetDifficulty) / targetDifficulty;
+      if (variance[0] > workoutVariance) {
+        return [workoutVariance, ...workout];
+      }
+      return variance;
+    },
+    [1000000]
+  );
 
-    const displayPlan = document.querySelector('#display-suggest')
-    /*  displayPlan.innerHTML = `<div class="btn btn-outline-dark recordcard mb-3">
-                <div class="row justify-content-center mb-3">
-                  <h5>Your Suggested Training</h5>
-                </div>
-                <div class="row justify-content-center">
-                  <div class="d-grid col-3">
-                    <h6>Sets: ${trainingPlan.permSetCount}</h6>
-                  </div>
-                  <div class="d-grid col-3">
-                    <h6>Distance: ${trainingPlan.permDistance}</h6>
-                  </div>
-                  <div class="d-grid col-3">
-                    <h6>Set Time: ${trainingPlan.permSetTimeMin}:${trainingPlan.permSetTimeSec}</h6>
-                  </div>
-                </div>
-              </div>`
-      visible("#display-suggest", true);*/
-    // then go to timer
-    // https://www.w3schools.com/jsref/obj_location.asp
-    // https://stackoverflow.com/questions/52389569/redirect-to-another-page-and-pass-parameter-via-javascript/52389707
-    // https://www.aspsnippets.com/Articles/Redirect-to-another-Page-with-multiple-Parameters-using-JavaScript.aspx
+  let outputTrainingPlan = trainingPlan.slice();
+  outputTrainingPlan.splice(0, 3);
+  console.log("outputTrainingPlan", outputTrainingPlan);
+  // outputtrainingPlan will be in the format [[set, distance, rest]]
+  const displayPlan = document.querySelector("#display-suggest");
+  console.log(displayPlan);
+  displayPlan.insertAdjacentHTML(
+    "beforeend",
+    `<div class="col-lg-8 suggestCard">
+  <div class="row">
+    <div class="col-2 weekCard d-flex align-items-center justify-content-center">
+      <h3 class="head2">Week 1</h3>
+    </div>
+    <div class="col-10 detailsCard">
+      <div class="row mb-3">
+        <h4 class="text-center">Distance Interval Training</h4>
+      </div>
+      <div class="row d-flex justify-content-around">
+        <div class="col-lg-3 text-center suggestChip">Sets: ${outputTrainingPlan[0][0]}</div>
+        <div class="col-lg-3 text-center suggestChip">Distance: ${outputTrainingPlan[0][1]}</div>
+        <div class="col-lg-3 text-center suggestChip">Rest: ${outputTrainingPlan[0][2]}</div>
+      </div>
+    </div>
+  </div>
+</div>`
+  );
+  // displayPlan.innerHTML = `<div class="btn btn-outline-dark recordcard mb-3">
+  //               <div class="row justify-content-center mb-3">
+  //                 <h5>Your Suggested Training</h5>
+  //               </div>
+  //               <div class="row justify-content-center">
+  //                 <div class="d-grid col-3">
+  //                   <h6>Sets: ${outputTrainingPlan[0][0]}</h6>
+  //                 </div>
+  //                 <div class="d-grid col-3">
+  //                   <h6>Distance: ${outputTrainingPlan[0][1]}</h6>
+  //                 </div>
+  //                 <div class="d-grid col-3">
+  //                   <h6>Set Time: ${outputTrainingPlan[0][2]}</h6>
+  //                 </div>
+  //               </div>
+  //             </div>`;
+  document.querySelector(".questionnaireProfile").classList.toggle("d-none");
+  document.querySelector(".displayPlan").classList.toggle("d-none");
+  // then go to timer
+  console.log("Submit Button Clicked");
+  return outputTrainingPlan;
 };
 
 // Yi Hein's Area =============== Front END
 
 document.querySelector(".actionBtn").addEventListener("click", function () {
-    document.querySelector(".questionnaireStart").classList.toggle("d-none");
-    document.querySelector(".questionnaireProfile").classList.toggle("d-none");
+  document.querySelector(".questionnaireStart").classList.toggle("d-none");
+  document.querySelector(".questionnaireProfile").classList.toggle("d-none");
 });
 
 document.querySelectorAll(".slide").forEach((s, i) => {
-    s.style = `transform: translateX(${i * 100}%)`;
+  s.style = `transform: translateX(${i * 100}%)`;
 });
 
 let counter = 0;
 
 document.querySelectorAll(".proceedBtn").forEach((b, i) => {
-    b.addEventListener("click", slideAdvance);
+  b.addEventListener("click", slideAdvance);
 });
 document.querySelectorAll(".reverseBtn").forEach((b, i) => {
-    b.addEventListener("click", slideReverse);
+  b.addEventListener("click", slideReverse);
 });
 
 document.addEventListener("keydown", function (e) {
-    e.key === "ArrowLeft" && slideReverse();
-    e.key === "ArrowRight" && slideAdvance();
+  e.key === "ArrowLeft" && slideReverse();
+  e.key === "ArrowRight" && slideAdvance();
 });
 
 function slideAdvance() {
-    counter >= 7 ? (counter = 7) : counter++;
-    goToSlide(counter);
+  counter >= 7 ? (counter = 7) : counter++;
+  goToSlide(counter);
 }
 function slideReverse() {
-    counter <= 0 ? (counter = 0) : counter--;
-    goToSlide(counter);
+  counter <= 0 ? (counter = 0) : counter--;
+  goToSlide(counter);
 }
 
 function goToSlide(counter) {
-    counter = Number(counter);
-    document
-        .querySelectorAll(".dots__dot")
-        .forEach((d, i) => d.classList.remove("dots__dot--active"));
+  counter = Number(counter);
+  document
+    .querySelectorAll(".dots__dot")
+    .forEach((d, i) => d.classList.remove("dots__dot--active"));
 
-    document.querySelectorAll(".slide").forEach((s, i) => {
-        s.style = `transform: translateX(${(i - counter) * 100}%)`;
-    });
-    document
-        .querySelectorAll(".dots__dot")
-        .forEach((d, i) => (d.dataset.slide == counter ? d.classList.add("dots__dot--active") : null));
-    document.querySelector(".progressChip").textContent = `${Math.floor(((counter + 1) / 8) * 100)}%`;
+  document.querySelectorAll(".slide").forEach((s, i) => {
+    s.style = `transform: translateX(${(i - counter) * 100}%)`;
+  });
+  document
+    .querySelectorAll(".dots__dot")
+    .forEach((d, i) => (d.dataset.slide == counter ? d.classList.add("dots__dot--active") : null));
+  document.querySelector(".progressChip").textContent = `${Math.floor(((counter + 1) / 8) * 100)}%`;
 }
 
 // Slide Nav
 
 document.querySelectorAll(".slide").forEach((_, i) => {
-    document
-        .querySelector(".dotsContainer")
-        .insertAdjacentHTML("beforeend", `<button class="dots__dot" data-slide="${i}"></button>`);
+  document
+    .querySelector(".dotsContainer")
+    .insertAdjacentHTML("beforeend", `<button class="dots__dot" data-slide="${i}"></button>`);
 });
 
 document.querySelector(".dotsContainer").addEventListener("click", function (e) {
-    if (e.target.classList.contains("dots__dot")) {
-        e.target.classList.add("dots__dot--active");
-        goToSlide(e.target.dataset.slide);
-        counter = e.target.dataset.slide;
-    }
+  if (e.target.classList.contains("dots__dot")) {
+    e.target.classList.add("dots__dot--active");
+    goToSlide(e.target.dataset.slide);
+    counter = e.target.dataset.slide;
+  }
 });
 
 // Yi Hein's Area ===============
 
 const init = () => {
-    console.log("suggest init done");
-    const submitButton = document.querySelector(".inputSubmit");
-    submitButton.addEventListener("click", getTrainingPlan);
+  console.log("suggest init done");
 };
 
 window.onload = init;
+
+const submitButton = document.querySelector(".submitBtn");
+// console.log(getTrainingPlan("e"));
+submitButton.addEventListener("click", getTrainingPlan);
 
 /*
 Old code

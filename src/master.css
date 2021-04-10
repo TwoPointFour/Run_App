@@ -478,3 +478,35 @@ h6,
   padding: 1rem 3rem !important;
   border-radius: 2rem !important;
 }
+
+/* Suggestion Display */
+
+.suggestCard {
+  background-color: #fff6e9;
+  border-radius: 1rem;
+  padding: 1rem 2rem;
+}
+
+.weekCard {
+  background-color: white;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+.suggestChip {
+  font-weight: 600;
+  font-size: 1em;
+  background-color: #ffe0b4;
+  color: #5e4600;
+  padding: 0.7rem;
+  border-radius: 0.5rem;
+}
+
+.suggestChip:hover {
+  background-color: #ffc36f;
+}
+
+.gotoWorkoutBtn {
+  padding: 2rem 1rem 1rem 1rem;
+  border-radius: 1rem;
+}

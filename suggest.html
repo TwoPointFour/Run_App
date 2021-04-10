@@ -40,7 +40,7 @@
         </div>
       </div>
     </div>
-    <div class="container-fluid questionnaireStart">
+    <div class="container-fluid questionnaireStart d-none">
       <div class="row mt-5">
         <div class="col-lg-6 d-flex justify-content-center">
           <img width="80%" src="images/suggestTempImage.png" />
@@ -67,7 +67,7 @@
         </div>
       </div>
     </div>
-    <div class="container-fluid d-none questionnaireProfile">
+    <div class="container-fluid questionnaireProfile">
       <div class="slideNav">
         <div class="row">
           <h2 class="head2 text-center questionnaireTitle">
@@ -93,20 +93,22 @@
             <div class="col-6 d-flex justify-content-center">
               <input
                 type="radio"
-                class="btn-check"
+                class="btn-check runRegular"
                 name="options-outlined"
                 id="success-outlined"
                 autocomplete="off"
+                data-run-regular="yes"
               />
               <label class="btn btn-outline-success checkboxBtn" for="success-outlined">Yes</label>
             </div>
             <div class="col-6 d-flex justify-content-center">
               <input
                 type="radio"
-                class="btn-check"
+                class="btn-check runRegular"
                 name="options-outlined"
                 id="danger-outlined"
                 autocomplete="off"
+                data-run-regular="no"
               />
               <label class="btn btn-outline-danger checkboxBtn" for="danger-outlined">No</label>
             </div>
@@ -133,7 +135,12 @@
           <div class="row">
             <div class="col-12">
               <div class="form-floating mb-2">
-                <input type="email" class="form-control" id="floatingInput" placeholder="Hello" />
+                <input
+                  type="email"
+                  class="form-control fFrequency"
+                  id="floatingInput"
+                  placeholder="Hello"
+                />
                 <label for="floatingInput">runs / week</label>
               </div>
             </div>
@@ -160,7 +167,12 @@
           <div class="row">
             <div class="col-12">
               <div class="form-floating mb-2">
-                <input type="email" class="form-control" id="floatingInput" placeholder="Hello" />
+                <input
+                  type="email"
+                  class="form-control dDistance"
+                  id="floatingInput"
+                  placeholder="Hello"
+                />
                 <label for="floatingInput">metres</label>
               </div>
             </div>
@@ -187,7 +199,12 @@
           <div class="row">
             <div class="col-12">
               <div class="form-floating mb-2">
-                <input type="email" class="form-control" id="floatingInput" placeholder="Hello" />
+                <input
+                  type="email"
+                  class="form-control lMonths"
+                  id="floatingInput"
+                  placeholder="Hello"
+                />
                 <label for="floatingInput">months</label>
               </div>
             </div>
@@ -217,7 +234,7 @@
             </div>
             <div class="col-9">
               <div class="form-floating mb-2">
-                <input type="email" class="form-control" id="floatingInput" placeholder="#" />
+                <input type="email" class="form-control d800" id="floatingInput" placeholder="#" />
                 <label for="floatingInput">mm:ss</label>
               </div>
             </div>
@@ -228,7 +245,7 @@
             </div>
             <div class="col-9">
               <div class="form-floating mb-2">
-                <input type="email" class="form-control" id="floatingInput" placeholder="#" />
+                <input type="email" class="form-control d1500" id="floatingInput" placeholder="#" />
                 <label for="floatingInput">mm:ss</label>
               </div>
             </div>
@@ -239,7 +256,7 @@
             </div>
             <div class="col-9">
               <div class="form-floating mb-2">
-                <input type="email" class="form-control" id="floatingInput" placeholder="#" />
+                <input type="email" class="form-control d3000" id="floatingInput" placeholder="#" />
                 <label for="floatingInput">mm:ss</label>
               </div>
             </div>
@@ -250,18 +267,23 @@
             </div>
             <div class="col-9">
               <div class="form-floating mb-2">
-                <input type="email" class="form-control" id="floatingInput" placeholder="#" />
+                <input type="email" class="form-control d5000" id="floatingInput" placeholder="#" />
                 <label for="floatingInput">mm:ss</label>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-3 d-flex justify-content-center align-items-center">
-              <h3 class="head2">10000m</h3>
+              <h3 class="head2">10 000m</h3>
             </div>
             <div class="col-9">
               <div class="form-floating mb-2">
-                <input type="email" class="form-control" id="floatingInput" placeholder="#" />
+                <input
+                  type="email"
+                  class="form-control d10000"
+                  id="floatingInput"
+                  placeholder="#"
+                />
                 <label for="floatingInput">hh:mm:ss</label>
               </div>
             </div>
@@ -293,7 +315,12 @@
             </div>
             <div class="col-9">
               <div class="form-floating mb-2">
-                <input type="email" class="form-control" id="floatingInput" placeholder="#" />
+                <input
+                  type="email"
+                  class="form-control currentMin"
+                  id="floatingInput"
+                  placeholder="#"
+                />
                 <label for="floatingInput">mm:ss</label>
               </div>
             </div>
@@ -325,7 +352,12 @@
             </div>
             <div class="col-9">
               <div class="form-floating mb-2">
-                <input type="email" class="form-control" id="floatingInput" placeholder="#" />
+                <input
+                  type="email"
+                  class="form-control targetMin"
+                  id="floatingInput"
+                  placeholder="#"
+                />
                 <label for="floatingInput">mm:ss</label>
               </div>
             </div>
@@ -357,7 +389,7 @@
             </div>
             <div class="col-9">
               <div class="form-floating mb-2">
-                <input type="email" class="form-control" id="floatingInput" placeholder="#" />
+                <input type="email" class="form-control weeks" id="floatingInput" placeholder="#" />
                 <label for="floatingInput">weeks</label>
               </div>
             </div>
@@ -373,79 +405,22 @@
         </div>
       </div>
     </div>
-    <div class="container-fluid inputContainer d-none">
-      <div class="row justify-content-center">
-        <div class="col-lg-3 inputCard">
-          <h5 class="inputCardTitle">Target Time</h5>
-          <h1 class="inputCardEmoji">🎯</h1>
-          <div class="input-group mb-3">
-            <input
-              type="text"
-              class="form-control"
-              placeholder=""
-              aria-label="Target minutes"
-              aria-describedby="basic-addon4"
-            />
-            <span class="input-group-text" id="targetMin">min</span>
-            <input
-              type="text"
-              class="form-control"
-              placeholder=""
-              aria-label="Target seconds"
-              aria-describedby="basic-addon4"
-            />
-            <span class="input-group-text" id="targetSec">sec</span>
-          </div>
-        </div>
-        <div class="col-lg-3 inputCard">
-          <h5 class="inputCardTitle">Current Time</h5>
-          <h1 class="inputCardEmoji">🐌</h1>
-          <div class="input-group mb-3">
-            <input
-              type="text"
-              class="form-control"
-              placeholder=""
-              aria-label="Current minutes"
-              aria-describedby="basic-addon4"
-            />
-            <span class="input-group-text" id="currentMin">min</span>
-            <input
-              type="text"
-              class="form-control"
-              placeholder=""
-              aria-label="Current seconds"
-              aria-describedby="basic-addon4"
-            />
-            <span class="input-group-text" id="currentSec">sec</span>
-          </div>
-        </div>
-        <div class="col-lg-3 inputCard">
-          <h5 class="inputCardTitle">Weeks to Train</h5>
-          <h1 class="inputCardEmoji">📅</h1>
-          <div class="input-group mb-3">
-            <input
-              type="text"
-              class="form-control"
-              placeholder=""
-              aria-label="Target minutes"
-              aria-describedby="basic-addon4"
-            />
-            <span class="input-group-text" id="weeks">weeks</span>
-          </div>
+    <div class="container-fluid displayPlan d-none">
+      <div class="row d-flex justify-content-center mb-4">
+        <div class="col-lg-8">
+          <h2 class="head2 text-center">Your Personalised Training Plan</h2>
         </div>
       </div>
-      <button class="btn btn-primary inputSubmit" type="submit">Submit</button>
-    </div>
-    <div class="container-fluid d-none" id="display-suggest">
-    </div>
-    <div>
-      <a
-        class="btn btn-outline-warning intervalbtn timed"
-        role="button"
-        href="distanceTimer.html"
-      >
-        <p class="btnTitle">Proceed to workout</p>
-      </a>
+      <div class="row d-flex justify-content-center" id="display-suggest"></div>
+      <div class="row d-flex justify-content-center mt-5">
+        <div class="col-lg-4 d-flex justify-content-center">
+          <a class="btn btn-outline-warning gotoWorkoutBtn" role="button" href="distanceTimer.html">
+            <p class="btnTitle">Proceed to Workout</p>
+          </a>
+        </div>
+      </div>
     </div>
   </body>
 </html>
+
+<div></div>

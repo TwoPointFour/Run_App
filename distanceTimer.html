@@ -24,9 +24,9 @@
     <script type="module" src="src/index.js"></script>
   </head>
   <body>
-    <div class="container-fluid Logo">
+    <div class="container-fluid Logo mb-4">
       <div class="row d-flex justify-content-between navContainer">
-        <div class="col-lg-3">
+        <div class="col-lg-3 col-md-4">
           <img src="images/icon_x48.png" alt="logo" width="48" height="48" />
           <span class="logoname">TwoPointFour</span>
         </div>
@@ -43,19 +43,12 @@
     </div>
     <!-- Distance Interval User Input Form-->
     <div class="container-fluid DistanceForm">
-      <div class="row d-flex justify-content-center">
-        <div class="col-lg-6 d-flex justify-content-center mt-3 mb-5">
-          <button type="button" class="btn btn-outline-primary startSuggestedTraining">
-            Start Suggested Training
-          </button>
-        </div>
-      </div>
       <div class="row">
-        <h4 class="d-flex justify-content-center mb-4">Distance Interval</h4>
+        <h2 class="d-flex head2 justify-content-center mb-4">Distance Interval</h2>
       </div>
       <div class="row justify-content-center">
         <div class="col-lg-6 col-md-9 col-sm-10">
-          <div class="input-group mb-3">
+          <div class="input-group mb-4">
             <input
               type="text"
               id="distrepetition"
@@ -67,7 +60,7 @@
             <span class="input-group-text" id="basic-add-on1">sets</span>
           </div>
 
-          <div class="input-group mb-3">
+          <div class="input-group mb-4">
             <input
               type="text"
               class="form-control"
@@ -79,7 +72,7 @@
             <span class="input-group-text" id="basic-add-on2">metres</span>
           </div>
 
-          <div class="input-group mb-3">
+          <div class="input-group mb-4">
             <input
               type="text"
               class="form-control"
@@ -91,7 +84,7 @@
             <span class="input-group-text" id="basic-add-on3">seconds / 100m</span>
           </div>
 
-          <div class="input-group mb-3">
+          <div class="input-group mb-4">
             <span class="input-group-text" id="basic-add-on5">Set Time</span>
             <input
               type="text"
@@ -113,8 +106,15 @@
             <span class="input-group-text" id="basic-add-on4">sec</span>
           </div>
           <div class="col-12">
-            <button class="btn btn-primary distancesubmit" type="submit">Submit form</button>
+            <button class="btn btn-warning distancesubmit stdBtn" type="submit">Submit</button>
           </div>
+        </div>
+      </div>
+      <div class="row d-flex justify-content-center">
+        <div class="col-lg-6 d-flex justify-content-center mt-3 mb-5">
+          <button type="button" class="btn btn-outline-warning startSuggestedTraining">
+            Start Suggested Training
+          </button>
         </div>
       </div>
       <a class="btn btn-outline-warning" role="button" href="index.html">Go back </a>

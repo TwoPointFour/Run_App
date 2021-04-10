@@ -344,6 +344,10 @@ h6,
   border-radius: 1rem;
 }
 
+.input-group-text {
+  border-radius: 1rem;
+}
+
 /* Animations */
 .section {
   transition: transform 1s, opacity 1s;
@@ -468,4 +472,9 @@ h6,
 
 .progressChip:hover {
   background-color: #f5e1c5;
+}
+
+.stdBtn {
+  padding: 1rem 3rem !important;
+  border-radius: 2rem !important;
 }

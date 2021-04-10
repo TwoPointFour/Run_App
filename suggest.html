@@ -386,7 +386,7 @@
               aria-label="Target minutes"
               aria-describedby="basic-addon4"
             />
-            <span class="input-group-text" id="basic-add-on5">min</span>
+            <span class="input-group-text" id="targetMin">min</span>
             <input
               type="text"
               class="form-control"
@@ -394,7 +394,7 @@
               aria-label="Target seconds"
               aria-describedby="basic-addon4"
             />
-            <span class="input-group-text" id="basic-add-on4">sec</span>
+            <span class="input-group-text" id="targetSec">sec</span>
           </div>
         </div>
         <div class="col-lg-3 inputCard">
@@ -405,18 +405,18 @@
               type="text"
               class="form-control"
               placeholder=""
-              aria-label="Target minutes"
+              aria-label="Current minutes"
               aria-describedby="basic-addon4"
             />
-            <span class="input-group-text" id="basic-add-on5">min</span>
+            <span class="input-group-text" id="currentMin">min</span>
             <input
               type="text"
               class="form-control"
               placeholder=""
-              aria-label="Target seconds"
+              aria-label="Current seconds"
               aria-describedby="basic-addon4"
             />
-            <span class="input-group-text" id="basic-add-on4">sec</span>
+            <span class="input-group-text" id="currentSec">sec</span>
           </div>
         </div>
         <div class="col-lg-3 inputCard">
@@ -430,14 +430,22 @@
               aria-label="Target minutes"
               aria-describedby="basic-addon4"
             />
-            <span class="input-group-text" id="basic-add-on5">weeks</span>
+            <span class="input-group-text" id="weeks">weeks</span>
           </div>
         </div>
       </div>
       <button class="btn btn-primary inputSubmit" type="submit">Submit</button>
     </div>
     <div class="container-fluid d-none" id="display-suggest">
-      <p>hi</p>
+    </div>
+    <div>
+      <a
+        class="btn btn-outline-warning intervalbtn timed"
+        role="button"
+        href="distanceTimer.html"
+      >
+        <p class="btnTitle">Proceed to workout</p>
+      </a>
     </div>
   </body>
 </html>

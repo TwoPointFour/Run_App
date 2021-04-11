@@ -24,9 +24,9 @@
     <script src="src/index.js"></script>
   </head>
   <body>
-    <div class="container-fluid Logo">
+    <div class="container-fluid Logo mb-4">
       <div class="row d-flex justify-content-between navContainer">
-        <div class="col-lg-3">
+        <div class="col-lg-3 col-md-4">
           <img src="images/icon_x48.png" alt="logo" width="48" height="48" />
           <span class="logoname">TwoPointFour</span>
         </div>
@@ -42,24 +42,88 @@
       </div>
     </div>
     <div class="container-fluid">
-      <div class="row justify-content-center trainingRecords">
-        <div class="d-grid col-lg-12 trainingList">
-          <div class="btn btn-outline-dark recordcard mb-3">
-            <div class="row justify-content-center mb-3">
-              <h5>Training Name (Date: )</h5>
+      <div class="row d-flex justify-content-center mb-4">
+        <div class="col-lg-8">
+          <h2 class="head2 text-center">Your Training Journey</h2>
+        </div>
+      </div>
+      <div class="row d-flex justify-content-center mx-2" id="display-suggest">
+        <div class="col-lg-8 suggestCard">
+          <div class="row suggestCardHead">
+            <div class="col-lg-12">
+              <h4 class="text-start head4 mt-1">
+                <span class="align-middle infoChip me-3">Week 1</span>
+                Distance Interval Training
+              </h4>
             </div>
-            <div class="row justify-content-center">
-              <div class="d-grid col-3">
-                <h6>Sets</h6>
+          </div>
+          <div class="row mt-3">
+            <div class="col-lg-1 mb-2 partCard d-flex align-items-center justify-content-center">
+              <h3 class="head3" style="margin: 0">Part 1</h3>
+            </div>
+            <div class="col-lg-11 detailsCard">
+              <div class="row d-flex justify-content-around">
+                <div class="col-lg-3 mb-2 text-center suggestChip">Sets: 3</div>
+                <div class="col-lg-3 mb-2 text-center suggestChip">Distance: 500m</div>
+                <div class="col-lg-3 mb-2 text-center suggestChip">Rest: 2</div>
               </div>
-              <div class="d-grid col-3">
-                <h6>Distance</h6>
+              <div class="row d-flex justify-content-center">
+                <table class="table text-center">
+                  <thread>
+                    <tr>
+                      <th scope="col">Set</th>
+                      <th scope="col">Time</th>
+                      <th scope="col">Target</th>
+                    </tr>
+                  </thread>
+                  <tbody class="">
+                    <tr>
+                      <th scope="row">1</th>
+                      <td>1:22</td>
+                      <td>1:25</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>1:22</td>
+                      <td>1:25</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">3</th>
+                      <td>1:22</td>
+                      <td>1:25</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <div class="d-grid col-3">
-                <h6>Set Time</h6>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-lg-1 mb-2 partCard d-flex align-items-center justify-content-center">
+              <h3 class="head3" style="margin: 0">Part 2</h3>
+            </div>
+            <div class="col-lg-11 detailsCard">
+              <div class="row d-flex justify-content-around">
+                <div class="col-lg-3 mb-2 text-center suggestChip">Sets: 1</div>
+                <div class="col-lg-3 mb-2 text-center suggestChip">Distance: 600m</div>
+                <div class="col-lg-3 mb-2 text-center suggestChip">Rest: null</div>
               </div>
-              <div class="d-grid col-3">
-                <h6>Type</h6>
+              <div class="row d-flex justify-content-center">
+                <table class="table text-center">
+                  <thread>
+                    <tr>
+                      <th scope="col">Set</th>
+                      <th scope="col">Time</th>
+                      <th scope="col">Target</th>
+                    </tr>
+                  </thread>
+                  <tbody class="">
+                    <tr>
+                      <th scope="row">1</th>
+                      <td>1:22</td>
+                      <td>1:25</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -110,6 +174,30 @@
           </tr>
         </tbody>
       </table>
+    </div>
+  </div>
+</div> -->
+
+<!-- <div class="row justify-content-center trainingRecords">
+  <div class="d-grid col-lg-12 trainingList">
+    <div class="btn btn-outline-dark recordcard mb-3">
+      <div class="row justify-content-center mb-3">
+        <h5>Training Name (Date: )</h5>
+      </div>
+      <div class="row justify-content-center">
+        <div class="d-grid col-3">
+          <h6>Sets</h6>
+        </div>
+        <div class="d-grid col-3">
+          <h6>Distance</h6>
+        </div>
+        <div class="d-grid col-3">
+          <h6>Set Time</h6>
+        </div>
+        <div class="d-grid col-3">
+          <h6>Type</h6>
+        </div>
+      </div>
     </div>
   </div>
 </div> -->

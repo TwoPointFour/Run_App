@@ -183,27 +183,51 @@ const getTrainingPlan = (e) => {
   console.log("outputTrainingPlan", outputTrainingPlan);
   // outputtrainingPlan will be in the format [[set, distance, rest]]
   const displayPlan = document.querySelector("#display-suggest");
-  console.log(displayPlan);
+  outputTrainingPlan = [
+    [6, 400, 2.33],
+    [1, 600, null],
+    [1, 500, null],
+    [1, 400, null],
+    [1, 300, null],
+  ];
+  console.log(outputTrainingPlan);
   displayPlan.insertAdjacentHTML(
     "beforeend",
-    `<div class="col-lg-8 suggestCard">
-  <div class="row">
-    <div class="col-2 weekCard d-flex align-items-center justify-content-center">
-      <h3 class="head2">Week 1</h3>
-    </div>
-    <div class="col-10 detailsCard">
-      <div class="row mb-3">
-        <h4 class="text-center">Distance Interval Training</h4>
-      </div>
-      <div class="row d-flex justify-content-around">
-        <div class="col-lg-3 text-center suggestChip">Sets: ${outputTrainingPlan[0][0]}</div>
-        <div class="col-lg-3 text-center suggestChip">Distance: ${outputTrainingPlan[0][1]}</div>
-        <div class="col-lg-3 text-center suggestChip">Rest: ${outputTrainingPlan[0][2]}</div>
-      </div>
+    `        <div class="col-lg-8 suggestCard">
+  <div class="row suggestCardHead">
+    <div class="col-lg-12">
+      <h4 class="text-start head4 mt-1">
+        <span class="align-middle infoChip me-3">Week 1</span>
+        Distance Interval Training
+      </h4>
     </div>
   </div>
 </div>`
   );
+  outputTrainingPlan.forEach((ele, i) => {
+    displayPlan.querySelector(".suggestCard").insertAdjacentHTML(
+      "beforeend",
+      `
+    <div class="row mt-3">
+    <div class="col-lg-1 mb-2 partCard d-flex align-items-center justify-content-center">
+      <h3 class="head3" style="margin: 0">Part ${i + 1}</h3>
+    </div>
+    <div class="col-lg-11 detailsCard">
+      <div class="row d-flex justify-content-around">
+        <div class="col-lg-3 mb-2 text-center suggestChip">
+          Sets: ${ele[0]}
+        </div>
+        <div class="col-lg-3 mb-2 text-center suggestChip">
+          Distance: ${ele[1]}
+        </div>
+        <div class="col-lg-3 mb-2 text-center suggestChip">
+          Rest: ${ele[2]}
+        </div>
+      </div>
+    </div>
+  </div>`
+    );
+  });
   // displayPlan.innerHTML = `<div class="btn btn-outline-dark recordcard mb-3">
   //               <div class="row justify-content-center mb-3">
   //                 <h5>Your Suggested Training</h5>
@@ -229,68 +253,77 @@ const getTrainingPlan = (e) => {
 
 // Yi Hein's Area =============== Front END
 
-document.querySelector(".actionBtn").addEventListener("click", function () {
-  document.querySelector(".questionnaireStart").classList.toggle("d-none");
-  document.querySelector(".questionnaireProfile").classList.toggle("d-none");
-});
-
-document.querySelectorAll(".slide").forEach((s, i) => {
-  s.style = `transform: translateX(${i * 100}%)`;
-});
-
-let counter = 0;
-
-document.querySelectorAll(".proceedBtn").forEach((b, i) => {
-  b.addEventListener("click", slideAdvance);
-});
-document.querySelectorAll(".reverseBtn").forEach((b, i) => {
-  b.addEventListener("click", slideReverse);
-});
-
-document.addEventListener("keydown", function (e) {
-  e.key === "ArrowLeft" && slideReverse();
-  e.key === "ArrowRight" && slideAdvance();
-});
-
-function slideAdvance() {
-  counter >= 7 ? (counter = 7) : counter++;
-  goToSlide(counter);
-}
-function slideReverse() {
-  counter <= 0 ? (counter = 0) : counter--;
-  goToSlide(counter);
-}
-
-function goToSlide(counter) {
-  counter = Number(counter);
-  document
-    .querySelectorAll(".dots__dot")
-    .forEach((d, i) => d.classList.remove("dots__dot--active"));
+function activeQuestionnaire() {
+  document.querySelector(".actionBtn").addEventListener("click", function () {
+    document.querySelector(".questionnaireStart").classList.toggle("d-none");
+    document.querySelector(".questionnaireProfile").classList.toggle("d-none");
+  });
 
   document.querySelectorAll(".slide").forEach((s, i) => {
-    s.style = `transform: translateX(${(i - counter) * 100}%)`;
+    s.style = `transform: translateX(${i * 100}%)`;
   });
-  document
-    .querySelectorAll(".dots__dot")
-    .forEach((d, i) => (d.dataset.slide == counter ? d.classList.add("dots__dot--active") : null));
-  document.querySelector(".progressChip").textContent = `${Math.floor(((counter + 1) / 8) * 100)}%`;
-}
 
-// Slide Nav
+  let counter = 0;
 
-document.querySelectorAll(".slide").forEach((_, i) => {
-  document
-    .querySelector(".dotsContainer")
-    .insertAdjacentHTML("beforeend", `<button class="dots__dot" data-slide="${i}"></button>`);
-});
+  document.querySelectorAll(".proceedBtn").forEach((b, i) => {
+    b.addEventListener("click", slideAdvance);
+  });
+  document.querySelectorAll(".reverseBtn").forEach((b, i) => {
+    b.addEventListener("click", slideReverse);
+  });
 
-document.querySelector(".dotsContainer").addEventListener("click", function (e) {
-  if (e.target.classList.contains("dots__dot")) {
-    e.target.classList.add("dots__dot--active");
-    goToSlide(e.target.dataset.slide);
-    counter = e.target.dataset.slide;
+  document.addEventListener("keydown", function (e) {
+    e.key === "ArrowLeft" && slideReverse();
+    e.key === "ArrowRight" && slideAdvance();
+  });
+
+  function slideAdvance() {
+    counter >= 7 ? (counter = 7) : counter++;
+    goToSlide(counter);
   }
-});
+  function slideReverse() {
+    counter <= 0 ? (counter = 0) : counter--;
+    goToSlide(counter);
+  }
+
+  function goToSlide(counter) {
+    counter = Number(counter);
+    document
+      .querySelectorAll(".dots__dot")
+      .forEach((d, i) => d.classList.remove("dots__dot--active"));
+
+    document.querySelectorAll(".slide").forEach((s, i) => {
+      s.style = `transform: translateX(${(i - counter) * 100}%)`;
+    });
+    document
+      .querySelectorAll(".dots__dot")
+      .forEach((d, i) =>
+        d.dataset.slide == counter ? d.classList.add("dots__dot--active") : null
+      );
+    document.querySelector(".progressChip").textContent = `${Math.floor(
+      ((counter + 1) / 8) * 100
+    )}%`;
+  }
+
+  // Slide Nav
+
+  document.querySelectorAll(".slide").forEach((_, i) => {
+    document
+      .querySelector(".dotsContainer")
+      .insertAdjacentHTML("beforeend", `<button class="dots__dot" data-slide="${i}"></button>`);
+  });
+
+  document.querySelector(".dotsContainer").addEventListener("click", function (e) {
+    if (e.target.classList.contains("dots__dot")) {
+      e.target.classList.add("dots__dot--active");
+      goToSlide(e.target.dataset.slide);
+      counter = e.target.dataset.slide;
+    }
+  });
+  const submitButton = document.querySelector(".submitBtn");
+  // console.log(getTrainingPlan("e"));
+  submitButton.addEventListener("click", getTrainingPlan);
+}
 
 // Yi Hein's Area ===============
 
@@ -300,9 +333,7 @@ const init = () => {
 
 window.onload = init;
 
-const submitButton = document.querySelector(".submitBtn");
-// console.log(getTrainingPlan("e"));
-submitButton.addEventListener("click", getTrainingPlan);
+document.querySelector(".slide") && activeQuestionnaire();
 
 /*
 Old code

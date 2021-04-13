@@ -64,12 +64,16 @@ document.querySelector(".homeBtn").addEventListener("click", function (e) {
   visible("TypeChoice", false);
 });
 
+// document.querySelectorAll(".joinBtn").forEach(function (element) {
+//   element.addEventListener("click", function () {
+//     visible("splashScreen", false);
+//     visible("TypeChoice", true);
+//     navObserver.unobserve(document.querySelector(".header"));
+//   });
+// });
 document.querySelectorAll(".joinBtn").forEach(function (element) {
-  element.addEventListener("click", function () {
-    visible("splashScreen", false);
-    visible("TypeChoice", true);
-    navObserver.unobserve(document.querySelector(".header"));
-  });
+  element.href = "suggest.html";
+  console.log("href changed!");
 });
 
 document.querySelector(".loginBtn").addEventListener("click", function () {

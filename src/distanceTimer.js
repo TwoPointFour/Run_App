@@ -1,6 +1,22 @@
 import { initialiseTimer } from "./timer.js";
 import { trainingPlan } from "./suggest.js";
 
+const queryString = window.location.search;
+// console.log(queryString);
+// // const parsedPermSetCount = queryString.match(//i)
+// const urlParams = new URLSearchParams(queryString);
+// console.log(urlParams.entries());
+
+const urlParams = new URLSearchParams(queryString);
+const urlUserInput = {};
+
+// Display the key/value pairs
+for (const pair of urlParams.entries()) {
+  urlUserInput[pair[0]] = pair[1];
+}
+
+console.log(urlUserInput);
+
 const timedBtn = document.querySelector(".timed");
 const distanceBtn = document.querySelector(".distance");
 const BackBtn1 = document.querySelector(".back1");
@@ -26,7 +42,7 @@ DistanceSubmit.addEventListener("click", function () {
 document.querySelector(".startSuggestedTraining").addEventListener("click", function () {
   visible("DistanceForm", false);
   visible("DistanceTimer", true);
-  initialiseTimer(trainingPlan);
+  initialiseTimer(urlUserInput);
 });
 
 document.querySelector(".distancesubmit").addEventListener("click", function () {

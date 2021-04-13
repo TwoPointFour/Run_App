@@ -285,7 +285,8 @@ h6,
   color: #9ea9b8 !important;
 }
 
-.completeTraining {
+.completeTraining,
+.saveTraining {
   padding: 3rem;
   border-radius: 10px;
 }

@@ -183,13 +183,7 @@ const getTrainingPlan = (e) => {
   console.log("outputTrainingPlan", outputTrainingPlan);
   // outputtrainingPlan will be in the format [[set, distance, rest]]
   const displayPlan = document.querySelector("#display-suggest");
-  outputTrainingPlan = [
-    [6, 400, 2.33],
-    [1, 600, null],
-    [1, 500, null],
-    [1, 400, null],
-    [1, 300, null],
-  ];
+  outputTrainingPlan = [[6, 400, 2.33]];
   console.log(outputTrainingPlan);
   displayPlan.insertAdjacentHTML(
     "beforeend",
@@ -227,6 +221,9 @@ const getTrainingPlan = (e) => {
     </div>
   </div>`
     );
+    document.querySelector(
+      ".gotoWorkoutBtn"
+    ).href = `distanceTimer.html?permSetCount=${5}&permDistance=${300}&permPaceTime=${10000}&permSetTimeMin=${2}&permSetTimeSec=${30}`;
   });
   // displayPlan.innerHTML = `<div class="btn btn-outline-dark recordcard mb-3">
   //               <div class="row justify-content-center mb-3">

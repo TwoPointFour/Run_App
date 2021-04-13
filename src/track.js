@@ -1,35 +1,96 @@
-import { account_1 } from "./script.js";
+"use strict";
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const runData = {};
 
-document.querySelector(".loadData").addEventListener("click", function () {
-  console.log("Data loading...");
-  console.log(account_1.data);
-  account_1.data.forEach(function (trainingData, i, arr) {
-    const {
-      permSetCount,
-      permDistance,
-      permPaceCount,
-      permSetTimeMin,
-      permSetTimeSec,
-    } = trainingData;
-    document.querySelector(".trainingList").innerHTML += `
-        <div class="btn btn-outline-dark recordcard mb-3">
-            <div class="row justify-content-center mb-3">
-              <h5>Training Name (Date: )</h5>
-            </div>
-            <div class="row justify-content-center">
-              <div class="d-grid col-3">
-                <h6>Sets: ${permSetCount}</h6>
-              </div>
-              <div class="d-grid col-3">
-                <h6>Distance: ${permDistance}</h6>
-              </div>
-              <div class="d-grid col-3">
-                <h6>Set Time: ${permSetTimeMin}:${permSetTimeSec}</h6>
-              </div>
-              <div class="d-grid col-3">
-                <h6>Type</h6>
-              </div>
-            </div>
-          </div>`;
+function packageData() {
+  for (const pair of urlParams.entries()) {
+    runData[pair[0]] = pair[1];
+  }
+  console.log(runData);
+}
+
+function displayData() {
+  document.querySelector("#display-suggest").insertAdjacentHTML(
+    "beforeend",
+    `
+  <div class="col-lg-8 suggestCard">
+    <div class="row suggestCardHead">
+      <div class="col-lg-12">
+        <h4 class="text-start head4 mt-1">
+          <span class="align-middle infoChip me-3">${runData.trainingDate}</span>
+          Distance Interval Training
+        </h4>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-lg-1 mb-2 partCard d-flex align-items-center justify-content-center">
+        <h3 class="head3" style="margin: 0">Part 1</h3>
+      </div>
+      <div class="col-lg-11 detailsCard">
+        <div class="row d-flex justify-content-around">
+          <div class="col-lg-2 mb-2 text-center suggestChip">Sets: ${runData.permSetCount}</div>
+          <div class="col-lg-2 mb-2 text-center suggestChip">Distance: ${
+            runData.permDistance
+          }m</div>
+          <div class="col-lg-2 mb-2 text-center suggestChip">Set Time: ${runData.permSetTimeMin}:${
+      runData.permSetTimeSec
+    }</div>
+          <div class="col-lg-2 mb-2 text-center suggestChip">Pace: ${
+            runData.permPaceTime / 1000
+          }s / 100m</div>
+        </div>
+        <div class="row d-flex justify-content-center d-none runTimeTable">
+          <table class="table text-center">
+            <thread>
+              <tr>
+                <th scope="col">Set</th>
+                <th scope="col">Time</th>
+                <th scope="col">Target</th>
+              </tr>
+            </thread>
+            <tbody class="runTimes">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  `
+  );
+  for (let set = 1; set <= 30; set++) {
+    const [minutes, seconds] = toMinutesSeconds(runData[set]);
+    const padMinutes = addZeroSecNew(minutes);
+    const padSeconds = addZeroSecNew(seconds);
+    runData[set] &&
+      document.querySelector(".runTimes").insertAdjacentHTML(
+        "beforeend",
+        `
+    <tr>
+                <th scope="row">${set}</th>
+                <td>${padMinutes}:${padSeconds}</td>
+                <td>not set</td>
+              </tr>`
+      );
+  }
+}
+
+function showDetails() {
+  document.querySelector(".suggestCard").addEventListener("click", function () {
+    document.querySelector(".runTimeTable").classList.toggle("d-none");
   });
-});
+}
+
+packageData();
+displayData();
+showDetails();
+
+function toMinutesSeconds(milliseconds) {
+  const minutes = Math.floor(milliseconds / (1000 * 60));
+  const seconds = Math.floor((milliseconds - minutes * 1000 * 60) / 1000);
+  return [minutes, seconds];
+}
+
+function addZeroSecNew(numchange) {
+  return numchange.toString().padStart(2, "0");
+}

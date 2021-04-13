@@ -25,7 +25,7 @@
   </head>
   <body>
     <div class="container-fluid Logo">
-      <div class="row d-flex justify-content-between navContainer">
+      <div class="row d-flex justify-content-start navContainer">
         <div class="col-lg-3">
           <img src="images/icon_x48.png" alt="logo" width="48" height="48" />
           <span class="logoname">TwoPointFour</span>
@@ -34,12 +34,15 @@
           <a class="navitem homeBtn" href="#" role="button">Home</a>
         </div>
         <div class="col-2 mt-3 head3">
+          <a class="navitem betaBtn" href="#betaSection" role="button">Beta Tester</a>
+        </div>
+        <div class="col-2 mt-3 head3 d-none">
           <a class="navitem priceBtn" href="#pricingSection" role="button">Pricing</a>
         </div>
-        <div class="col-2 mt-3 head3">
+        <div class="col-2 mt-3 head3 d-none">
           <a class="navitem techBtn" href="#techSection" role="button">Tech</a>
         </div>
-        <div class="col-2 mt-3 head3">
+        <div class="col-2 mt-3 head3 d-none">
           <a class="navitem aboutBtn" href="#aboutSection" role="button">About</a>
         </div>
       </div>
@@ -64,8 +67,20 @@
           </button>
         </div>
       </div>
+      <div class="section" id="betaSection">
+        <iframe
+          class="clickup-embed clickup-dynamic-height"
+          src="https://forms.clickup.com/f/3gz2q-2553/5NXDQAKUFP2J7L7CGY"
+          onwheel=""
+          width="100%"
+          height="100%"
+          style="background: transparent; border: 1px solid #ccc"
+        ></iframe>
+        <script async src="https://app-cdn.clickup.com/assets/js/forms-embed/v1.js"></script>
+        <script async src="https://app-cdn.clickup.com/assets/js/forms-embed/v1.js"></script>
+      </div>
       <!-- <div class="row spacer-sm"></div> -->
-      <div class="section">
+      <div class="section d-none">
         <h1 class="head1 mt-3" id="pricingSection">Pricing</h1>
         <div class="row d-flex mt-4 mx-1 justify-content-center">
           <div class="col-lg-3 planCard">
@@ -125,7 +140,7 @@
         </div>
         <div class="row spacer"></div>
       </div>
-      <div class="section">
+      <div class="section d-none">
         <h1 class="head1 mt-3" id="techSection">Our Technology</h1>
         <div class="row d-flex justify-content-center mt-3 mb-5">
           <div class="col-lg-9 text1">
@@ -157,7 +172,7 @@
       </div>
       <div class="row spacer"></div>
       <div class="row spacer"></div>
-      <div class="section">
+      <div class="section d-none">
         <h1 class="head1 mt-3" id="aboutSection">About Us</h1>
         <div class="row d-flex justify-content-center mx-1 mt-3 mb-5">
           <div class="col-lg-4 text1 mb-4 planCard">
@@ -335,7 +350,7 @@
             <a
               class="btn btn-outline-warning intervalbtn timed"
               role="button"
-              href="distanceTimerForm.html"
+              href="distanceTimer.html"
             >
               <p class="btnTitle">Distance Interval</p>
               <p class="info" style="color: rgb(255, 193, 7)">

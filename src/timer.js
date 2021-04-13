@@ -26,6 +26,13 @@ function toMinutesSecondsMilli(milliseconds) {
   return [minutes, seconds, milli];
 }
 
+function dateGenerator() {
+  let currDate = new Date();
+  let formatDate = `${currDate.getDate()}/${currDate.getMonth()}/${currDate.getFullYear()}`;
+  console.log(formatDate);
+  return formatDate;
+}
+
 ////// Timer Display Padding - should be replaced with built-in JS functions ////
 function addZeroMilliNew(numchange) {
   return numchange.toString().padStart(3, "0");
@@ -35,15 +42,8 @@ function addZeroSecNew(numchange) {
   return numchange.toString().padStart(2, "0");
 }
 
-export function initialiseTimer() {
+export function initialiseTimer(input) {
   ///// Initialising Variables //////////////
-  const input = {
-    permSetCount: "2",
-    permDistance: "2",
-    permPaceTime: "2",
-    permSetTimeMin: "2",
-    permSetTimeSec: "2",
-  };
   let timerUpdateInterval = 20;
   let expectedFunctionExecutionTime;
   const { permSetCount, permDistance, permPaceTime, permSetTimeMin, permSetTimeSec } = input;
@@ -54,6 +54,7 @@ export function initialiseTimer() {
   let paceCount = permPaceCount;
   let setTime = permSetTime;
   let setCount = permSetCount;
+  let trainingDate = dateGenerator();
   let pause;
   let pauseDistance;
   let pausePaceTime;
@@ -63,6 +64,7 @@ export function initialiseTimer() {
   const runData = new Map();
 
   variablePackage = {
+    trainingDate,
     timerUpdateInterval,
     expectedFunctionExecutionTime,
     permSetCount,
@@ -91,6 +93,7 @@ export function initialiseTimer() {
   activateStartBtn(variablePackage);
   activatePauseBtn(variablePackage);
   activateSplitBtn(variablePackage);
+  activateSaveBtn(variablePackage);
   activateCompleteBtn(variablePackage);
   activateAudio();
   activateVolumeCtrl(variablePackage);
@@ -156,14 +159,12 @@ function activateSplitBtn(variablePackage) {
     const [minutes, seconds, milli] = toMinutesSecondsMilli(splitSetTime);
 
     displaySplitTime(variablePackage, minutes, seconds, milli);
+    console.log(variablePackage);
   });
 }
 
 function activateCompleteBtn() {
   document.querySelector(".completeTraining").addEventListener("click", function () {
-    trainingInfo = Object.assign({}, variablePackage);
-    // account_1.data.push(trainingInfo);
-    // console.log(account_1.data);
     document.querySelector(".trainingDataTable").innerHTML = `
     <table class="table">
     <thread>
@@ -177,6 +178,26 @@ function activateCompleteBtn() {
   </table>`;
   });
 }
+
+function activateSaveBtn(variablePackage) {
+  document
+    .querySelector(".saveTraining")
+    .addEventListener("click", saveBtnExecutor.bind(null, variablePackage));
+}
+
+function saveBtnExecutor(variablePackage) {
+  const urlOutput = trainingDetailsConstructor(variablePackage);
+  document.querySelector(".completeTraining").href = urlOutput;
+}
+
+function trainingDetailsConstructor(variablePackage) {
+  let urlOutput = `track.html?trainingDate=${variablePackage.trainingDate}&permSetCount=${variablePackage.permSetCount}&permDistance=${variablePackage.permDistance}&permPaceTime=${variablePackage.permPaceTime}&permSetTimeMin=${variablePackage.permSetTimeMin}&permSetTimeSec=${variablePackage.permSetTimeSec}`;
+  for (const [key, value] of variablePackage.runData) {
+    urlOutput += `&${key}=${value}`;
+  }
+  return urlOutput;
+}
+
 ///////////// Display and Styles ////////////////////////
 
 function displaySetCount(setCount) {

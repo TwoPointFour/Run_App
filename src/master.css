@@ -347,7 +347,8 @@ h6,
 
 /* Distance Timer Form */
 
-.startSuggestedTraining {
+.startSuggestedTraining,
+.useCustomTraining {
   padding: 5rem;
   border-radius: 1rem;
 }
@@ -447,9 +448,9 @@ h6,
   border: none;
   background-color: #b3a791;
   opacity: 0.7;
-  height: 0.8rem;
-  width: 0.8rem;
-  border-radius: 50%;
+  height: 10px;
+  width: 10px;
+  border-radius: 10rem;
   margin-right: 1.75rem;
   cursor: pointer;
   transition: all 0.5s;
@@ -547,4 +548,21 @@ h6,
 .table {
   color: #5e4600 !important;
   border-color: #feb272 !important;
+}
+
+.productChip {
+  border-radius: 5rem;
+  background-color: #feb272;
+  color: #a05623;
+}
+
+.productLogo {
+  background-color: white;
+  border-radius: 2rem;
+  padding: 0.5rem;
+}
+
+.productText {
+  font-size: 1.7rem;
+  font-weight: 800;
 }

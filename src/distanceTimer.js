@@ -45,6 +45,11 @@ document.querySelector(".startSuggestedTraining").addEventListener("click", func
   initialiseTimer(urlUserInput);
 });
 
+document.querySelector(".useCustomTraining").addEventListener("click", function () {
+  visible("productSelector", false);
+  visible("customForm", true);
+});
+
 document.querySelector(".distancesubmit").addEventListener("click", function () {
   const permSetCount = Number(document.querySelector("#distrepetition").value);
   const permDistance = Number(document.querySelector("#distdistance").value);

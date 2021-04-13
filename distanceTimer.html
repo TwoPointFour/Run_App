@@ -41,81 +41,111 @@
     </div>
     <!-- Distance Interval User Input Form-->
     <div class="container-fluid DistanceForm">
-      <div class="row">
-        <h2 class="d-flex head2 justify-content-center mb-4">Distance Interval</h2>
-      </div>
-      <div class="row justify-content-center">
-        <div class="col-lg-6 col-md-9 col-sm-10">
-          <div class="input-group mb-4">
-            <input
-              type="text"
-              id="distrepetition"
-              class="form-control"
-              placeholder="Repetitions"
-              aria-label="Repetitions"
-              aria-describedby="basic-addon1"
-            />
-            <span class="input-group-text" id="basic-add-on1">sets</span>
-          </div>
+      <div class="container-fluid customForm d-none">
+        <div class="row">
+          <h2 class="d-flex head2 justify-content-center mb-4">Distance Interval</h2>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-lg-6 col-md-9 col-sm-10">
+            <div class="input-group mb-4">
+              <input
+                type="text"
+                id="distrepetition"
+                class="form-control"
+                placeholder="Repetitions"
+                aria-label="Repetitions"
+                aria-describedby="basic-addon1"
+              />
+              <span class="input-group-text" id="basic-add-on1">sets</span>
+            </div>
 
-          <div class="input-group mb-4">
-            <input
-              type="text"
-              class="form-control"
-              id="distdistance"
-              placeholder="Distance"
-              aria-label="Distance"
-              aria-describedby="basic-addon2"
-            />
-            <span class="input-group-text" id="basic-add-on2">metres</span>
-          </div>
+            <div class="input-group mb-4">
+              <input
+                type="text"
+                class="form-control"
+                id="distdistance"
+                placeholder="Distance"
+                aria-label="Distance"
+                aria-describedby="basic-addon2"
+              />
+              <span class="input-group-text" id="basic-add-on2">metres</span>
+            </div>
 
-          <div class="input-group mb-4">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Pace"
-              aria-label="Pace"
-              aria-describedby="basic-addon3"
-              id="distpace"
-            />
-            <span class="input-group-text" id="basic-add-on3">seconds / 100m</span>
-          </div>
+            <div class="input-group mb-4">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Pace"
+                aria-label="Pace"
+                aria-describedby="basic-addon3"
+                id="distpace"
+              />
+              <span class="input-group-text" id="basic-add-on3">seconds / 100m</span>
+            </div>
 
-          <div class="input-group mb-4">
-            <span class="input-group-text" id="basic-add-on5">Set Time</span>
-            <input
-              type="text"
-              class="form-control"
-              id="distsetmin"
-              aria-label="Duration minutes"
-              aria-describedby="basic-addon4"
-            />
+            <div class="input-group mb-4">
+              <span class="input-group-text" id="basic-add-on5">Set Time</span>
+              <input
+                type="text"
+                class="form-control"
+                id="distsetmin"
+                aria-label="Duration minutes"
+                aria-describedby="basic-addon4"
+              />
 
-            <span class="input-group-text" id="basic-add-on5">min</span>
-            <input
-              type="text"
-              class="form-control"
-              id="distsetsec"
-              aria-label="Duration seconds"
-              aria-describedby="basic-addon4"
-            />
+              <span class="input-group-text" id="basic-add-on5">min</span>
+              <input
+                type="text"
+                class="form-control"
+                id="distsetsec"
+                aria-label="Duration seconds"
+                aria-describedby="basic-addon4"
+              />
 
-            <span class="input-group-text" id="basic-add-on4">sec</span>
-          </div>
-          <div class="col-12">
-            <button class="btn btn-warning distancesubmit stdBtn" type="submit">Submit</button>
+              <span class="input-group-text" id="basic-add-on4">sec</span>
+            </div>
+            <div class="col-12">
+              <button class="btn btn-warning distancesubmit stdBtn" type="submit">Submit</button>
+            </div>
           </div>
         </div>
       </div>
-      <div class="row d-flex justify-content-center">
-        <div class="col-lg-6 d-flex justify-content-center mt-3 mb-5">
-          <button type="button" class="btn btn-outline-warning startSuggestedTraining">
-            Start Suggested Training
-          </button>
+      <div class="row productSelector">
+        <div class="col-lg-6 mt-5">
+          <div class="row d-flex justify-content-center mb-3">
+            <div class="col-6 productChip p-3">
+              <img class="productLogo img-fluid me-3" src="images/icon_x48.png" /><span
+                class="productText"
+                >Suggest</span
+              >
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+              <button type="button" class="btn btn-outline-warning startSuggestedTraining">
+                Start Suggested Training
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 mt-5">
+          <div class="row d-flex justify-content-center mb-3">
+            <div class="col-6 productChip p-3">
+              <img class="productLogo img-fluid me-3" src="images/icon_x48.png" /><span
+                class="productText"
+                >Train</span
+              >
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+              <button type="button" class="btn btn-outline-warning useCustomTraining">
+                Use Custom Training
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-      <a class="btn btn-outline-warning" role="button" href="index.html">Go back </a>
     </div>
     <!-- END OF Distance Interval User Input Form-->
 

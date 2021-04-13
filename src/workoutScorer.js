@@ -13,9 +13,7 @@ const missed = (previousWorkout) => previousWorkout.permSetCount - previousWorko
 
 const previousWorkouts = [testObj, testObj];
 
-const convertMinToSec = (workout) => {
-  return parseInt(workout.permSetTimeMin) + parseInt(workout.permSetTimeSec) * 60;
-};
+const convertMinToSec = (workout) => parseInt(workout.permSetTimeMin) * 60 + parseInt(workout.permSetTimeSec);
 
 const getAverageTime = (previousWorkout) => {
   return (
@@ -35,7 +33,7 @@ const getStandardDeviation = (previousWorkout) => {
 };
 
 const goalTimePerSet = (previousWorkout) =>
-  convertMinToSec(previousWorkout) * parseInt(previousWorkout.permDistance);
+  convertMinToSec(previousWorkout) //* parseInt(previousWorkout.permDistance);
 
 //todo confirm values
 const kValue = 0.2;
@@ -56,3 +54,4 @@ export const scoredWorkouts = () => {
     };
   });
 };
+// module.exports.scoredWorkouts = scoredWorkouts

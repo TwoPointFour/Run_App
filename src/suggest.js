@@ -223,7 +223,7 @@ const getTrainingPlan = (e) => {
     );
     document.querySelector(
       ".gotoWorkoutBtn"
-    ).href = `distanceTimer.html?permSetCount=${5}&permDistance=${300}&permPaceTime=${10000}&permSetTimeMin=${0}&permSetTimeSec=${0}&permRestTimeSec=${20000}`;
+    ).href = `distanceTimer.html?permSetCount=${5}&permDistance=${300}&permPaceTime=${10000}&permSetTimeMin=${0}&permSetTimeSec=${0}&permRestTimeSec=${20}`;
   });
   // displayPlan.innerHTML = `<div class="btn btn-outline-dark recordcard mb-3">
   //               <div class="row justify-content-center mb-3">

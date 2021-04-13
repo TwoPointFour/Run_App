@@ -83,6 +83,7 @@ export function initialiseTimer(input) {
     permSetTime,
     permPaceCount,
     permRestTime,
+    permRestTimeSec,
     distance,
     paceTime,
     paceCount,
@@ -203,7 +204,8 @@ function saveBtnExecutor(variablePackage) {
 }
 
 function trainingDetailsConstructor(variablePackage) {
-  let urlOutput = `track.html?trainingDate=${variablePackage.trainingDate}&permSetCount=${variablePackage.permSetCount}&permDistance=${variablePackage.permDistance}&permPaceTime=${variablePackage.permPaceTime}&permSetTimeMin=${variablePackage.permSetTimeMin}&permSetTimeSec=${variablePackage.permSetTimeSec}`;
+  let urlOutput = `track.html?trainingDate=${variablePackage.trainingDate}&permSetCount=${variablePackage.permSetCount}&permDistance=${variablePackage.permDistance}&permPaceTime=${variablePackage.permPaceTime}&permSetTimeMin=${variablePackage.permSetTimeMin}&permSetTimeSec=${variablePackage.permSetTimeSec}&permRestTimeSec=${variablePackage.permRestTimeSec}`;
+
   for (const [key, value] of variablePackage.runData) {
     urlOutput += `&${key}=${value}`;
   }

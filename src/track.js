@@ -31,9 +31,13 @@ function displayData() {
         <div class="row d-flex justify-content-around">
           <div class="col mb-2 text-center suggestChip">Sets:&nbsp${runData.permSetCount}</div>
           <div class="col mb-2 text-center suggestChip">Distance:&nbsp${runData.permDistance}m</div>
-          <div class="col mb-2 text-center suggestChip">Set&nbspTime:&nbsp${
-            runData.permSetTimeMin
-          }:${addZeroSecNew(runData.permSetTimeSec)}</div>
+          <div class="col mb-2 text-center suggestChip">${
+            runData.permRestTimeSec
+              ? `Rest&nbspTime:&nbsp${runData.permRestTimeSec}s`
+              : `Set&nbspTime:&nbsp${runData.permSetTimeMin}:${addZeroSecNew(
+                  runData.permSetTimeSec
+                )}`
+          }</div>
           <div class="col mb-2 text-center suggestChip">Pace:&nbsp${
             runData.permPaceTime / 1000
           }s&nbsp/&nbsp100m</div>
@@ -57,16 +61,17 @@ function displayData() {
   `
   );
   for (let set = 1; set <= 30; set++) {
-    const [minutes, seconds] = toMinutesSeconds(runData[set]);
+    const [minutes, seconds, milli] = toMinutesSecondsMilli(runData[set]);
     const padMinutes = addZeroSecNew(minutes);
     const padSeconds = addZeroSecNew(seconds);
+    const padMilli = addZeroMilliNew(milli).slice(0, 2);
     runData[set] &&
       document.querySelector(".runTimes").insertAdjacentHTML(
         "beforeend",
         `
     <tr>
                 <th scope="row">${set}</th>
-                <td>${padMinutes}:${padSeconds}</td>
+                <td>${padMinutes}:${padSeconds}:${padMilli}</td>
                 <td>not set</td>
               </tr>`
       );
@@ -83,12 +88,16 @@ packageData();
 displayData();
 showDetails();
 
-function toMinutesSeconds(milliseconds) {
+function toMinutesSecondsMilli(milliseconds) {
   const minutes = Math.floor(milliseconds / (1000 * 60));
   const seconds = Math.floor((milliseconds - minutes * 1000 * 60) / 1000);
-  return [minutes, seconds];
+  const milli = milliseconds - minutes * 60 * 1000 - seconds * 1000;
+  return [minutes, seconds, milli];
 }
 
 function addZeroSecNew(numchange) {
   return numchange.toString().padStart(2, "0");
+}
+function addZeroMilliNew(numchange) {
+  return numchange.toString().padStart(3, "0");
 }

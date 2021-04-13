@@ -28,7 +28,7 @@ function toMinutesSecondsMilli(milliseconds) {
 
 function dateGenerator() {
   let currDate = new Date();
-  let formatDate = `${currDate.getDate()}/${currDate.getMonth()}/${currDate.getFullYear()}`;
+  let formatDate = `${currDate.getDate()}/${currDate.getMonth() + 1}/${currDate.getFullYear()}`;
   console.log(formatDate);
   return formatDate;
 }

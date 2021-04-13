@@ -508,6 +508,8 @@ h6,
   color: #5e4600;
   padding: 0.7rem;
   border-radius: 0.5rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 .suggestChip:hover {

@@ -19,7 +19,7 @@ function displayData() {
       <div class="col-lg-12">
         <h4 class="text-start head4 mt-1">
           <span class="align-middle infoChip me-3">${runData.trainingDate}</span>
-          Distance Interval Training
+          Distance&nbspInterval Training
         </h4>
       </div>
     </div>
@@ -29,16 +29,14 @@ function displayData() {
       </div>
       <div class="col-lg-11 detailsCard">
         <div class="row d-flex justify-content-around">
-          <div class="col-lg-2 mb-2 text-center suggestChip">Sets: ${runData.permSetCount}</div>
-          <div class="col-lg-2 mb-2 text-center suggestChip">Distance: ${
-            runData.permDistance
-          }m</div>
-          <div class="col-lg-2 mb-2 text-center suggestChip">Set Time: ${runData.permSetTimeMin}:${
-      runData.permSetTimeSec
-    }</div>
-          <div class="col-lg-2 mb-2 text-center suggestChip">Pace: ${
+          <div class="col mb-2 text-center suggestChip">Sets:&nbsp${runData.permSetCount}</div>
+          <div class="col mb-2 text-center suggestChip">Distance:&nbsp${runData.permDistance}m</div>
+          <div class="col mb-2 text-center suggestChip">Set&nbspTime:&nbsp${
+            runData.permSetTimeMin
+          }:${addZeroSecNew(runData.permSetTimeSec)}</div>
+          <div class="col mb-2 text-center suggestChip">Pace:&nbsp${
             runData.permPaceTime / 1000
-          }s / 100m</div>
+          }s&nbsp/&nbsp100m</div>
         </div>
         <div class="row d-flex justify-content-center d-none runTimeTable">
           <table class="table text-center">

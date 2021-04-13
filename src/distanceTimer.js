@@ -1,4 +1,6 @@
 import { initialiseTimer } from "./timer.js";
+import { initialiseTimer as initialiseRestTimer } from "./restTimer.js";
+
 import { trainingPlan } from "./suggest.js";
 
 const queryString = window.location.search;
@@ -14,8 +16,6 @@ const urlUserInput = {};
 for (const pair of urlParams.entries()) {
   urlUserInput[pair[0]] = pair[1];
 }
-
-console.log(urlUserInput);
 
 const timedBtn = document.querySelector(".timed");
 const distanceBtn = document.querySelector(".distance");
@@ -42,7 +42,7 @@ DistanceSubmit.addEventListener("click", function () {
 document.querySelector(".startSuggestedTraining").addEventListener("click", function () {
   visible("DistanceForm", false);
   visible("DistanceTimer", true);
-  initialiseTimer(urlUserInput);
+  initialiseRestTimer(urlUserInput);
 });
 
 document.querySelector(".useCustomTraining").addEventListener("click", function () {
@@ -56,12 +56,18 @@ document.querySelector(".distancesubmit").addEventListener("click", function () 
   const permPaceTime = Number(document.querySelector("#distpace").value) * 1000;
   const permSetTimeMin = Number(document.querySelector("#distsetmin").value);
   const permSetTimeSec = Number(document.querySelector("#distsetsec").value);
+  const permRestTimeSec = Number(document.querySelector("#restTimeSec").value);
   const permUserInput = {
     permSetCount,
     permDistance,
     permPaceTime,
     permSetTimeMin,
     permSetTimeSec,
+    permRestTimeSec,
   };
-  initialiseTimer(permUserInput);
+  if (permRestTimeSec === 0) {
+    initialiseTimer(permUserInput);
+  } else {
+    initialiseRestTimer(permUserInput);
+  }
 });

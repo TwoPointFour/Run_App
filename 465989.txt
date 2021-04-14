@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+        />
+        <meta name="theme-color" content="#009578" />
+        <title>TwoPointFour Intervals</title>
+        <link rel="stylesheet" href="../css/bootstrap.min.css" />
+        <link rel="stylesheet" href="../src/master.css" />
+        <link rel="manifest" href="../manifest.json" />
+        <link rel="apple-touch-icon" href="../images/icon_x128apple.png" />
+        <link rel="icon" href="../images/icon_x48.png" />
+        <link rel="serviceWorker" href="../sw.js" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+          rel="stylesheet"
+        />
+        <script type="module" src="../src/db.js"></script>
+        <script type="module" src="../src/index.js"></script>
+      </head>
+      <body>
+          <div class="container-fluid Logo">
+          <div class="row d-flex justify-content-start navContainer">
+            <div class="col-lg-3">
+              <img src="../images/icon_x48.png" alt="logo" width="48" height="48" />
+              <span class="logoname">TwoPointFour</span>
+            </div>
+            <div class="col mt-3 head3">
+              <a class="navitem homeBtn" href="../index.html" role="button">Home</a>
+            </div>
+            <div class="col mt-3 head3">
+              <a class="navitem betaBtn" href="#../index.html" role="button">Beta Tester</a>
+            </div>
+            <div class="col mt-3 head3">
+              <a class="navitem betaBtn" href="/blog/blog.html" role="button">Blog</a>
+            </div>
+          </div>
+        </div>
+        </div><div class="row spacer-sm"></div>
+      <div class="container-fluid"><div class="row d-flex justify-content-center">
+          <div class="row d-flex justify-content-center"><div class="col-8"><h1 class="head1">healthcheck ups and running</h1></div></div>
+        </div><div class="row spacer-xs"></div>
+        </div>
+    <div class="row d-flex justify-content-center">
+            <div class="col-8">Running is a great way to maintain a healthy lifestyle. However, it is essential to visit your doctor for regular checkups after running to ensure major injuries don't occur. The risk of potential injuries greatly increase if you push yourself to run faster or further than you are used to doing. This is why it is important to schedule regular appointments with your health care provider after running. Here's why.
+            </div><div class="row spacer-xs"></div>
+        </div><div class="row d-flex justify-content-center">
+            <div class="col-8">Health is one of the most important things in our lives. It is something that we should be looking after. In this article, I am going to discuss check ups after running regularly, to ensure major injuries don't occur from doing too much too soon.
+            </div><div class="row spacer-xs"></div>
+        </div><div class="row d-flex justify-content-center">
+            <div class="col-8">The first thing to realise is that the body needs time to adjust to running regularly. It can also take some time for injuries to heal. This is particularly so if you haven't been a regular runner, or if you have had an injury which has kept you away from running, such as plantar fasciitis. When it comes to injuries, prevention is better than cure. Running regularly will help with this. However, for competitive runners, understanding how best to increase your training intensity is vital.
+            </div><div class="row spacer-xs"></div>
+        </div><div class="row d-flex justify-content-center">
+            <div class="col-8">There are many benefits to running. It's great for your cardiovascular system, it can help you lose weight, it will improve your muscles and it has even been known to reduce stress. There are also many different types of running that you can try- you don't need to stick to the pavement! You could run on a treadmill if you don't like running outdoors, or you could also go mountain hiking if you enjoy exercising in nature. However, there is one risk that may put some people off from taking part in running- that is the risk of injury. When running more than anything else, your feet and ankles are under a lot of pressure, so unless you take proper precautions, injuries can happen. If you
+            </div><div class="row spacer-xs"></div>
+        </div><div class="row d-flex justify-content-center">
+            <div class="col-8">Having a healthy weight and diet could help protect your body against heart disease, stroke, and some cancers. A healthy diet also contains lots of fruit, vegetables, and wholegrains, which are important for reducing the risk of heart disease. Plus, a healthy diet will help you feel your best! Adding exercise into your daily routine is just as important as having a good diet. It has many benefits- from helping you lose weight, it will improve your muscles and it has even been known to reduce stress. There are also many different types of running that you can try- you don't need to stick to the pavement! You could run on grass or even in water , though it may be worth getting some waterproof shoes first!
+            </div><div class="row spacer-xs"></div>
+        </div><div class="row d-flex justify-content-center">
+            <div class="col-8">Many cancers are preventable if the right lifestyle choices are made. Eating a healthy diet is one of the most important methods to reduce your risk of cancer. A healthy diet has plenty of plant foods such as fruit and vegetables, plus wholegrains and pulses, which will reduce your risk of heart disease and cancer. Also, eating a healthy diet can help you look and feel your best!
+            </div><div class="row spacer-xs"></div>
+        </div><div class="row d-flex justify-content-center">
+            <div class="col-8">Cancer is a huge problem for most of us. In fact, one person in 2 will develop cancer at some point in their life. How do you avoid getting cancer? The best starting point is to be aware of the risk factors and try as hard as possible to reduce them. The first step to reducing your risk is to change your diet. A healthy diet has plenty of plant foods such as fruit and vegetables, plus wholegrains and pulses, which have anti-cancer properties that help protect against cancer over time.<br>
+            </div><div class="row spacer-xs"></div>
+        </div><div class="row d-flex justify-content-center">
+            <div class="col-8">We all know someone affected by cancer. Everyone dreads the possible diagnosis and having to deal with the many challenges of cancer in their life. How do you avoid getting cancer? The best starting point is to be aware of the risk factors and try as hard as possible to reduce them. The first step to reducing your risk is to change your lifestyle habits. It's never too late to improve your health anyway.
+            </div><div class="row spacer-xs"></div>
+        </div><div class="row d-flex justify-content-center">
+            <div class="col-8">The first step to curing cancer is to eliminate as many risk factors as possible. If you are concerned about having cancer or if you want to avoid having it in the future, then the first thing you should do is take an inventory of all the things that might be increasing your risk of getting this disease. There are a lot of different factors that contribute to the developmen
+            </div><div class="row spacer-xs"></div>
+        </div><div class="row d-flex justify-content-center">
+            <div class="col-8">L ike most people, I'll admit that cancer is the “C word” you want to avoid at all costs. Whether you've just been diagnosed with cancer, are dealing with the loss of a loved one from cancer, or are in remission yourself, it's hard not to be afraid of cancer. Maybe you want to know what type of cancer you have or if there's a test available to see if you're related to your doctor? Perhaps you want to avoid having cancer or if you want to avoid having it in the future, then the first thing you should do is take an inventory of all the things that might be increasing your risk of getting this disease in the first place. Here are some ways being lazy could put your
+            </div><div class="row spacer-xs"></div>
+        </div><div class="row d-flex justify-content-center">
+            <div class="col-8">It is estimated that 12% of all men will develop cancer in their lifetime. Men are also more likely to die from cancer then blockage of the arteries than women. The recent passing of Steve Jobs shows that this disease hits us all. Many people fear cancer and when they hear the diagnosis, they deal with feelings of disbelief, fear, loss, and anger. If you've just been diagnosed with cancer, are dealing with a loved one who has breast cancer or is in remission yourself, it's hard not to be afraid of cancer. Maybe you want to know what type of cancer you have or what your chances for survival are. Or maybe you're an American Cancer Society volunteer who speaks to patients and survivors about resources
+            </div><div class="row spacer-xs"></div>
+        </div><div class="row d-flex justify-content-center">
+            <div class="col-8">Cancer is a disease that knows no age, socioeconomic status or gender. According to the National Center for Health Statistics, approximately 36% of all deaths in 2007 were caused by heart disease and cancer was second at 24%. The difference isn't very large, but the numbers are staggering none the less.
+            </div><div class="row spacer-xs"></div>
+        </div></div>
+      </body>
+    </html> 

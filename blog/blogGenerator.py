@@ -14,17 +14,28 @@ driver.maximize_window()
 driver.get(baseURL)
 
 time.sleep(60)
-titleBlog = ["beginner runner", "running at night", "running shoes", "running for weight loss", "running improvement", "healthcheck ups and running", "speed vs endurance running", "running and diet"]
-descriptionBlog = ["How To Start Running From Scratch","Why Running at Night is Good for you?","Running Shoes That Suit Your Running Style","How Running Helps You Lose Weight", "transitioning from a beginner to intermediate runner", "Why Do We Need Regular Checkups After Running?", "Is Running Speed Or Endurance More Important For Improving Performance?","Is Your Diet Sabotaging Your Marathon Training?"]
+titleBlog = ["running for weight loss", "running improvement", "healthcheck ups and running", "speed vs endurance running", "running and diet", "running on treadmill","running community","running mental motivation"]
+descriptionBlog = ["How Running Helps You Lose Weight", "Transitioning from a beginner to intermediate runner", "Why Do We Need Regular Checkups After Running?", "Is Running Speed Or Endurance More Important For Improving Performance?","Is Your Diet Sabotaging Your Marathon Training?", "How to run effectively on the treadmill", "How to build your own running community", "How to stay motivated mentally during a run"]
 # driver.find_element_by_xpath("/html/body").send_keys('\ue009','\ue007')
 # time.sleep(10)
 
 for i in range(9):
-    driver.find_element_by_xpath("/html/body/div[10]/div/div[3]/form/div/div[2]/div[2]/div[2]/input").clear()
-    driver.find_element_by_xpath("/html/body/div[10]/div/div[3]/form/div/div[2]/div[2]/div[2]/textarea").clear()
-    driver.find_element_by_xpath("/html/body/div[10]/div/div[3]/form/div/div[2]/div[2]/div[2]/input").send_keys(titleBlog[i])
-    driver.find_element_by_xpath("/html/body/div[10]/div/div[3]/form/div/div[2]/div[2]/div[2]/textarea").send_keys(descriptionBlog[i])
-    driver.find_element_by_xpath("/html/body").send_keys('\ue009','\ue007')
+    while True:
+        try:
+            driver.find_element_by_xpath("/html/body/div[10]/div/div[3]/form/div/div[2]/div[2]/div[2]/input").clear()
+            driver.find_element_by_xpath("/html/body/div[10]/div/div[3]/form/div/div[2]/div[2]/div[2]/textarea").clear()
+            driver.find_element_by_xpath("/html/body/div[10]/div/div[3]/form/div/div[2]/div[2]/div[2]/input").send_keys(titleBlog[i])
+            driver.find_element_by_xpath("/html/body/div[10]/div/div[3]/form/div/div[2]/div[2]/div[2]/textarea").send_keys(descriptionBlog[i])
+            driver.find_element_by_xpath("/html/body").send_keys('\ue009','\ue007')
+            break
+        except Exception as e:
+            print(e)
+            time.sleep(5)
+            driver.find_element_by_xpath("/html/body/div[10]/div/div[3]/form/div/div[2]/div[2]/div[2]/input").clear()
+            driver.find_element_by_xpath("/html/body/div[10]/div/div[3]/form/div/div[2]/div[2]/div[2]/textarea").clear()
+            driver.find_element_by_xpath("/html/body/div[10]/div/div[3]/form/div/div[2]/div[2]/div[2]/input").send_keys(titleBlog[i])
+            driver.find_element_by_xpath("/html/body/div[10]/div/div[3]/form/div/div[2]/div[2]/div[2]/textarea").send_keys(descriptionBlog[i])
+            driver.find_element_by_xpath("/html/body").send_keys('\ue009','\ue007')
     time.sleep(10)
     blogHTMLHead = """<!DOCTYPE html>
     <html lang="en">
@@ -59,10 +70,10 @@ for i in range(9):
               <span class="logoname">TwoPointFour</span>
             </div>
             <div class="col mt-3 head3">
-              <a class="navitem homeBtn" href="#" role="button">Home</a>
+              <a class="navitem homeBtn" href="../index.html" role="button">Home</a>
             </div>
             <div class="col mt-3 head3">
-              <a class="navitem betaBtn" href="#betaSection" role="button">Beta Tester</a>
+              <a class="navitem betaBtn" href="#../index.html" role="button">Beta Tester</a>
             </div>
             <div class="col mt-3 head3">
               <a class="navitem betaBtn" href="/blog/blog.html" role="button">Blog</a>
@@ -71,10 +82,10 @@ for i in range(9):
         </div>
         </div><div class="row spacer-sm"></div>
       <div class="container-fluid"><div class="row d-flex justify-content-center">
-          <div class="row d-flex justify-content-center"><div class="col-8"><h1 class="head1">How digital tools can hypercharge your run</h1></div></div>
+          <div class="row d-flex justify-content-center"><div class="col-8"><h1 class="head1">{}</h1></div></div>
         </div><div class="row spacer-xs"></div>
         </div>
-    """
+    """.format(titleBlog[i])
 
     blogHTMLEnd = """</div>
       </body>
@@ -96,7 +107,8 @@ for i in range(9):
             try:
                 ideaText = driver.find_element(By.ID, "idea-1").get_attribute("original_text").replace("’","\'")
                 break
-            except:
+            except Exception as e:
+                print(e)
                 driver.find_element_by_xpath("/html/body").send_keys('\ue009','\ue007')
                 time.sleep(15)
                 ideaText = driver.find_element(By.ID, "idea-1").get_attribute("original_text").replace("’","\'")
@@ -109,7 +121,8 @@ for i in range(9):
                 driver.find_element_by_xpath("/html/body/div[10]/div/div[3]/form/div/div[2]/div[2]/div[2]/textarea").clear()
                 driver.find_element_by_xpath("/html/body/div[10]/div/div[3]/form/div/div[2]/div[2]/div[2]/textarea").send_keys(ideaText[100:300])
                 break
-            except:
+            except Exception as e:
+                print(e)
                 time.sleep(15)
                 driver.find_element_by_xpath("/html/body/div[10]/div/div[3]/form/div/div[2]/div[2]/div[2]/textarea").clear()
                 driver.find_element_by_xpath("/html/body/div[10]/div/div[3]/form/div/div[2]/div[2]/div[2]/textarea").send_keys(ideaText[100:300])
@@ -127,7 +140,7 @@ for i in range(9):
     blogHTMLHead += blogHTMLEnd
 
     filename = str(randrange(10)) + str(randrange(10)) + str(randrange(10)) +str(randrange(10)) +str(randrange(10)) +str(randrange(10)) + ".txt"
-    wblog = open(filename , "w+")
+    wblog = open(filename , "w+", encoding='utf8')
     print("File Opened.")
     wblog.write(blogHTMLHead)
     wblog.close()

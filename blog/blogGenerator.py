@@ -85,7 +85,7 @@ for i in range(9):
           <div class="row d-flex justify-content-center"><div class="col-8"><h1 class="head1">{}</h1></div></div>
         </div><div class="row spacer-xs"></div>
         </div>
-    """.format(titleBlog[i])
+    """.format(descriptionBlog[i])
 
     blogHTMLEnd = """</div>
       </body>

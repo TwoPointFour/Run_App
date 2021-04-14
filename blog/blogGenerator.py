@@ -14,14 +14,16 @@ driver.maximize_window()
 driver.get(baseURL)
 
 time.sleep(60)
-
-driver.find_element_by_xpath("/html/body/div[10]/div/div[3]/form/div/div[2]/div[2]/div[2]/input").send_keys("How using digital running tool can help you improve your fitness")
-driver.find_element_by_xpath("/html/body/div[10]/div/div[3]/form/div/div[2]/div[2]/div[2]/textarea").send_keys("When many people think of running training, they think of tedious, expensive and ineffective running programmes. But that is no longer the case with new and upcoming digital running tools such as TwoPointFour. These tools cater to your personal fitness level and uses advanced algorithms to find the perfect training for you.")
-
+titleBlog = ["beginner runner", "running at night", "running shoes", "running for weight loss", "running improvement", "healthcheck ups and running", "speed vs endurance running", "running and diet"]
+descriptionBlog = ["How To Start Running From Scratch","Why Running at Night is Good for you?","Running Shoes That Suit Your Running Style","How Running Helps You Lose Weight", "transitioning from a beginner to intermediate runner", "Why Do We Need Regular Checkups After Running?", "Is Running Speed Or Endurance More Important For Improving Performance?","Is Your Diet Sabotaging Your Marathon Training?"]
 # driver.find_element_by_xpath("/html/body").send_keys('\ue009','\ue007')
 # time.sleep(10)
 
-for i in range(10):
+for i in range(9):
+    driver.find_element_by_xpath("/html/body/div[10]/div/div[3]/form/div/div[2]/div[2]/div[2]/input").clear()
+    driver.find_element_by_xpath("/html/body/div[10]/div/div[3]/form/div/div[2]/div[2]/div[2]/textarea").clear()
+    driver.find_element_by_xpath("/html/body/div[10]/div/div[3]/form/div/div[2]/div[2]/div[2]/input").send_keys(titleBlog[i])
+    driver.find_element_by_xpath("/html/body/div[10]/div/div[3]/form/div/div[2]/div[2]/div[2]/textarea").send_keys(descriptionBlog[i])
     driver.find_element_by_xpath("/html/body").send_keys('\ue009','\ue007')
     time.sleep(10)
     blogHTMLHead = """<!DOCTYPE html>
@@ -69,7 +71,7 @@ for i in range(10):
         </div>
         </div><div class="row spacer-sm"></div>
       <div class="container-fluid"><div class="row d-flex justify-content-center">
-          <div class="row"><div class="col-8"><h1 class="head1">How using digital running tool can help you improve your fitness</h1></div></div>
+          <div class="row d-flex justify-content-center"><div class="col-8"><h1 class="head1">How digital tools can hypercharge your run</h1></div></div>
         </div><div class="row spacer-xs"></div>
         </div>
     """
@@ -89,7 +91,7 @@ for i in range(10):
             </div><div class="row spacer-xs"></div>
         </div>"""
 
-    for i in range(20):
+    for i in range(12):
         while True:
             try:
                 ideaText = driver.find_element(By.ID, "idea-1").get_attribute("original_text").replace("’","\'")
@@ -101,15 +103,16 @@ for i in range(10):
         blogHTMLElementHead += ideaText
         blogHTMLFinal = blogHTMLElementHead + blogHTMLElementEnd
         blogHTMLHead += blogHTMLFinal
-        cutText = ideaText[-20]
         print(blogHTMLFinal)
         while True:
             try:
-                driver.find_element_by_xpath("/html/body/div[10]/div/div[3]/form/div/div[2]/div[2]/div[2]/textarea").send_keys(cutText)
+                driver.find_element_by_xpath("/html/body/div[10]/div/div[3]/form/div/div[2]/div[2]/div[2]/textarea").clear()
+                driver.find_element_by_xpath("/html/body/div[10]/div/div[3]/form/div/div[2]/div[2]/div[2]/textarea").send_keys(ideaText[100:300])
                 break
             except:
-                time.sleep(5)
-                driver.find_element_by_xpath("/html/body/div[10]/div/div[3]/form/div/div[2]/div[2]/div[2]/textarea").send_keys(cutText)
+                time.sleep(15)
+                driver.find_element_by_xpath("/html/body/div[10]/div/div[3]/form/div/div[2]/div[2]/div[2]/textarea").clear()
+                driver.find_element_by_xpath("/html/body/div[10]/div/div[3]/form/div/div[2]/div[2]/div[2]/textarea").send_keys(ideaText[100:300])
         driver.find_element_by_xpath("/html/body").send_keys('\ue009','\ue007')
 
         ideaText = ""

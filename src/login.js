@@ -43,7 +43,7 @@ const visible = (elementClass, state) => {
 // Jonas's Version
 
 document.querySelector(".navContainer").addEventListener("click", function (e) {
-  e.preventDefault();
+  // e.preventDefault();
   if (e.target.classList.contains("navitem")) {
     const id = e.target.getAttribute("href");
     document.querySelector(id).scrollIntoView({ behavior: "smooth" });

@@ -1,7 +1,7 @@
 import { initialiseTimer } from "./timer.js";
 import { initialiseTimer as initialiseRestTimer } from "./restTimer.js";
 
-import { trainingPlan } from "./suggest.js";
+// import { trainingPlan } from "./suggest.js";
 
 const queryString = window.location.search;
 // console.log(queryString);

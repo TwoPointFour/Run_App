@@ -255,14 +255,17 @@ const getTrainingPlan = (e) => {
     </div>
     <div class="col-lg-11 detailsCard">
       <div class="row d-flex justify-content-around">
-        <div class="col-lg-3 mb-2 text-center suggestChip">
-          Sets: ${ele[0]}
+        <div class="col-lg-2 mb-2 text-center suggestChip">
+          Sets:&nbsp${ele[0]}
         </div>
-        <div class="col-lg-3 mb-2 text-center suggestChip">
-          Distance: ${ele[1]}
+        <div class="col-lg-2 mb-2 text-center suggestChip">
+          Distance:&nbsp${ele[1]}m
         </div>
-        <div class="col-lg-3 mb-2 text-center suggestChip">
-          Rest: ${ele[2]}
+        <div class="col-lg-2 mb-2 text-center suggestChip">
+          Pace:&nbsp${Math.floor(permPace / 1000)}s&nbsp/&nbsp100m
+        </div>
+        <div class="col-lg-2 mb-2 text-center suggestChip">
+          Rest: ${permRest}s
         </div>
       </div>
     </div>

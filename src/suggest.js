@@ -231,6 +231,17 @@ const getTrainingPlan = (e) => {
   const permRest = Math.floor(trainingPlan[0][2] * targetPace * 100);
   const permPace = Math.floor(targetPace * 100 * 1000);
 
+  function toMinutesSeconds(milliseconds) {
+    const minutes = Math.floor(milliseconds / (1000 * 60));
+    const seconds = Math.floor((milliseconds - minutes * 1000 * 60) / 1000);
+    return [minutes, seconds];
+  }
+  function addZeroSecNew(numchange) {
+    return numchange.toString().padStart(2, "0");
+  }
+
+  let [restMin, restSec] = toMinutesSeconds(permRest * 1000);
+  restSec = addZeroSecNew(restSec);
   const displayPlan = document.querySelector("#display-suggest");
   displayPlan.insertAdjacentHTML(
     "beforeend",
@@ -255,17 +266,17 @@ const getTrainingPlan = (e) => {
     </div>
     <div class="col-lg-11 detailsCard">
       <div class="row d-flex justify-content-around">
-        <div class="col-lg-2 mb-2 text-center suggestChip">
+        <div class="col mb-2 text-center suggestChip">
           Sets:&nbsp${ele[0]}
         </div>
-        <div class="col-lg-2 mb-2 text-center suggestChip">
+        <div class="col mb-2 text-center suggestChip">
           Distance:&nbsp${ele[1]}m
         </div>
-        <div class="col-lg-2 mb-2 text-center suggestChip">
+        <div class="col mb-2 text-center suggestChip">
           Pace:&nbsp${Math.floor(permPace / 1000)}s&nbsp/&nbsp100m
         </div>
-        <div class="col-lg-2 mb-2 text-center suggestChip">
-          Rest: ${permRest}s
+        <div class="col mb-2 text-center suggestChip">
+          Rest:&nbsp${restMin}:${restSec}
         </div>
       </div>
     </div>

@@ -38,9 +38,9 @@ function displayData() {
                   runData.permSetTimeSec
                 )}`
           }</div>
-          <div class="col mb-2 text-center suggestChip">Pace:&nbsp${
+          <div class="col mb-2 text-center suggestChip">Pace:&nbsp${Math.floor(
             runData.permPaceTime / 1000
-          }s&nbsp/&nbsp100m</div>
+          )}s&nbsp/&nbsp100m</div>
         </div>
         <div class="row d-flex justify-content-center d-none runTimeTable">
           <table class="table text-center">

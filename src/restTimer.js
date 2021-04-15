@@ -280,12 +280,14 @@ function displayMinutes(variablePackage) {
   if (variablePackage.splitToggle) {
     document.querySelector(".timermin").classList.remove("smalltime");
     document.querySelector(".timermin").classList.add("resttime");
+    document.querySelector(".timersplit").classList.add("disabled");
     document.querySelector(
       ".timermin"
     ).textContent = `Rest\u00A0\u00A0\u00A0${minutes}:${addZeroSecNew(seconds)}`;
   } else {
     document.querySelector(".timermin").classList.add("smalltime");
     document.querySelector(".timermin").classList.remove("resttime");
+    document.querySelector(".timersplit").classList.remove("disabled");
     document.querySelector(".timermin").textContent = `${minutes}:${addZeroSecNew(seconds)}`;
   }
 }

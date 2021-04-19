@@ -572,6 +572,8 @@ h6,
   font-weight: 800;
 }
 
+/* Image Attribution */
+
 .attribution {
   position: absolute;
   bottom: 0.1rem;
@@ -583,4 +585,11 @@ h6,
 .attribution > a {
   text-decoration: none;
   color: #c5c5c5;
+}
+
+/* Map stuff */
+
+#mapid {
+  height: 100%;
+  width: 100%;
 }

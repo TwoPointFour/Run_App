@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="theme-color" content="#009578" />
+    <title>TwoPointFour Intervals</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+      crossorigin=""
+    ></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="src/master.css" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="apple-touch-icon" href="images/icon_x128apple.png" />
+    <link rel="icon" href="images/icon_x48.png" />
+    <link rel="serviceWorker" href="sw.js" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module" src="src/db.js"></script>
+    <script type="module" src="src/index.js"></script>
+    <script type="module" src="src/mapTimer.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V62HVLRZY2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-V62HVLRZY2");
+    </script>
+  </head>
+  <body>
+    <div class="container-fluid Logo mb-4">
+      <div class="row d-flex justify-content-end navContainer">
+        <div class="col d-flex me-5 justify-content-center">
+          <img src="images/icon_x48.png" alt="logo" width="48" height="48" />
+          <span class="logoname">TwoPointFour</span>
+        </div>
+        <div class="col mt-3 head3">
+          <a class="navitem priceBtn" href="index.html" role="button">Home</a>
+        </div>
+        <div class="col mt-3 head3">
+          <a class="navitem priceBtn" href="distanceTimer.html" role="button">Train</a>
+        </div>
+        <div class="col mt-3 head3">
+          <a class="navitem techBtn" href="track.html" role="button">Track</a>
+        </div>
+        <div class="col mt-3 head3">
+          <a class="navitem aboutBtn" href="suggest.html" role="button">Suggest</a>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="container-fluid timer d-none">
+            <div class="row justify-content-center">
+              <div class="col timer pl-4 pr-4">
+                <div class="row d-flex align-items-center justify-content-center">
+                  <div id="bigtime" class="secten col-2 display-1 timersec">0</div>
+                  <div id="bigtime" class="secone col-2 display-1 timersec">0</div>
+                  <div id="bigtime" class="col-2 display-1 timersec">:</div>
+                  <div id="bigtime" class="milliten col-2 display-1 timersec">0</div>
+                  <div id="bigtime" class="millione col-2 display-1 timersec">0</div>
+                </div>
+
+                <div class="row justify-content-center mb-4">
+                  <div class="col-6 display-6 timermin smalltime">00:00</div>
+                </div>
+
+                <div class="row smallcard mb-3">
+                  <div class="col-6 titlecard">Set</div>
+                  <div class="col-6 valuecard currrep">0</div>
+                </div>
+                <div class="row smallcard">
+                  <div class="col-6 titlecard">Distance</div>
+                  <div class="col-6 valuecard currdist">0m</div>
+                </div>
+                <!-- User Control Buttons -->
+                <div class="row mb-2 mt-4">
+                  <div class="col-4">
+                    <button type="button" class="btn-lg btn btn-outline-success ctrlbtn timerstart">
+                      Start
+                    </button>
+                  </div>
+                  <div class="col-4">
+                    <button type="button" class="btn-lg btn btn-outline-danger ctrlbtn timersplit">
+                      Split
+                    </button>
+                  </div>
+                  <div class="col-4">
+                    <button type="button" class="btn-lg btn btn-outline-warning ctrlbtn timerpause">
+                      Pause
+                    </button>
+                  </div>
+                </div>
+                <div class="row mb-2">
+                  <div class="col-6">
+                    <button type="button" class="audioactivate mt-4 btn btn-outline-info btmnav">
+                      🔊 Enable Audio (iOS users)
+                    </button>
+                  </div>
+                  <div class="col-6">
+                    <button type="button" class="mt-4 backdt btn btn-outline-warning btmnav">
+                      Go Back
+                    </button>
+                  </div>
+                </div>
+                <!-- END OF User Control Buttons-->
+
+                <!-- Live Training Records-->
+                <div class="row justify-content-start">
+                  <div class="col-12 mt-5 h5">Current Training Timings</div>
+                </div>
+                <div class="row justify-content-center trainingDataTable">
+                  <table class="table">
+                    <thread>
+                      <tr>
+                        <th scope="col">Set</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Target</th>
+                      </tr>
+                    </thread>
+                    <tbody class="timerecord"></tbody>
+                  </table>
+                  <!-- END OF Live Training Records-->
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <a class="mt-4 saveTraining btn btn-warning" role="button">Save</a>
+                  </div>
+                  <div class="col-6">
+                    <a
+                      class="mt-4 completeTraining btn btn-warning"
+                      role="button"
+                      href="track.html?"
+                      >Complete Training</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <audio class="audioenable">
+              <source src="callouts/audioenabled.mp3" />
+            </audio>
+          </div>
+          <div class="container-fluid vh-100 timerForm">
+            <h2 class="head1 mt-3 mb-5">Long Run Timer</h2>
+            <form>
+              <label for="runTime" class="mb-3 form-label head1"
+                >How long would you like to run for?</label
+              >
+              <div class="form-floating mb-2">
+                <input
+                  type="number"
+                  class="form-control runTime"
+                  id="floatingInput"
+                  placeholder="Hello"
+                />
+                <label for="floatingInput">min</label>
+                <button type="submit" class="mt-3 btn btn-warning submitBtn">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div id="mapid"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,5 +1,10 @@
 "use strict";
 
+let locationStatus = getGeolocation().then((position) => console.log(position));
+let runArray = [];
+let polyline;
+let mymap;
+
 // const mymap = L.map("mapid").setView([51.505, -0.09], 13);
 // L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
 //   attribution:
@@ -65,9 +70,7 @@ class Timer {
   }
 
   displayCountUp() {
-    console.log("Countup Timer activated");
     let [minutes, seconds] = this.toMinutesSeconds(this.timeCounter);
-    console.log(`Count up time:  ${minutes} : ${seconds}`);
 
     document.querySelector(".secten").textContent = `${this.addZeroSecNew(minutes).slice(0, 1)}`;
     document.querySelector(".secone").textContent = `${this.addZeroSecNew(minutes).slice(1, 2)}`;
@@ -77,9 +80,7 @@ class Timer {
   }
 
   displayCountDown() {
-    console.log(`Timer Counter Check:  ${this.permTimeCounter} : ${this.timeCounter}`);
     let [minutes, seconds] = this.toMinutesSeconds(this.permTimeCounter - this.timeCounter);
-    console.log(`Count down time:  ${minutes} : ${seconds}`);
     document.querySelector(".timermin").textContent = `${minutes}:${this.addZeroSecNew(seconds)}`;
   }
 
@@ -136,7 +137,18 @@ class Timer {
     //   }   Pause: ${this.pause}`
     // );
     this.updateCountUp();
-    this.updateCountdown();
+    this.updateCountDown();
+    console.log(runArray);
+    polyline = L.polyline(runArray, { color: "red" }).addTo(mymap);
+    promiseState(locationStatus, function (state) {
+      if (state != "pending") {
+        locationStatus = getGeolocation().then((position) => {
+          const { latitude: lat, longitude: lng } = position.coords;
+          const coords = [lat, lng];
+          runArray.push(coords);
+        });
+      }
+    });
     // this.updateRunPath();
     // displayPaceCount(this.paceCount);
     // displaySetCount(this.setCount);
@@ -153,13 +165,43 @@ class Timer {
     this.displayCountUp();
   }
 
-  updateCountdown() {
+  updateCountDown() {
     this.displayCountDown();
   }
 }
 
-let mymap;
-let polyline;
+function promiseState(promise, callback) {
+  // Symbols and RegExps are never content-equal
+  var uniqueValue = window["Symbol"] ? Symbol("unique") : /unique/;
+
+  function notifyPendingOrResolved(value) {
+    if (value === uniqueValue) {
+      return callback("pending");
+    } else {
+      return callback("fulfilled");
+    }
+  }
+
+  function notifyRejected(reason) {
+    return callback("rejected");
+  }
+
+  var race = [promise, Promise.resolve(uniqueValue)];
+  Promise.race(race).then(notifyPendingOrResolved, notifyRejected);
+}
+
+function getGeolocation() {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
+        resolve(position);
+      },
+      function (error) {
+        reject(error);
+      }
+    );
+  });
+}
 
 navigator.geolocation.getCurrentPosition(
   function (position) {
@@ -176,11 +218,11 @@ navigator.geolocation.getCurrentPosition(
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(mymap);
     const marker = L.marker(coords).addTo(mymap).bindPopup("You are here!").openPopup();
-    const latlngs = [[coords]];
-    polyline = L.polyline(latlngs, { color: "red" }).addTo(mymap);
+    // const latlngs = [[coords]];
+    // polyline = L.polyline(latlngs, { color: "red" }).addTo(mymap);
 
-    // zoom the map to the polyline
-    mymap.fitBounds(polyline.getBounds());
+    // // zoom the map to the polyline
+    // mymap.fitBounds(polyline.getBounds());
   },
   function () {
     alert("Failed to get your location");

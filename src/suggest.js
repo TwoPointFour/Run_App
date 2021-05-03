@@ -15,7 +15,7 @@ const deltas = [0.41, 0.49, 0.55, 0.65, 0.73];
 const getPace = (time) => time / 2400;
 const convertSecToHour = (timeInSec) => timeInSec / (60 * 60);
 const getTargetPace = (targetTime) => getPace(targetTime);
-const getCurrentPace = (currentTime) => getPace(currentTime);
+// const getCurrentPace = (currentTime) => getPace(currentTime);
 const getCurrentVelocity = (currentTime) => 2.4 / convertSecToHour(currentTime);
 const getTargetVelocity = (targetTime) => 2.4 / convertSecToHour(targetTime);
 
@@ -217,7 +217,6 @@ const getTrainingPlan = () => {
     getBestTrainingPlan(trainingPlanPrimary, trainingPlanSecondary)
       ? trainingPlanSecondary.slice(3)
       : trainingPlanPrimary.slice(3);
-  console.log(trainingPlan);
   // trainingPlan will be in the format [[set, distance, rest]]
   console.log(trainingPlan)
   const permRest = getPrescribedRest(trainingPlan[0][2]);

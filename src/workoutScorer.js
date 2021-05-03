@@ -81,6 +81,7 @@ const getWorkoutScore = (previousWorkout) => {
     const standardDeviation = getStandardDeviation(previousWorkout)
     const missed = getMissed(previousWorkout)
     const workoutScore = 100 * ((goalTimePerSet / averageTime) + (Math.exp(standardDeviation / goalTimePerSet) - 1) * (kValue) - penaliseMissed(missed, previousWorkout));
+    console.log('Previous workout score:', workoutScore)
     return {workoutScore}// {goalTimePerSet, averageTime, standardDeviation, missed, workoutScore}
 }
 

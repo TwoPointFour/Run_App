@@ -1,7 +1,9 @@
-// import { initialiseTimer } from "./timer.js";
-// import { trainingInfo } from "./timer.js";
 import { primaryIntervals, secondaryIntervals } from "./intervals.js";
 import { scoredWorkouts } from "./workoutScorer.js";
+/*//todo rollback NodeJS
+const {scoredWorkouts} = require('./workoutScorer.js')
+const Papa = require('papaparse')
+const fs = require('fs')*/
 
 // All constants below TBC
 const rho = 7.0;
@@ -17,19 +19,19 @@ const getCurrentPace = (currentTime) => getPace(currentTime);
 const getCurrentVelocity = (currentTime) => 2.4 / convertSecToHour(currentTime);
 const getTargetVelocity = (targetTime) => 2.4 / convertSecToHour(targetTime);
 
-const getOverallFitness = (speedDifficulty, targetPace, weeks, currentFitness) => {
-  //todo confirm what the deltaDifficulty final formula is
+const getOverallFitness = (speedDifficulty, targetPace, weeks, currentFitness, e) => {
   const deltaDifficulty = speedDifficulty - 100;
   const deltaDifficultyPerWeek = deltaDifficulty / weeks;
-  let previousScoredWorkouts = scoredWorkouts();
-  previousScoredWorkouts.workoutScore = 100;
-  previousScoredWorkouts[0].workoutScore = 100;
+  const previousWorkoutScore = scoredWorkouts();
+  console.log(previousWorkoutScore)
   //todo we're only using the first/latest workout!
-  if (previousScoredWorkouts[0].workoutScore < 94) {
+  //todo if workout large success
+  e.previousWorkoutScore = previousWorkoutScore.workoutScore
+  e.deltaDifficultyPerWeek = deltaDifficultyPerWeek
+  if (previousWorkoutScore.workoutScore < 94) {
     return currentFitness + deltaDifficultyPerWeek;
-  } else {
-    return previousScoredWorkouts[0].workoutScore + deltaDifficultyPerWeek;
   }
+  return previousWorkoutScore.workoutScore + deltaDifficultyPerWeek;
 };
 
 const checkDiff = (diffs, diff) => {
@@ -106,24 +108,19 @@ const getSpeedDifficulty = (currentVelocity, targetVelocity, velocities) => {
 
 const generateConstants = (answers) => {
   const beta = answers.personalBests ? 1 : 0.975;
-  const alpha =
-    (1 / 3) *
-    beta *
-    ((answers.fFrequency * answers.dDistance) / 30 + answers.lMonths / 36 + answers.fFrequency / 3);
-  if (alpha >= 0 && alpha <= 1) {
-    console.log("alpha passed");
-  }
+  const alpha = Math.max(0, Math.min(1, ((1 / 3) * beta * ((answers.fFrequency * answers.dDistance) / 30 + answers.lMonths / 36 + answers.fFrequency / 3))))
   const cNewbieGains = (1 / rho) * Math.exp(1 - alpha) + (rho - 1) / rho;
   return { alpha, beta, cNewbieGains };
 };
 
+const getBestTrainingPlan = (trainingPlanPrimary, trainingPlanSecondary) => ((trainingPlanPrimary[0] > trainingPlanSecondary[0]) && ((trainingPlanPrimary[0] - trainingPlanSecondary[0]) < 3) && (trainingPlanPrimary[2][0] < trainingPlanSecondary[2][0]))
+
 const getTrainingPlan = (e) => {
-  // document.querySelector(".runRegular").
-  console.log("Running getTrainingPlan");
+  // console.log("Running getTrainingPlan");
+  //todo rollback NodeJS
   const [runRegular] = [
     [...document.querySelectorAll(".runRegular")].filter((selection) => selection.checked === true),
   ];
-
   const fFrequency = Number(document.querySelector(".fFrequency").value) || 3;
   //todo get user to input dDistance in km
   const dDistance = Number(document.querySelector(".dDistance").value) || 20000;
@@ -138,12 +135,21 @@ const getTrainingPlan = (e) => {
   const targetMin = Number(document.querySelector(".targetMin").value.slice(0, 2)) || 17;
   const targetSec = Number(document.querySelector(".targetMin").value.slice(3)) || 59;
   const weeks = Number(document.querySelector(".weeks").value) || 5;
-
+  /*const fFrequency = e['f'];
+  const dDistance = e['d'];
+  const lMonths = e['L'];
+  const currentMin = Math.floor(e['init'] / 60)
+  const currentSec = e['init'] - currentMin * 60;
+  const targetMin = Math.floor(e['goal'] / 60);
+  const targetSec = e['goal'] - targetMin * 60
+  const weeks = e['weeks'];
+  const runRegular = []*/
   const answers = {
     runRegular,
     fFrequency,
     dDistance,
     lMonths,
+    //todo rollback NodeJS
     personalBests: {
       d800,
       d1500,
@@ -172,12 +178,6 @@ const getTrainingPlan = (e) => {
   if (data.currentFitness) {
     userInfo.currentFitness = data.currentFitness;
   }
-  /*
-    const data = {};
-    fields.forEach((inputField) => {
-      data[inputField] = document.querySelector('#' + inputField).value
-    })
-  */
   const { beta, alpha, cNewbieGains } = generateConstants(answers);
   const targetPace = getTargetPace(userInfo.targetTime);
   const paces = phi.map((phiValue, i) => targetPace * paceConstants[i] * cNewbieGains * phiValue);
@@ -185,52 +185,42 @@ const getTrainingPlan = (e) => {
   const currentVelocity = getCurrentVelocity(userInfo.currentTime);
   const targetVelocity = getTargetVelocity(userInfo.targetTime);
   const velocities = paces.map((pace) => (1 / pace) * 3.6);
+  // velocities in km/hr, paces in s/m
   const speedDifficulty = getSpeedDifficulty(currentVelocity, targetVelocity, velocities); // getSpeedDifficulty(currentVelocity, paces);
-  const restRatio = 1; //todo (the rest the user is going to use)/prescribed rest * 100
-  const restMultiplier = 1 / Math.exp(0.0024 * restRatio);
-  const primaryIntervalsCopy = JSON.parse(JSON.stringify(primaryIntervals));
-  const secondaryIntervalsCopy = JSON.parse(JSON.stringify(secondaryIntervals));
-  primaryIntervalsCopy.forEach((workout) => {
-    workout.unshift((speedDifficulty / 100) * workout[0] * restMultiplier); // * 100
-  });
-  secondaryIntervalsCopy.forEach((workout) => {
-    workout.unshift((speedDifficulty / 100) * workout[0] * restMultiplier); // * 100
-  });
+  const getPrescribedRest = (restMultiple) => Math.round((restMultiple * targetPace * 100) / 5) * 5
+  const restRatio = (restMultiple) =>  getPrescribedRest(restMultiple) / (restMultiple * targetPace * 100)
+  const restMultiplier = (workout) => 1 / Math.exp(0.0024 * restRatio(workout[1][2]));
+  const mapper = (workout) => {
+    const temp = JSON.parse(JSON.stringify(workout))
+    temp.unshift((speedDifficulty / 100) * workout[0] * restMultiplier(workout)); // * 100
+    return temp
+  }
+  const reducer = (variance, workout) => {
+    const workoutVariance = Math.abs(workout[0] - targetDifficulty);
+    if (workoutVariance > variance[0]) {
+      return variance;
+    }
+    return [workoutVariance, ...workout];
+  }
+  const primaryIntervalsCopy = primaryIntervals.map(mapper);
+  const secondaryIntervalsCopy = secondaryIntervals.map(mapper);
   const targetDifficulty = getOverallFitness(
     speedDifficulty,
     targetPace,
     userInfo.weeks,
-    userInfo.currentFitness
+    userInfo.currentFitness, e
   );
-  const trainingPlanPrimary = primaryIntervalsCopy.reduce(
-    (variance, workout) => {
-      const workoutVariance = Math.abs(workout[0] - targetDifficulty);
-      if (workoutVariance > variance[0]) {
-        return variance;
-      }
-      return [workoutVariance, ...workout];
-    },
-    [10000]
-  );
-  const trainingPlanSecondary = secondaryIntervalsCopy.reduce(
-    (variance, workout) => {
-      const workoutVariance = Math.abs(workout[0] - targetDifficulty);
-      if (workoutVariance > variance[0]) {
-        return variance;
-      }
-      return [workoutVariance, ...workout];
-    },
-    [trainingPlanPrimary[1]]
-  );
+  const trainingPlanPrimary = primaryIntervalsCopy.reduce(reducer, [10000]);
+  const trainingPlanSecondary = secondaryIntervalsCopy.reduce(reducer, [trainingPlanPrimary[1]]);
   let trainingPlan =
-    trainingPlanPrimary[0] > trainingPlanSecondary[0]
+    getBestTrainingPlan(trainingPlanPrimary, trainingPlanSecondary)
       ? trainingPlanSecondary.slice(3)
       : trainingPlanPrimary.slice(3);
   console.log(trainingPlan);
   // trainingPlan will be in the format [[set, distance, rest]]
-  const permRest = Math.floor(trainingPlan[0][2] * targetPace * 100);
+  console.log(trainingPlan)
+  const permRest = getPrescribedRest(trainingPlan[0][2]);
   const permPace = Math.floor(targetPace * 100 * 1000);
-
   function toMinutesSeconds(milliseconds) {
     const minutes = Math.floor(milliseconds / (1000 * 60));
     const seconds = Math.floor((milliseconds - minutes * 1000 * 60) / 1000);
@@ -309,9 +299,58 @@ const getTrainingPlan = (e) => {
   // then go to timer
   console.log("Submit Button Clicked");
   return trainingPlan;
+  //todo rollback NodeJS
+/*  e.alpha = alpha
+  e.beta = beta
+  e.cNewbieGains = cNewbieGains
+  e.paces = JSON.stringify(paces)
+  e.currentVelocity = currentVelocity
+  e.targetPace = targetPace
+  e.velocities = JSON.stringify(velocities)
+  e.targetVelocity = targetVelocity
+  e.speedDifficulty = speedDifficulty
+  e.permRest = permRest
+  e.targetDifficulty = targetDifficulty
+  e.trainingPlanPrimary = trainingPlanPrimary.slice().splice(3);
+  e.trainingPlanSecondary = trainingPlanSecondary.slice().splice(3);
+  e.trainingPlan = trainingPlan
+  return e;*/
 };
+/*
 
-// Yi Hein's Area =============== Front END
+//todo rollback NodeJS
+Papa.parsePromise = (file, conf) => {
+  return new Promise((complete, error) => Papa.parse(file, {complete, error, ...conf}))
+}
+
+const parseCSVtoJSON = async (path) => {
+  const file = fs.createReadStream(path)
+  return Papa.parsePromise(file, {header: true, download: false})
+}
+
+const ha = (fileName, dataToConvert) => {
+  dataToConvert.forEach((data) => {
+    data.trainingPlanPrimary = JSON.stringify(data.trainingPlanPrimary)
+    data.trainingPlanSecondary = JSON.stringify(data.trainingPlanSecondary)
+    data.trainingPlan = JSON.stringify(data.trainingPlan)
+  })
+  fs.writeFile('./' + fileName, Papa.unparse(dataToConvert), (err) => {
+    if (err) return console.log(err)
+    console.log(fileName, 'written successfully')
+  })
+}
+
+parseCSVtoJSON('./values.csv').then(async ({data}) => {
+  if (data[data.length - 1] === '') {
+    data.pop()
+  }
+  const arr = []
+  data.forEach((testValues) => {
+    arr.push(getTrainingPlan(testValues))
+  })
+  ha('./output.csv', arr)
+})
+*/
 
 function activeQuestionnaire() {
   document.querySelector(".actionBtn").addEventListener("click", function () {
@@ -385,8 +424,6 @@ function activeQuestionnaire() {
   submitButton.addEventListener("click", getTrainingPlan);
 }
 
-// Yi Hein's Area ===============
-
 const init = () => {
   console.log("suggest init done");
 };
@@ -394,36 +431,3 @@ const init = () => {
 window.onload = init;
 
 document.querySelector(".slide") && activeQuestionnaire();
-
-/*
-const getTrainingPlan = async (e) => {
-  const display = document.querySelector(".inputSubmit");
-  display.innerText = "hhfdg";
-  // create new div to display results
-  visible("#display-suggest", false);
-  //   const user = {};
-  //   for (let i = 0; i < 4; i++) {
-  //     user[form.elements[i].name] = form.elements[i].value;
-  //   }
-  //   console.log(user);
-  //   const display = document.getElementById("display");
-
-  //   console.log("User data processed");
-  //   // display suggested workout, then go to timer
-  //   display.innerText = await getUser(user);
-};
- const initialTargetImprovement = 100 + deltaDifficultyPerWeek(userInfo);
-  // const trainingPlan = getTrainingIntervals(initialTargetImprovement, getTargetPace(parseInt(userInfo.targetTime)));
-
-// Units are in metres and seconds
-// function getTrainingPlan(info) {
-//     const userInfo = {
-//         'currentTime': parseInt(info.currentTimeMin) * 60 + parseInt(info.currentTimeSec),
-//         'targetTime': parseInt(info.targetTimeMin) * 60 + parseInt(info.targetTimeSec),
-//         weeks: parseInt(info.weeks)
-//     };
-//     const initialTargetImprovement = 100 + deltaDifficultyPerWeek(userInfo);
-//     return getTrainingIntervals(initialTargetImprovement, getTargetPace(parseInt(userInfo.targetTime)));
-// }
-
- */

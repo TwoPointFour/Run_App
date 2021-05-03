@@ -19,15 +19,16 @@ const getCurrentPace = (currentTime) => getPace(currentTime);
 const getCurrentVelocity = (currentTime) => 2.4 / convertSecToHour(currentTime);
 const getTargetVelocity = (targetTime) => 2.4 / convertSecToHour(targetTime);
 
-const getOverallFitness = (speedDifficulty, targetPace, weeks, currentFitness, e) => {
+const getOverallFitness = (speedDifficulty, targetPace, weeks, currentFitness) => {
   const deltaDifficulty = speedDifficulty - 100;
   const deltaDifficultyPerWeek = deltaDifficulty / weeks;
   const previousWorkoutScore = scoredWorkouts();
   console.log(previousWorkoutScore)
   //todo we're only using the first/latest workout!
   //todo if workout large success
-  e.previousWorkoutScore = previousWorkoutScore.workoutScore
-  e.deltaDifficultyPerWeek = deltaDifficultyPerWeek
+  //todo rollback NodeJS
+/*  e.previousWorkoutScore = previousWorkoutScore.workoutScore
+  e.deltaDifficultyPerWeek = deltaDifficultyPerWeek*/
   if (previousWorkoutScore.workoutScore < 94) {
     return currentFitness + deltaDifficultyPerWeek;
   }
@@ -115,7 +116,8 @@ const generateConstants = (answers) => {
 
 const getBestTrainingPlan = (trainingPlanPrimary, trainingPlanSecondary) => ((trainingPlanPrimary[0] > trainingPlanSecondary[0]) && ((trainingPlanPrimary[0] - trainingPlanSecondary[0]) < 3) && (trainingPlanPrimary[2][0] < trainingPlanSecondary[2][0]))
 
-const getTrainingPlan = (e) => {
+//todo rollback NodeJS (e) => {
+const getTrainingPlan = () => {
   // console.log("Running getTrainingPlan");
   //todo rollback NodeJS
   const [runRegular] = [
@@ -208,8 +210,7 @@ const getTrainingPlan = (e) => {
     speedDifficulty,
     targetPace,
     userInfo.weeks,
-    userInfo.currentFitness, e
-  );
+    userInfo.currentFitness);
   const trainingPlanPrimary = primaryIntervalsCopy.reduce(reducer, [10000]);
   const trainingPlanSecondary = secondaryIntervalsCopy.reduce(reducer, [trainingPlanPrimary[1]]);
   let trainingPlan =

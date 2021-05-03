@@ -206,11 +206,13 @@ const getTrainingPlan = () => {
   }
   const primaryIntervalsCopy = primaryIntervals.map(mapper);
   const secondaryIntervalsCopy = secondaryIntervals.map(mapper);
+  console.log("reached")
   const targetDifficulty = getOverallFitness(
     speedDifficulty,
     targetPace,
     userInfo.weeks,
     userInfo.currentFitness);
+  console.log(targetDifficulty)
   const trainingPlanPrimary = primaryIntervalsCopy.reduce(reducer, [10000]);
   const trainingPlanSecondary = secondaryIntervalsCopy.reduce(reducer, [trainingPlanPrimary[1]]);
   let trainingPlan =

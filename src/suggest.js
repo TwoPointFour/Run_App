@@ -23,7 +23,6 @@ const getOverallFitness = (speedDifficulty, targetPace, weeks, currentFitness) =
   const deltaDifficulty = speedDifficulty - 100;
   const deltaDifficultyPerWeek = deltaDifficulty / weeks;
   const previousWorkoutScore = scoredWorkouts();
-  console.log(previousWorkoutScore)
   //todo we're only using the first/latest workout!
   //todo if workout large success
   //todo rollback NodeJS
@@ -206,13 +205,11 @@ const getTrainingPlan = () => {
   }
   const primaryIntervalsCopy = primaryIntervals.map(mapper);
   const secondaryIntervalsCopy = secondaryIntervals.map(mapper);
-  console.log("reached")
   const targetDifficulty = getOverallFitness(
     speedDifficulty,
     targetPace,
     userInfo.weeks,
     userInfo.currentFitness);
-  console.log(targetDifficulty)
   const trainingPlanPrimary = primaryIntervalsCopy.reduce(reducer, [10000]);
   const trainingPlanSecondary = secondaryIntervalsCopy.reduce(reducer, [trainingPlanPrimary[1]]);
   let trainingPlan =

@@ -26,7 +26,7 @@ const getOverallFitness = (speedDifficulty, targetPace, weeks, currentFitness) =
   //todo we're only using the first/latest workout!
   //todo if workout large success
   //todo rollback NodeJS
-/*  e.previousWorkoutScore = previousWorkoutScore.workoutScore
+  /*  e.previousWorkoutScore = previousWorkoutScore.workoutScore
   e.deltaDifficultyPerWeek = deltaDifficultyPerWeek*/
   if (previousWorkoutScore.workoutScore < 94) {
     return currentFitness + deltaDifficultyPerWeek;
@@ -108,12 +108,25 @@ const getSpeedDifficulty = (currentVelocity, targetVelocity, velocities) => {
 
 const generateConstants = (answers) => {
   const beta = answers.personalBests ? 1 : 0.975;
-  const alpha = Math.max(0, Math.min(1, ((1 / 3) * beta * ((answers.fFrequency * answers.dDistance) / 30 + answers.lMonths / 36 + answers.fFrequency / 3))))
+  const alpha = Math.max(
+    0,
+    Math.min(
+      1,
+      (1 / 3) *
+        beta *
+        ((answers.fFrequency * answers.dDistance) / 30 +
+          answers.lMonths / 36 +
+          answers.fFrequency / 3)
+    )
+  );
   const cNewbieGains = (1 / rho) * Math.exp(1 - alpha) + (rho - 1) / rho;
   return { alpha, beta, cNewbieGains };
 };
 
-const getBestTrainingPlan = (trainingPlanPrimary, trainingPlanSecondary) => ((trainingPlanPrimary[0] > trainingPlanSecondary[0]) && ((trainingPlanPrimary[0] - trainingPlanSecondary[0]) < 3) && (trainingPlanPrimary[2][0] < trainingPlanSecondary[2][0]))
+const getBestTrainingPlan = (trainingPlanPrimary, trainingPlanSecondary) =>
+  trainingPlanPrimary[0] > trainingPlanSecondary[0] &&
+  trainingPlanPrimary[0] - trainingPlanSecondary[0] < 3 &&
+  trainingPlanPrimary[2][0] < trainingPlanSecondary[2][0];
 
 //todo rollback NodeJS (e) => {
 const getTrainingPlan = () => {
@@ -188,36 +201,37 @@ const getTrainingPlan = () => {
   const velocities = paces.map((pace) => (1 / pace) * 3.6);
   // velocities in km/hr, paces in s/m
   const speedDifficulty = getSpeedDifficulty(currentVelocity, targetVelocity, velocities); // getSpeedDifficulty(currentVelocity, paces);
-  const getPrescribedRest = (restMultiple) => Math.round((restMultiple * targetPace * 100) / 5) * 5
-  const restRatio = (restMultiple) =>  getPrescribedRest(restMultiple) / (restMultiple * targetPace * 100)
+  const getPrescribedRest = (restMultiple) => Math.round((restMultiple * targetPace * 100) / 5) * 5;
+  const restRatio = (restMultiple) =>
+    getPrescribedRest(restMultiple) / (restMultiple * targetPace * 100);
   const restMultiplier = (workout) => 1 / Math.exp(0.0024 * restRatio(workout[1][2]));
   const mapper = (workout) => {
-    const temp = JSON.parse(JSON.stringify(workout))
+    const temp = JSON.parse(JSON.stringify(workout));
     temp.unshift((speedDifficulty / 100) * workout[0] * restMultiplier(workout)); // * 100
-    return temp
-  }
+    return temp;
+  };
   const reducer = (variance, workout) => {
     const workoutVariance = Math.abs(workout[0] - targetDifficulty);
     if (workoutVariance > variance[0]) {
       return variance;
     }
     return [workoutVariance, ...workout];
-  }
+  };
   const primaryIntervalsCopy = primaryIntervals.map(mapper);
   const secondaryIntervalsCopy = secondaryIntervals.map(mapper);
   const targetDifficulty = getOverallFitness(
     speedDifficulty,
     targetPace,
     userInfo.weeks,
-    userInfo.currentFitness);
+    userInfo.currentFitness
+  );
   const trainingPlanPrimary = primaryIntervalsCopy.reduce(reducer, [10000]);
   const trainingPlanSecondary = secondaryIntervalsCopy.reduce(reducer, [trainingPlanPrimary[1]]);
-  let trainingPlan =
-    getBestTrainingPlan(trainingPlanPrimary, trainingPlanSecondary)
-      ? trainingPlanSecondary.slice(3)
-      : trainingPlanPrimary.slice(3);
+  let trainingPlan = getBestTrainingPlan(trainingPlanPrimary, trainingPlanSecondary)
+    ? trainingPlanSecondary.slice(3)
+    : trainingPlanPrimary.slice(3);
   // trainingPlan will be in the format [[set, distance, rest]]
-  console.log(trainingPlan)
+  console.log(trainingPlan);
   const permRest = getPrescribedRest(trainingPlan[0][2]);
   const permPace = Math.floor(targetPace * 100 * 1000);
   function toMinutesSeconds(milliseconds) {
@@ -262,7 +276,7 @@ const getTrainingPlan = () => {
           Distance:&nbsp${ele[1]}m
         </div>
         <div class="col mb-2 text-center suggestChip">
-          Pace:&nbsp${Math.floor(permPace / 1000)}s&nbsp/&nbsp100m
+          Pace:&nbsp${Math.round((permPace / 1000) * 100) / 100}s&nbsp/&nbsp100m
         </div>
         <div class="col mb-2 text-center suggestChip">
           Rest:&nbsp${restMin}:${restSec}
@@ -299,7 +313,7 @@ const getTrainingPlan = () => {
   console.log("Submit Button Clicked");
   return trainingPlan;
   //todo rollback NodeJS
-/*  e.alpha = alpha
+  /*  e.alpha = alpha
   e.beta = beta
   e.cNewbieGains = cNewbieGains
   e.paces = JSON.stringify(paces)

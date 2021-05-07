@@ -125,6 +125,10 @@ h6,
   margin-bottom: 1rem;
 }
 
+.loginCard {
+  padding: 2rem;
+}
+
 .loginInput {
   border: none;
   padding: 0.5rem 2rem;
@@ -583,4 +587,20 @@ h6,
 .attribution > a {
   text-decoration: none;
   color: #c5c5c5;
+}
+
+.infoSVG {
+  height: 1.5rem;
+}
+
+.info__text {
+  font-size: 0.8rem;
+  color: #5e4600;
+}
+
+.interval__tutorial {
+  position: fixed;
+  top: 5rem;
+  display: flex;
+  justify-content: center;
 }

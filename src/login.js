@@ -71,23 +71,25 @@ document.querySelector(".homeBtn").addEventListener("click", function (e) {
 //     navObserver.unobserve(document.querySelector(".header"));
 //   });
 // });
-document.querySelectorAll(".joinBtn").forEach(function (element) {
-  element.href = "suggest.html";
-  console.log("href changed!");
+document.querySelector(".joinBtn").addEventListener("click", function () {
+  document.querySelector(".splashScreen").classList.toggle("d-none");
+  document.querySelector(".loginPage").classList.toggle("d-none");
 });
 
 document.querySelector(".loginBtn").addEventListener("click", function () {
   if (
-    document.querySelector("#exampleInputEmail1").value === account_1.email &&
-    document.querySelector("#exampleInputPassword1").value === account_1.password
+    true
+    // document.querySelector("#exampleInputEmail1").value === account_1.email &&
+    // document.querySelector("#exampleInputPassword1").value === account_1.password
   ) {
     visible("loginPage", false);
     visible("TypeChoice", true);
-    document.querySelector(".loginGreeting").textContent = `Welcome, ${account_1.name}!`;
-    console.log(`Welcome, ${account_1.name}!`);
-  } else {
-    console.log("Wrong credentials!");
   }
+  //   document.querySelector(".loginGreeting").textContent = `Welcome, ${account_1.name}!`;
+  //   console.log(`Welcome, ${account_1.name}!`);
+  // } else {
+  //   console.log("Wrong credentials!");
+  // }
 });
 
 // document.querySelector(".logOut").addEventListener("click", function () {

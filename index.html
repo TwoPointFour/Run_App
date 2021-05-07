@@ -47,9 +47,9 @@
         <div class="col mt-3 head3">
           <a class="navitem betaBtn" href="#betaSection" role="button">Beta Tester</a>
         </div>
-        <div class="col mt-3 head3">
+        <!-- <div class="col mt-3 head3">
           <a class="navitem bBtn" href="blog/blog.html" role="button">Blog</a>
-        </div>
+        </div> -->
         <div class="col-2 mt-3 head3 d-none">
           <a class="navitem priceBtn" href="#pricingSection" role="button">Pricing</a>
         </div>
@@ -329,8 +329,9 @@
 
     <div class="container-fluid loginPage d-none">
       <div class="row d-flex justify-content-center">
-        <div class="col-lg-4 col-md-6 col-sm-8 planCard">
-          <div class="head2">Login</div>
+        <div class="spacer"></div>
+        <div class="col-lg-4 col-md-6 col-sm-8 planCard loginCard">
+          <div class="head2">Create Account</div>
           <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Email address</label>
             <input
@@ -340,17 +341,24 @@
               aria-describedby="emailHelp"
             />
             <div id="emailHelp" class="form-text">
-              We'll never share your email with anyone else.
+              Use the same email you signed up for beta testing with.
             </div>
           </div>
           <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Password</label>
             <input type="password" class="form-control" id="exampleInputPassword1" />
           </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label"
+              >Referral Code / Beta Tester Code</label
+            >
+            <input type="text" class="form-control" id="exampleInputPassword1" />
+          </div>
           <div class="mb-3 form-check">
             <input type="checkbox" class="form-check-input" id="exampleCheck1" />
             <label class="form-check-label" for="exampleCheck1"
-              >Consent for personal data sharing</label
+              >I agree with <a href="terms.html" target="_blank">Terms and Conditions</a> and
+              <a href="privacy.html" target="_blank">Privacy Policy</a></label
             >
           </div>
           <button type="submit" class="btn btn-warning mb-4 loginBtn">Submit</button>

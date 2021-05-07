@@ -1,10 +1,13 @@
 "use strict";
+import { splash } from "../components/landing.js";
+import { clickup } from "../components/landing.js";
+import { nav__current } from "../components/nav.js";
 
-const account_1 = {
-  email: "cyh@gmail.com",
-  password: "twopoint",
-  name: "Yi Hein",
-};
+function generatePage(div1, div2, div3, div4, div5) {
+  document.querySelector(".root").innerHTML = div1 + div2 + div3 + div4 + div5;
+}
+
+generatePage(nav__current, splash);
 
 // lol
 

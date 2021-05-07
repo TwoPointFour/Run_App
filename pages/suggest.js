@@ -1,5 +1,14 @@
-import { primaryIntervals, secondaryIntervals } from "./intervals.js";
-import { scoredWorkouts } from "./workoutScorer.js";
+import { primaryIntervals, secondaryIntervals } from "../src/intervals.js";
+import { scoredWorkouts } from "../src/workoutScorer.js";
+import { results, start, questionnaire } from "../components/suggestPage.js";
+import { nav__loggedin } from "../components/nav.js";
+
+function generatePage(div1, div2, div3, div4) {
+  document.querySelector(".root").innerHTML = div1 + div2 + div3 + div4;
+}
+
+generatePage(nav__loggedin, start, results, questionnaire);
+
 /*//todo rollback NodeJS
 const {scoredWorkouts} = require('./workoutScorer.js')
 const Papa = require('papaparse')

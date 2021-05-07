@@ -1,99 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
-    <meta name="theme-color" content="#009578" />
-    <title>TwoPointFour Intervals</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="src/master.css" />
-    <link rel="manifest" href="manifest.json" />
-    <link rel="apple-touch-icon" href="images/icon_x128.png" />
-    <link rel="icon" href="images/icon_x128.png" />
-    <link rel="serviceWorker" href="sw.js" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
-      rel="stylesheet"
-    />
-    <script defer type="module" src="src/suggest.js"></script>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V62HVLRZY2"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "G-V62HVLRZY2");
-    </script>
-  </head>
-  <body>
-    <div class="container-fluid Logo mb-4">
-      <div class="row d-flex justify-content-center navContainer">
-        <div class="col-lg-3">
-          <img src="images/icon_x48.png" alt="logo" width="48" height="48" />
-          <span class="logoname">TwoPointFour</span>
-        </div>
-        <div class="col mt-3 head3">
-          <a class="navitem priceBtn" href="index.html" role="button">Home</a>
-        </div>
-        <div class="col mt-3 head3">
-          <a class="navitem priceBtn" href="distanceTimer.html" role="button">Train</a>
-        </div>
-        <div class="col mt-3 head3">
-          <a class="navitem techBtn" href="track.html" role="button">Track</a>
-        </div>
-        <div class="col mt-3 head3">
-          <a class="navitem aboutBtn" href="suggest.html" role="button">Suggest</a>
-        </div>
-      </div>
-    </div>
-    <div class="container-fluid questionnaireStart">
-      <div class="row mt-5 d-flex justify-content-center">
-        <div class="col-lg-6 d-flex justify-content-center">
-          <img class="img-fluid" style="max-width: 80%" src="images/questionnairePic.jpg" />
-          <span class="attribution">
-            Photo by
-            <a
-              href="https://unsplash.com/@bradencollum?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
-              >Braden Collum</a
-            >
-            on
-            <a
-              href="https://unsplash.com/s/photos/running?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
-              >Unsplash</a
-            ></span
-          >
-        </div>
-        <div class="col-lg-4">
-          <div class="row">
-            <h1 class="col-12 head1 mt-3 text-start">
-              Answer a few simple questions to help us build your personalised training plan.
-            </h1>
-          </div>
-          <div class="row">
-            <div class="col-12 mt-4 metaDescription">
-              Our intelligent, adaptable training plan adapts as you improve, creating a plan that
-              fits you like a glove. Our algorithm will generate a personalised running training
-              plan for your goals - from beginner runners to elite marathon runners. You choose what
-              you want your training plan to look like depending on your schedule.
-            </div>
-          </div>
-          <div class="row mt-5">
-            <div class="col-lg-12">
-              <button class="btn btn-warning actionBtn">Start</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="container-fluid questionnaireProfile d-none">
+export const questionnaire = `
+<div class="container-fluid questionnaireProfile d-none">
       <div class="slideNav">
         <div class="row">
           <h2 class="head2 text-center questionnaireTitle">
@@ -433,7 +339,52 @@
         </div>
       </div>
     </div>
-    <div class="container-fluid displayPlan d-none">
+`;
+
+export const start = `
+<div class="container-fluid questionnaireStart">
+      <div class="row mt-5 d-flex justify-content-center">
+        <div class="col-lg-6 d-flex justify-content-center">
+          <img class="img-fluid" style="max-width: 80%" src="../images/questionnairePic.jpg" />
+          <span class="attribution">
+            Photo by
+            <a
+              href="https://unsplash.com/@bradencollum?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+              >Braden Collum</a
+            >
+            on
+            <a
+              href="https://unsplash.com/s/photos/running?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+              >Unsplash</a
+            ></span
+          >
+        </div>
+        <div class="col-lg-4">
+          <div class="row">
+            <h1 class="col-12 head1 mt-3 text-start">
+              Answer a few simple questions to help us build your personalised training plan.
+            </h1>
+          </div>
+          <div class="row">
+            <div class="col-12 mt-4 metaDescription">
+              Our intelligent, adaptable training plan adapts as you improve, creating a plan that
+              fits you like a glove. Our algorithm will generate a personalised running training
+              plan for your goals - from beginner runners to elite marathon runners. You choose what
+              you want your training plan to look like depending on your schedule.
+            </div>
+          </div>
+          <div class="row mt-5">
+            <div class="col-lg-12">
+              <button class="btn btn-warning actionBtn">Start</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+`;
+
+export const results = `
+<div class="container-fluid displayPlan d-none">
       <div class="row d-flex justify-content-center mb-4">
         <div class="col-lg-8">
           <h2 class="head2 text-center">Your Personalised Training Plan</h2>
@@ -448,7 +399,4 @@
         </div>
       </div>
     </div>
-  </body>
-</html>
-
-<div></div>
+`;

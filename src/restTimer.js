@@ -1,9 +1,8 @@
 import { account_1 } from "./script.js";
 export let variablePackage = {};
 export let trainingInfo;
+let currentCallout;
 /////////////////////// Timer Function //////////////////////////////////
-
-const currentCallout = document.querySelector(".audioenable");
 
 ///// Mathematical Helper Functions /////////////////
 
@@ -43,6 +42,8 @@ function addZeroSecNew(numchange) {
 
 export function initialiseTimer(input) {
   console.log("rest timer initialized!");
+  currentCallout = document.querySelector(".audioenable");
+  console.log(currentCallout);
   ///// Initialising Variables //////////////
   let timerUpdateInterval = 20;
   let expectedFunctionExecutionTime;
@@ -328,7 +329,7 @@ function updatePaceTimer(variablePackage) {
     // starttimepace = Date.now();
     // Callouts for Pace
     variablePackage.paceCount++;
-    callCallout(`callouts/${variablePackage.paceCount * 100}`);
+    callCallout(`../callouts/${variablePackage.paceCount * 100}`);
     variablePackage.paceTime = variablePackage.permPaceTime - variablePackage.timerUpdateInterval;
   } else if (variablePackage.paceCount >= variablePackage.permPaceCount) {
     variablePackage.paceTime = 0;
@@ -374,7 +375,7 @@ function restCallouts(variablePackage) {
     variablePackage.paceTime <= 150
   ) {
     setTimeout(function () {
-      callCallout(`callouts/rest`);
+      callCallout(`../callouts/rest`);
     }, 1500);
   }
 
@@ -385,7 +386,7 @@ function restCallouts(variablePackage) {
       i == variablePackage.setTime / 1000 &&
       variablePackage.paceCount >= variablePackage.permPaceCount
     ) {
-      callCallout(`callouts/${i}`);
+      callCallout(`../callouts/${i}`);
     }
   }
 
@@ -393,7 +394,7 @@ function restCallouts(variablePackage) {
     7000 == variablePackage.setTime &&
     variablePackage.paceCount >= variablePackage.permPaceCount
   ) {
-    callCallout(`callouts/starting`);
+    callCallout(`../callouts/starting`);
   }
 }
 function activateAudio() {

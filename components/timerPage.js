@@ -84,7 +84,7 @@ export const timer = `
         </div>
       </div>
       <audio class="audioenable">
-        <source src="callouts/audioenabled.mp3" />
+        <source src="../callouts/audioenabled.mp3" />
       </audio>
     </div>
 `;

@@ -1,4 +1,14 @@
 "use strict";
+
+import { track } from "../components/trackPage.js";
+import { nav__loggedin } from "../components/nav.js";
+
+function generatePage(div1, div2) {
+  document.querySelector(".root").innerHTML = div1 + div2;
+}
+
+generatePage(nav__loggedin, track);
+
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const runData = {};

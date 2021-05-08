@@ -42,6 +42,7 @@ function addZeroSecNew(numchange) {
 }
 
 export function initialiseTimer(input) {
+  console.log("rest timer initialized!");
   ///// Initialising Variables //////////////
   let timerUpdateInterval = 20;
   let expectedFunctionExecutionTime;

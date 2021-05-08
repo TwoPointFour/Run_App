@@ -393,7 +393,7 @@ export const results = `
       <div class="row d-flex justify-content-center mx-2" id="display-suggest"></div>
       <div class="row d-flex justify-content-center mt-5">
         <div class="col-lg-4 d-flex justify-content-center">
-          <a class="btn btn-outline-warning gotoWorkoutBtn" role="button" href="distanceTimer.html">
+          <a class="btn btn-outline-warning gotoWorkoutBtn" role="button" href="setTimer.html">
             <p class="btnTitle">Proceed to Workout</p>
           </a>
         </div>

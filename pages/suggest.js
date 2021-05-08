@@ -2,12 +2,13 @@ import { primaryIntervals, secondaryIntervals } from "../src/intervals.js";
 import { scoredWorkouts } from "../src/workoutScorer.js";
 import { results, start, questionnaire } from "../components/suggestPage.js";
 import { nav__loggedin } from "../components/nav.js";
+import { interval_modal } from "../components/modal.js";
 
-function generatePage(div1, div2, div3, div4) {
-  document.querySelector(".root").innerHTML = div1 + div2 + div3 + div4;
+function generatePage(div1, div2, div3, div4, div5) {
+  document.querySelector(".root").innerHTML = div1 + div2 + div3 + div4 + div5;
 }
 
-generatePage(nav__loggedin, start, results, questionnaire);
+generatePage(nav__loggedin, start, results, interval_modal, questionnaire);
 
 /*//todo rollback NodeJS
 const {scoredWorkouts} = require('./workoutScorer.js')
@@ -263,10 +264,9 @@ const getTrainingPlan = () => {
       <h4 class="text-start head4 mt-1">
         <span class="align-middle infoChip me-3">Week 1</span>
         Distance Interval Training 
-        <span class="interval__tutorial-icon">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="infoSVG" style="font-size: 16px; vertical-align: middle;"><path data-v-73918be8="" d="M13,9H11V7H13M13,17H11V11H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"></path></svg>
-        </span>
-        <span class="info__text">Click to show tutorial</span>
+        <a class="btn btn-outline-warning" data-bs-toggle="modal" href="#exampleModalToggle" role="button"
+        >Interval Guide</a
+      >
       </h4> 
     </div>
   </div>
@@ -298,7 +298,7 @@ const getTrainingPlan = () => {
     </div>
   </div>`
     );
-    document.querySelector(".gotoWorkoutBtn").href = `distanceTimer.html?permSetCount=${
+    document.querySelector(".gotoWorkoutBtn").href = `setTimer.html?permSetCount=${
       trainingPlan[0][0]
     }&permDistance=${
       trainingPlan[0][1]

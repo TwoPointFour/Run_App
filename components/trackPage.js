@@ -6,8 +6,15 @@ export const track = `
         </div>
       </div>
       <div class="row d-flex justify-content-center mx-2" id="display-suggest"></div>
-      <a type="button" class="mt-4 back1 btn btn-outline-warning" role="button" href="index.html"
-        >Go Back</a
-      >
+      <div class="row d-flex justify-content-center">
+        <div class="col d-flex justify-content-center">
+          <button type="button" class="mt-3 generateTraining btn btn-warning">Generate Next Training</button>
+        </div>
+      </div>
+      <div class="row mx-1 d-flex justify-content-center">
+        <div class="col d-flex justify-content-center">
+          <div class="newTraining"></div>
+        </div>
+      </div>
     </div>
 `;

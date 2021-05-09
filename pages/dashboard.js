@@ -5,4 +5,6 @@ function generatePage(div1, div2) {
   document.querySelector(".root").innerHTML = div1 + div2;
 }
 
+// If user has filled in the questionnaire, only display TwoPointFour Track. DO NOT display twopointfour suggest
+
 generatePage(nav__loggedin, dashboard);

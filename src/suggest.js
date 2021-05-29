@@ -1,5 +1,5 @@
-import { primaryIntervals, secondaryIntervals } from "./intervals.js";
-import { scoredWorkouts } from "./workoutScorer.js";
+import {primaryIntervals, secondaryIntervals} from "./intervals.js";
+import {scoredWorkouts} from "./workoutScorer.js";
 /*//todo rollback NodeJS
 const {scoredWorkouts} = require('./workoutScorer.js')
 const Papa = require('papaparse')
@@ -14,10 +14,15 @@ const deltas = [0.41, 0.49, 0.55, 0.65, 0.73];
 
 const getPace = (time) => time / 2400;
 const convertSecToHour = (timeInSec) => timeInSec / (60 * 60);
-const getTargetPace = (targetTime) => getPace(targetTime);
-// const getCurrentPace = (currentTime) => getPace(currentTime);
-const getCurrentVelocity = (currentTime) => 2.4 / convertSecToHour(currentTime);
-const getTargetVelocity = (targetTime) => 2.4 / convertSecToHour(targetTime);
+export const getTargetPaces = (targetTime) => {
+  const targetPace = getPace(targetTime);
+  const permPace = Math.floor(targetPace * 100 * 1000);
+  return {targetPace, permPace}
+}
+const convertToVelocity = (currentTime) => 2.4 / convertSecToHour(currentTime);
+export const getPrescribedRest = (restMultiple, targetPace) => Math.round((restMultiple * targetPace * 100) / 5) * 5;
+const restRatio = (restMultiple, targetPace) =>
+    getPrescribedRest(restMultiple, targetPace) / (restMultiple * targetPace * 100);
 
 const getOverallFitness = (speedDifficulty, targetPace, weeks, currentFitness) => {
   const deltaDifficulty = speedDifficulty - 100;
@@ -25,9 +30,6 @@ const getOverallFitness = (speedDifficulty, targetPace, weeks, currentFitness) =
   const previousWorkoutScore = scoredWorkouts();
   //todo we're only using the first/latest workout!
   //todo if workout large success
-  //todo rollback NodeJS
-  /*  e.previousWorkoutScore = previousWorkoutScore.workoutScore
-  e.deltaDifficultyPerWeek = deltaDifficultyPerWeek*/
   if (previousWorkoutScore.workoutScore < 94) {
     return currentFitness + deltaDifficultyPerWeek;
   }
@@ -69,7 +71,7 @@ const getDiffs = (velocityToCompare, velocities, intermediateFunc, x = 1, differ
   return diffs;
 };
 
-const getSpeedDifficulty = (currentVelocity, targetVelocity, velocities) => {
+export const getSpeedDifficulty = (currentVelocity, targetVelocity, velocities) => {
   //todo why so many diffs. floating around? get rid of them
   const [teVelocity, ltVelocity, vVelocity, stVelocity] = velocities;
   const intermediateFunc = (delta, velocityOne, velocityTwo) =>
@@ -106,7 +108,7 @@ const getSpeedDifficulty = (currentVelocity, targetVelocity, velocities) => {
   return 0;
 };
 
-const generateConstants = (answers) => {
+export const generateConstants = (answers) => {
   const beta = answers.personalBests ? 1 : 0.975;
   const alpha = Math.max(
     0,
@@ -128,82 +130,83 @@ const getBestTrainingPlan = (trainingPlanPrimary, trainingPlanSecondary) =>
   trainingPlanPrimary[0] - trainingPlanSecondary[0] < 3 &&
   trainingPlanPrimary[2][0] < trainingPlanSecondary[2][0];
 
-//todo rollback NodeJS (e) => {
-const getTrainingPlan = () => {
-  // console.log("Running getTrainingPlan");
-  //todo rollback NodeJS
+export function getInputValues() {
   const [runRegular] = [
     [...document.querySelectorAll(".runRegular")].filter((selection) => selection.checked === true),
   ];
-  const fFrequency = Number(document.querySelector(".fFrequency").value) || 3;
+  const fFrequency = Number(document.querySelector(".fFrequency").value);
   //todo get user to input dDistance in km
-  const dDistance = Number(document.querySelector(".dDistance").value) || 20000;
-  const lMonths = Number(document.querySelector(".lMonths").value) || 10;
+  const dDistance = Number(document.querySelector(".dDistance").value);
+  const lMonths = Number(document.querySelector(".lMonths").value);
   const d800 = document.querySelector(".d800").value;
   const d1500 = document.querySelector(".d1500").value;
   const d3000 = document.querySelector(".d3000").value;
   const d5000 = document.querySelector(".d5000").value;
   const d10000 = document.querySelector(".d10000").value;
-  const currentMin = Number(document.querySelector(".currentMin").value.slice(0, 2)) || 18;
-  const currentSec = Number(document.querySelector(".currentMin").value.slice(3)) || 0;
-  const targetMin = Number(document.querySelector(".targetMin").value.slice(0, 2)) || 17;
-  const targetSec = Number(document.querySelector(".targetMin").value.slice(3)) || 59;
-  const weeks = Number(document.querySelector(".weeks").value) || 5;
-  /*const fFrequency = e['f'];
-  const dDistance = e['d'];
-  const lMonths = e['L'];
-  const currentMin = Math.floor(e['init'] / 60)
-  const currentSec = e['init'] - currentMin * 60;
-  const targetMin = Math.floor(e['goal'] / 60);
-  const targetSec = e['goal'] - targetMin * 60
-  const weeks = e['weeks'];
-  const runRegular = []*/
-  const answers = {
-    runRegular,
-    fFrequency,
-    dDistance,
-    lMonths,
-    //todo rollback NodeJS
-    personalBests: {
-      d800,
-      d1500,
-      d3000,
-      d5000,
-      d10000,
+  const currentMin = Number(document.querySelector(".currentMin").value.slice(0, 2));
+  const currentSec = Number(document.querySelector(".currentMin").value.slice(3));
+  const targetMin = Number(document.querySelector(".targetMin").value.slice(0, 2));
+  const targetSec = Number(document.querySelector(".targetMin").value.slice(3));
+  const weeks = Number(document.querySelector(".weeks").value);
+  return {
+    answers: {
+      runRegular,
+      fFrequency,
+      dDistance,
+      lMonths,
+      personalBests: {
+        d800,
+        d1500,
+        d3000,
+        d5000,
+        d10000,
+      }
     },
-  };
-  if (answers.personalBests) {
-    //TBC logic
-  }
-
-  const data = {
     currentMin,
     currentSec,
     targetMin,
     targetSec,
-    weeks,
+    weeks
   };
+}
+
+export function getUserInfo(currentMin, currentSec, targetMin, targetSec, weeks) {
   const userInfo = {
-    currentTime: Number(data["currentMin"]) * 60 + Number(data["currentSec"]),
-    targetTime: Number(data["targetMin"]) * 60 + Number(data["targetSec"]),
-    weeks: Number(data["weeks"]),
+    currentTime: Number(currentMin) * 60 + Number(currentSec),
+    targetTime: Number(targetMin) * 60 + Number(targetSec),
+    weeks: Number(weeks),
     currentFitness: 100,
   };
-  if (data.currentFitness) {
-    userInfo.currentFitness = data.currentFitness;
+  //todo fix currentFitness
+  if (true) {
+    userInfo.currentFitness = 100;
   }
-  const { beta, alpha, cNewbieGains } = generateConstants(answers);
-  const targetPace = getTargetPace(userInfo.targetTime);
-  const paces = phi.map((phiValue, i) => targetPace * paceConstants[i] * cNewbieGains * phiValue);
-  //paces in s/m
-  const currentVelocity = getCurrentVelocity(userInfo.currentTime);
-  const targetVelocity = getTargetVelocity(userInfo.targetTime);
-  const velocities = paces.map((pace) => (1 / pace) * 3.6);
+  return userInfo;
+}
+
+export function getVelocities(targetPace, cNewbieGains) {
+  return phi.map((phiValue, i) => targetPace * paceConstants[i] * cNewbieGains * phiValue).map((pace) => (1 / pace) * 3.6);
+}
+
+export const getTrainingPlan = () => {
+  const {
+    answers,
+    currentMin,
+    currentSec,
+    targetMin,
+    targetSec,
+    weeks
+  } = getInputValues();
+  if (answers.personalBests) {
+    //TBC logic
+  }
+  const userInfo = getUserInfo(currentMin, currentSec, targetMin, targetSec, weeks);
+  // is yi hein saving alpha, b, c
+  const { alpha, beta, cNewbieGains } = generateConstants(answers);
+  const {targetPace, permPace} = getTargetPaces(userInfo.targetTime);
+  const velocities = getVelocities(targetPace, cNewbieGains);
   // velocities in km/hr, paces in s/m
-  const speedDifficulty = getSpeedDifficulty(currentVelocity, targetVelocity, velocities); // getSpeedDifficulty(currentVelocity, paces);
-  const getPrescribedRest = (restMultiple) => Math.round((restMultiple * targetPace * 100) / 5) * 5;
-  const restRatio = (restMultiple) =>
-    getPrescribedRest(restMultiple) / (restMultiple * targetPace * 100);
+  const speedDifficulty = getSpeedDifficulty(convertToVelocity(userInfo.currentTime), convertToVelocity(userInfo.targetTime), velocities); // getSpeedDifficulty(currentVelocity, paces);
   const restMultiplier = (workout) => 1 / Math.exp(0.0024 * restRatio(workout[1][2]));
   const mapper = (workout) => {
     const temp = JSON.parse(JSON.stringify(workout));
@@ -231,9 +234,7 @@ const getTrainingPlan = () => {
     ? trainingPlanSecondary.slice(3)
     : trainingPlanPrimary.slice(3);
   // trainingPlan will be in the format [[set, distance, rest]]
-  console.log(trainingPlan);
-  const permRest = getPrescribedRest(trainingPlan[0][2]);
-  const permPace = Math.floor(targetPace * 100 * 1000);
+  const permRest = getPrescribedRest(trainingPlan[0][2], targetPace);
   function toMinutesSeconds(milliseconds) {
     const minutes = Math.floor(milliseconds / (1000 * 60));
     const seconds = Math.floor((milliseconds - minutes * 1000 * 60) / 1000);
@@ -245,7 +246,7 @@ const getTrainingPlan = () => {
 
   let [restMin, restSec] = toMinutesSeconds(permRest * 1000);
   restSec = addZeroSecNew(restSec);
-  const displayPlan = document.querySelector("#display-suggest");
+  /*const displayPlan = document.querySelector("#display-suggest");
   displayPlan.insertAdjacentHTML(
     "beforeend",
     `        <div class="col-lg-8 suggestCard">
@@ -311,59 +312,8 @@ const getTrainingPlan = () => {
   document.querySelector(".displayPlan").classList.toggle("d-none");
   // then go to timer
   console.log("Submit Button Clicked");
-  return trainingPlan;
-  //todo rollback NodeJS
-  /*  e.alpha = alpha
-  e.beta = beta
-  e.cNewbieGains = cNewbieGains
-  e.paces = JSON.stringify(paces)
-  e.currentVelocity = currentVelocity
-  e.targetPace = targetPace
-  e.velocities = JSON.stringify(velocities)
-  e.targetVelocity = targetVelocity
-  e.speedDifficulty = speedDifficulty
-  e.permRest = permRest
-  e.targetDifficulty = targetDifficulty
-  e.trainingPlanPrimary = trainingPlanPrimary.slice().splice(3);
-  e.trainingPlanSecondary = trainingPlanSecondary.slice().splice(3);
-  e.trainingPlan = trainingPlan
-  return e;*/
+  */return trainingPlan;
 };
-/*
-
-//todo rollback NodeJS
-Papa.parsePromise = (file, conf) => {
-  return new Promise((complete, error) => Papa.parse(file, {complete, error, ...conf}))
-}
-
-const parseCSVtoJSON = async (path) => {
-  const file = fs.createReadStream(path)
-  return Papa.parsePromise(file, {header: true, download: false})
-}
-
-const ha = (fileName, dataToConvert) => {
-  dataToConvert.forEach((data) => {
-    data.trainingPlanPrimary = JSON.stringify(data.trainingPlanPrimary)
-    data.trainingPlanSecondary = JSON.stringify(data.trainingPlanSecondary)
-    data.trainingPlan = JSON.stringify(data.trainingPlan)
-  })
-  fs.writeFile('./' + fileName, Papa.unparse(dataToConvert), (err) => {
-    if (err) return console.log(err)
-    console.log(fileName, 'written successfully')
-  })
-}
-
-parseCSVtoJSON('./values.csv').then(async ({data}) => {
-  if (data[data.length - 1] === '') {
-    data.pop()
-  }
-  const arr = []
-  data.forEach((testValues) => {
-    arr.push(getTrainingPlan(testValues))
-  })
-  ha('./output.csv', arr)
-})
-*/
 
 function activeQuestionnaire() {
   document.querySelector(".actionBtn").addEventListener("click", function () {

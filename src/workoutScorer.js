@@ -82,13 +82,10 @@ const getWorkoutScore = (previousWorkout) => {
     const missed = getMissed(previousWorkout)
     const workoutScore = 100 * ((goalTimePerSet / averageTime) + (Math.exp(standardDeviation / goalTimePerSet) - 1) * (kValue) - penaliseMissed(missed, previousWorkout));
     console.log('Previous workout score:', workoutScore)
-    return {workoutScore}// {goalTimePerSet, averageTime, standardDeviation, missed, workoutScore}
+    return workoutScore// {goalTimePerSet, averageTime, standardDeviation, missed, workoutScore}
 }
 
-export const scoredWorkouts = (previousWorkout) => ({
-    ...previousWorkout,
-    ...getWorkoutScore(testObj),
-});
+export const scoredWorkouts = (previousWorkout) => getWorkoutScore(testObj)
 /*
 
 Papa.parsePromise = (file, conf) => {

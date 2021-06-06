@@ -68,7 +68,13 @@ describe('#getSpeedDifficulty', function() {
 })
 
 describe('#getPrescribedRest', function() {
-    it('Verify the complicated speed difficulty', function () {
+    it('Verify the prescribed rest', function () {
+        assert.strictEqual(prescribedRest, 135)
+    })
+})
+
+describe('#checkPriAndSecTrainingPlans', function() {
+    it('Verify the intermediate plans', function () {
         assert.strictEqual(prescribedRest, 135)
     })
 })

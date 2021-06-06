@@ -117,27 +117,3 @@ const fillerWorkouts = {
         'ceiling': 40
     }
 }
-
-const getRoundedDistance = (time, tempoPace) => Math.round((time * 60 / tempoPace) / 0.5) * 0.5;
-
-//tempoPace in seconds
-const getFillerWorkout = (alpha, weekNumber, tempoPace) => {
-    const fillerWorkoutIds = Object.keys(fillerWorkouts)
-    for (let i = 0; i < fillerWorkoutIds.length; i++) {
-        const fillerWorkout = fillerWorkouts[fillerWorkoutIds[i]]
-        if (alpha < fillerWorkout.alpha) {
-            const fillerWorkoutWeeks = Object.keys(fillerWorkout).length - 2
-            if (weekNumber > fillerWorkoutWeeks) {
-                const time = fillerWorkout.ceiling
-                const tempoPaceT = tempoPace - (weekNumber - fillerWorkoutWeeks + -1) * 3
-                const distance = getRoundedDistance(time, tempoPaceT)
-                return {distance, time, tempoPace: tempoPaceT}
-            }
-            return {
-                time: fillerWorkout[weekNumber],
-                tempoPace,
-                distance: getRoundedDistance(fillerWorkout[weekNumber], tempoPace)
-            }
-        }
-    }
-}

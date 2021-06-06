@@ -216,7 +216,6 @@ export const generateTrainingPlans = (speedDifficulty, targetPace, userInfo, res
   const secondaryIntervalsCopy = secondaryIntervals.map(mapper);
   const trainingPlanPrimary = primaryIntervalsCopy.reduce(reducer, [10000]);
   const trainingPlanSecondary = secondaryIntervalsCopy.reduce(reducer, [trainingPlanPrimary[1]]);
-  console.log('xxHamster', JSON.stringify(trainingPlanPrimary), JSON.stringify(trainingPlanSecondary))
   return {trainingPlanPrimary, trainingPlanSecondary};
 }
 
@@ -239,7 +238,7 @@ export const getTrainingPlan = () => {
   const velocities = getVelocities(targetPace, cNewbieGains);
   // velocities in km/hr, paces in s/m
   const speedDifficulty = getSpeedDifficulty(convertToVelocity(userInfo.currentTime), convertToVelocity(userInfo.targetTime), velocities); // getSpeedDifficulty(currentVelocity, paces);
-  const restMultiplier = (workout) => 1 / Math.exp(0.0024 * restRatio(workout[1][2]));
+  const restMultiplier = (workout) => 1 / Math.exp(0.0024 * restRatio(workout[1][2], targetPace));
   const {trainingPlanPrimary, trainingPlanSecondary} = generateTrainingPlans(speedDifficulty, targetPace, userInfo, restMultiplier);
   let trainingPlan = getBestTrainingPlan(trainingPlanPrimary, trainingPlanSecondary)
     ? trainingPlanSecondary.slice(3)

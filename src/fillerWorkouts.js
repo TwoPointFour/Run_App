@@ -1,29 +1,3 @@
-// 4xxx_y
-
-/*
-Get tod0.txt from office Dell
-Also Jlow wants to implement a way to change the workout scorer and generator both if user chooses his own custom rest time
-Commitment per week - if it changes halfway through --> skip workout --> if workout skipped or if current date doesn't match the date the next workout was supposed to happen calculated from date when last workout was done, change currentFitness
-if user chooses 3 workouts per week, but if he only wants to do 1 or 2, suggest both to be distance intervals unless the number of days between the 2 workouts is 3 or less then suggest 1 distance interval and 1 filler workout
-Filler workout convert from Word
-See how Yi Hein implemented the currentFitness or suggest the second workout logic
-
-edge cases - 20 min current vs 10 target --> suggest easier workout in the sense that he does smaller distances --> add easier workouts
-
-if user is doing more than 3 workouts a week, and if misses one, we penalise him --> but assuming that we only penalise skipped distance interval workouts, the guy who was doing 2 distance intervals will have a lower fitness than someone who does only 1 distance interval a week and does it consistently
-
-if user skips workout, how much of fitness penalty to give --> a guy who does 3 workouts a week vs a guy who does a workout a week --> do we only penalise
-cycles of 3
-
-convert Jlow's fillerworkout notes to unit tests
-
-suggest pyramid workout
-
-implement something like a linked list for filler workouts instead of the stupid 'end' field and having multiple objects
-
-need to save goal and tempo pace as well
- */
-
 const times = [[20, 23, 26, 29, 32, 35, 38, 40], [25, 28, 31, 34, 37, 40, 43, 46], [30, 32.5, 35, 37.5, 40, 42.5, 45, 47.5], [36, 38, 40, 42, 44, 46, 48, 50], [40, 42, 44, 46, 48, 50, 52, 54]]
 const alphas = [0.2, 0.4, 0.6, 0.8, 1.0]
 const workouts = []
@@ -103,17 +77,3 @@ const yy = () => {
 
 // yy()
 // console.log(JSON.stringify(workouts, null, '\t'))
-
-const fillerWorkouts = {
-    '4001': {
-        'alpha': 0.2,
-        '1': 20,
-        '2': 23,
-        '3': 26,
-        '4': 29,
-        '5': 32,
-        '6': 35,
-        '7': 38,
-        'ceiling': 40
-    }
-}

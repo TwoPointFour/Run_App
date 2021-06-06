@@ -23,6 +23,11 @@ const convertToVelocity = (currentTime) => 2.4 / convertSecToHour(currentTime);
 export const getPrescribedRest = (restMultiple, targetPace) => Math.round((restMultiple * targetPace * 100) / 5) * 5;
 const restRatio = (restMultiple, targetPace) =>
     getPrescribedRest(restMultiple, targetPace) / (restMultiple * targetPace * 100);
+const addZeroSecNew = (numChange) => numChange.toString().padStart(2, "0");
+const toMinutesSeconds = (milliseconds) => {
+  const minutes = Math.floor(milliseconds / (1000 * 60))
+  return [minutes, Math.floor((milliseconds - minutes * 1000 * 60) / 1000)];
+}
 
 const getOverallFitness = (speedDifficulty, targetPace, weeks, currentFitness) => {
   const deltaDifficulty = speedDifficulty - 100;
@@ -148,6 +153,7 @@ export function getInputValues() {
   const targetMin = Number(document.querySelector(".targetMin").value.slice(0, 2));
   const targetSec = Number(document.querySelector(".targetMin").value.slice(3));
   const weeks = Number(document.querySelector(".weeks").value);
+  const timesPerWeek = 2;
   return {
     answers: {
       runRegular,
@@ -184,8 +190,34 @@ export function getUserInfo(currentMin, currentSec, targetMin, targetSec, weeks)
   return userInfo;
 }
 
-export function getVelocities(targetPace, cNewbieGains) {
-  return phi.map((phiValue, i) => targetPace * paceConstants[i] * cNewbieGains * phiValue).map((pace) => (1 / pace) * 3.6);
+export const getVelocities =(targetPace, cNewbieGains) =>
+    phi.map((phiValue, i) => targetPace * paceConstants[i] * cNewbieGains * phiValue).map((pace) => (1 / pace) * 3.6);
+
+export const generateTrainingPlans = (speedDifficulty, targetPace, userInfo, restMultiplier) => {
+  const targetDifficulty = getOverallFitness(
+      speedDifficulty,
+      targetPace,
+      userInfo.weeks,
+      userInfo.currentFitness
+  );
+  const mapper = (workout) => {
+    const temp = JSON.parse(JSON.stringify(workout));
+    temp.unshift((speedDifficulty / 100) * workout[0] * restMultiplier(workout)); // * 100
+    return temp;
+  };
+  const reducer = (variance, workout) => {
+    const workoutVariance = Math.abs(workout[0] - targetDifficulty);
+    if (workoutVariance > variance[0]) {
+      return variance;
+    }
+    return [workoutVariance, ...workout];
+  };
+  const primaryIntervalsCopy = primaryIntervals.map(mapper);
+  const secondaryIntervalsCopy = secondaryIntervals.map(mapper);
+  const trainingPlanPrimary = primaryIntervalsCopy.reduce(reducer, [10000]);
+  const trainingPlanSecondary = secondaryIntervalsCopy.reduce(reducer, [trainingPlanPrimary[1]]);
+  console.log('xxHamster', JSON.stringify(trainingPlanPrimary), JSON.stringify(trainingPlanSecondary))
+  return {trainingPlanPrimary, trainingPlanSecondary};
 }
 
 export const getTrainingPlan = () => {
@@ -201,49 +233,19 @@ export const getTrainingPlan = () => {
     //TBC logic
   }
   const userInfo = getUserInfo(currentMin, currentSec, targetMin, targetSec, weeks);
-  // is yi hein saving alpha, b, c
+  //todo is yi hein saving alpha, b, c
   const { alpha, beta, cNewbieGains } = generateConstants(answers);
   const {targetPace, permPace} = getTargetPaces(userInfo.targetTime);
   const velocities = getVelocities(targetPace, cNewbieGains);
   // velocities in km/hr, paces in s/m
   const speedDifficulty = getSpeedDifficulty(convertToVelocity(userInfo.currentTime), convertToVelocity(userInfo.targetTime), velocities); // getSpeedDifficulty(currentVelocity, paces);
   const restMultiplier = (workout) => 1 / Math.exp(0.0024 * restRatio(workout[1][2]));
-  const mapper = (workout) => {
-    const temp = JSON.parse(JSON.stringify(workout));
-    temp.unshift((speedDifficulty / 100) * workout[0] * restMultiplier(workout)); // * 100
-    return temp;
-  };
-  const reducer = (variance, workout) => {
-    const workoutVariance = Math.abs(workout[0] - targetDifficulty);
-    if (workoutVariance > variance[0]) {
-      return variance;
-    }
-    return [workoutVariance, ...workout];
-  };
-  const primaryIntervalsCopy = primaryIntervals.map(mapper);
-  const secondaryIntervalsCopy = secondaryIntervals.map(mapper);
-  const targetDifficulty = getOverallFitness(
-    speedDifficulty,
-    targetPace,
-    userInfo.weeks,
-    userInfo.currentFitness
-  );
-  const trainingPlanPrimary = primaryIntervalsCopy.reduce(reducer, [10000]);
-  const trainingPlanSecondary = secondaryIntervalsCopy.reduce(reducer, [trainingPlanPrimary[1]]);
+  const {trainingPlanPrimary, trainingPlanSecondary} = generateTrainingPlans(speedDifficulty, targetPace, userInfo, restMultiplier);
   let trainingPlan = getBestTrainingPlan(trainingPlanPrimary, trainingPlanSecondary)
     ? trainingPlanSecondary.slice(3)
     : trainingPlanPrimary.slice(3);
   // trainingPlan will be in the format [[set, distance, rest]]
   const permRest = getPrescribedRest(trainingPlan[0][2], targetPace);
-  function toMinutesSeconds(milliseconds) {
-    const minutes = Math.floor(milliseconds / (1000 * 60));
-    const seconds = Math.floor((milliseconds - minutes * 1000 * 60) / 1000);
-    return [minutes, seconds];
-  }
-  function addZeroSecNew(numchange) {
-    return numchange.toString().padStart(2, "0");
-  }
-
   let [restMin, restSec] = toMinutesSeconds(permRest * 1000);
   restSec = addZeroSecNew(restSec);
   /*const displayPlan = document.querySelector("#display-suggest");
